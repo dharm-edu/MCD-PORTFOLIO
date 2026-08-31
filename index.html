@@ -1826,6 +1826,33 @@
       box-sizing: border-box !important;
       box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
     }
+    .fln-grid-table th.fln-sticky-sr, .fln-grid-table td.fln-sticky-sr {
+      position: sticky !important;
+      left: 0 !important;
+      z-index: 10 !important;
+      width: 32px !important;
+      min-width: 32px !important;
+      max-width: 32px !important;
+      background: #f8fafc !important;
+    }
+    .fln-grid-table th.fln-sticky-name, .fln-grid-table td.fln-sticky-name {
+      position: sticky !important;
+      left: 32px !important;
+      z-index: 10 !important;
+      width: 110px !important;
+      min-width: 110px !important;
+      max-width: 110px !important;
+      background: #ffffff !important;
+      border-right: 2px solid #0284c7 !important;
+      box-shadow: 3px 0 6px -1px rgba(0,0,0,0.2) !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+    }
+    .fln-grid-table td.fln-sticky-name input {
+      font-size: 11px !important;
+      padding: 0 2px !important;
+    }
     .calm-dashboard-card {
       padding: 8px 10px !important;
       margin-bottom: 8px !important;
@@ -11826,11 +11853,11 @@ function renderExactFlnSummaryFooter(footP2, currentDates, startIndex, totalRows
   levels.forEach((lvl, lIdx) => {
     footHtml += `<tr style="height:17px;">`;
     if (lIdx === 0) {
-      footHtml += `<td rowspan="7" style="border:1.5px solid #000; font-weight:900; background:#f8fafc; font-size:10px; line-height:1.1; padding:2px; writing-mode:vertical-rl; transform:rotate(180deg); width:36px;">
+      footHtml += `<td rowspan="7" class="fln-sticky-sr" style="border:1.5px solid #000; font-weight:900; background:#f8fafc; font-size:10px; line-height:1.1; padding:2px; writing-mode:vertical-rl; transform:rotate(180deg); width:36px; position:sticky; left:0; z-index:10;">
         Total No. of Students =&gt;
       </td>`;
     }
-    footHtml += `<td style="border:1.5px solid #000; font-weight:800; background:#f1f5f9; text-align:right; padding-right:8px; font-size:11.5px;">${lvl.label}</td>`;
+    footHtml += `<td class="fln-sticky-name" style="border:1.5px solid #000; font-weight:800; background:#f1f5f9; text-align:right; padding-right:8px; font-size:11.5px; position:sticky; left:36px; z-index:10; border-right:2px solid #0284c7 !important;">${lvl.label}</td>`;
 
     currentDates.forEach((d, i) => {
       const globalIdx = startIndex + i + 1;
@@ -11849,7 +11876,7 @@ function renderExactFlnSummaryFooter(footP2, currentDates, startIndex, totalRows
 
   // Long Absent Row (Calculates count of A, AB, LA)
   footHtml += `<tr style="height:17px;">
-    <td style="border:1.5px solid #000; font-weight:800; background:#f1f5f9; text-align:right; padding-right:8px; font-size:11px; color:#b91c1c;">LONG ABSENT</td>`;
+    <td class="fln-sticky-name" style="border:1.5px solid #000; font-weight:800; background:#f1f5f9; text-align:right; padding-right:8px; font-size:11px; color:#b91c1c; position:sticky; left:36px; z-index:10; border-right:2px solid #0284c7 !important;">LONG ABSENT</td>`;
   currentDates.forEach((d, i) => {
     const globalIdx = startIndex + i + 1;
     let absH = 0, absM = 0, absE = 0;
@@ -11869,7 +11896,7 @@ function renderExactFlnSummaryFooter(footP2, currentDates, startIndex, totalRows
 
   // Total Row = Exactly (L1 + L2 + L3 + L4 + L5 + LONG ABSENT) dynamically calculated for that specific column!
   footHtml += `<tr style="background:#e2e8f0; height:18px;">
-    <td style="border:1.5px solid #000; font-weight:900; text-align:right; padding-right:8px; font-size:11.5px;">TOTAL</td>`;
+    <td class="fln-sticky-name" style="border:1.5px solid #000; font-weight:900; text-align:right; padding-right:8px; font-size:11.5px; position:sticky; left:36px; z-index:10; border-right:2px solid #0284c7 !important;">TOTAL</td>`;
   currentDates.forEach((d, i) => {
     const globalIdx = startIndex + i + 1;
     let totalH = 0, totalM = 0, totalE = 0;
