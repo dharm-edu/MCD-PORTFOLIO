@@ -3934,6 +3934,12 @@
                   ✂️ Disconnect
                 </button>
               </div>
+              <div style="margin-top:10px; border-top:1px dashed #86efac; padding-top:8px;">
+                <button type="button" onclick="forceReloadApp()"
+                  style="background:#0f172a; color:#ffffff; font-weight:800; font-size:11.5px; padding:6px 12px; border-radius:6px; border:none; cursor:pointer; width:100%; display:flex; align-items:center; justify-content:center; gap:6px;">
+                  🔄 <span>ताज़ा ऐप वर्जन लोड करें (iOS Force Refresh)</span>
+                </button>
+              </div>
               <div style="font-size:10.5px; color:#64748b; margin-top:8px;" id="asLastSyncTime">
                 अंतिम Sync: कभी नहीं
               </div>
@@ -17220,10 +17226,15 @@ function renderAllViews() {
   
   renderExamPapersAccordion();
   renderUnitGrid();
-  renderTimeTableGrid();
   updateUndoRedoButtons();
-  if (DB.activeTab === 'master_roster' || !DB.activeTab) renderMasterRosterTable();
-  if (DB.activeTab === 'fln_sheet') renderFlnAssessmentSheet();
+  
+  // Comprehensively refresh all active views, tables, registers and dashboard counters
+  try { if (typeof renderMasterRosterTable === 'function') renderMasterRosterTable(); } catch(e){}
+  try { if (typeof renderFlnAssessmentSheet === 'function') renderFlnAssessmentSheet(); } catch(e){}
+  try { if (typeof renderAttendanceRegister === 'function') renderAttendanceRegister(); } catch(e){}
+  try { if (typeof renderResultTable === 'function') renderResultTable(); } catch(e){}
+  try { if (typeof renderPeerGroupsWorkspace === 'function') renderPeerGroupsWorkspace(); } catch(e){}
+  try { if (typeof updateDashboardStats === 'function') updateDashboardStats(); } catch(e){}
 }
 
 /* ============================================================
@@ -17251,11 +17262,65 @@ function initAsScriptUI() {
 
 function updateAsScriptUrlPreview() { /* live preview - no-op */ }
 
+async function _asFetchDataWithFallback(url) {
+  // Method 1: Try direct fetch first
+  try {
+    const fetchUrl = url + (url.includes('?') ? '&' : '?') + 't=' + Date.now();
+    const res = await fetch(fetchUrl, { method: 'GET', redirect: 'follow' });
+    const text = await res.text();
+    let parsed;
+    try {
+      parsed = JSON.parse(text);
+    } catch(e) { parsed = null; }
+    if (parsed && typeof parsed === 'object' && !parsed.error) {
+      return parsed;
+    }
+  } catch(directErr) {
+    console.warn('Direct fetch failed, attempting JSONP fallback...', directErr);
+  }
+
+  // Method 2: Universal JSONP Fallback (Bypasses 100% of browser CORS and redirect barriers)
+  return new Promise((resolve, reject) => {
+    const callbackName = 'mcd_jsonp_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+    const script = document.createElement('script');
+    let timeoutId;
+
+    window[callbackName] = function(data) {
+      cleanup();
+      if (data && typeof data === 'object') {
+        resolve(data);
+      } else {
+        reject(new Error('Google Apps Script से अमान्य डेटा मिला।'));
+      }
+    };
+
+    function cleanup() {
+      clearTimeout(timeoutId);
+      if (script.parentNode) script.parentNode.removeChild(script);
+      delete window[callbackName];
+    }
+
+    script.onerror = function() {
+      cleanup();
+      reject(new Error('Google Script से कनेक्ट नहीं हो सका। सुनिश्चित करें कि Google Script Deploy में "Who has access" = "Anyone" चुना है और पूरा URL सही डाला है।'));
+    };
+
+    timeoutId = setTimeout(() => {
+      cleanup();
+      reject(new Error('Google Script से डेटा लोड होने में समय समाप्त (Timeout) हो गया। कृपया इंटरनेट और URL जांचें।'));
+    }, 15000);
+
+    const jsonpUrl = url + (url.includes('?') ? '&' : '?') + 'callback=' + callbackName + '&t=' + Date.now();
+    script.src = jsonpUrl;
+    document.body.appendChild(script);
+  });
+}
+
 async function connectAppsScript() {
   const inp = document.getElementById('asScriptUrlInput');
   let url = inp ? inp.value.trim() : '';
   if (!url || !url.startsWith('https://script.google.com')) {
-    _asStatus('❌ सही Apps Script URL डालें (https://script.google.com/...)', 'error');
+    _asStatus('❌ सही Apps Script URL डालें (https://script.google.com/macros/s/.../exec)', 'error');
     return;
   }
   // Ensure URL ends with /exec
@@ -17267,7 +17332,6 @@ async function connectAppsScript() {
 
   _asStatus('🔄 Google Drive से जोड़ा जा रहा है...', 'info');
   try {
-    // Attempt connection test via POST with no-cors (100% reliable for Apps Script)
     localStorage.setItem(AS_URL_KEY, url);
     localStorage.setItem(AS_CONNECTED_KEY, '1');
 
@@ -17308,16 +17372,9 @@ async function asLoadFromDrive() {
   _asStatus('📥 Drive से लोड हो रहा है...', 'info');
   try {
     const url = getAsUrl();
-    const res = await fetch(url, { method: 'GET', redirect: 'follow' });
-    const text = await res.text();
-    let parsed;
-    try {
-      parsed = JSON.parse(text);
-    } catch(jsonErr) {
-      throw new Error('Google Script से डेटा नहीं मिला। सुनिश्चित करें कि Deploy में "Who has access" = "Anyone" है।');
-    }
+    const parsed = await _asFetchDataWithFallback(url);
     if (!parsed || typeof parsed !== 'object' || parsed.error) {
-      throw new Error(parsed ? parsed.error : 'Invalid data');
+      throw new Error(parsed ? parsed.error : 'Invalid data format');
     }
     if (!parsed.students && !parsed.classSettings) {
       throw new Error('Drive पर अभी कोई पुराना डेटा नहीं मिला। पहले ऐप से "अभी Sync करें" दबाएं।');
@@ -17416,6 +17473,14 @@ function _updateAsLastSyncTime() {
   localStorage.setItem('mcd_as_last_sync', now.toISOString());
 }
 
+function forceReloadApp() {
+  showToast('🔄 ताज़ा ऐप वर्जन लोड हो रहा है...', 'info');
+  setTimeout(() => {
+    const cleanUrl = window.location.origin + window.location.pathname + '?v=' + Date.now();
+    window.location.href = cleanUrl;
+  }, 300);
+}
+
 function toggleAsGuide() {
   const c = document.getElementById('asGuideContent');
   const ic = document.getElementById('asGuideToggleIcon');
@@ -17428,14 +17493,24 @@ function toggleAsGuide() {
 function copyAppsScriptCode() {
   const code = `var FOLDER_NAME = 'MCD Portfolio Data';
 var FILE_NAME   = 'mcd_portfolio_data.json';
+
 function doGet(e) {
   try {
     var file = getDataFile();
-    return ContentService.createTextOutput(file.getBlob().getDataAsString()).setMimeType(ContentService.MimeType.JSON);
+    var content = file.getBlob().getDataAsString();
+    if (e && e.parameter && e.parameter.callback) {
+      return ContentService.createTextOutput(e.parameter.callback + '(' + content + ')').setMimeType(ContentService.MimeType.JAVASCRIPT);
+    }
+    return ContentService.createTextOutput(content).setMimeType(ContentService.MimeType.JSON);
   } catch(err) {
-    return ContentService.createTextOutput(JSON.stringify({error:err.toString()})).setMimeType(ContentService.MimeType.JSON);
+    var errObj = JSON.stringify({error: err.toString()});
+    if (e && e.parameter && e.parameter.callback) {
+      return ContentService.createTextOutput(e.parameter.callback + '(' + errObj + ')').setMimeType(ContentService.MimeType.JAVASCRIPT);
+    }
+    return ContentService.createTextOutput(errObj).setMimeType(ContentService.MimeType.JSON);
   }
 }
+
 function doPost(e) {
   try {
     var data = e.postData.contents;
@@ -17445,10 +17520,12 @@ function doPost(e) {
     return ContentService.createTextOutput(JSON.stringify({status:'error',message:err.toString()})).setMimeType(ContentService.MimeType.JSON);
   }
 }
+
 function getOrCreateFolder() {
   var f = DriveApp.getFoldersByName(FOLDER_NAME);
   return f.hasNext() ? f.next() : DriveApp.createFolder(FOLDER_NAME);
 }
+
 function getDataFile() {
   var folder = getOrCreateFolder();
   var files = folder.getFilesByName(FILE_NAME);
