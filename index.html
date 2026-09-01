@@ -3457,10 +3457,10 @@
                 </div>
               </div>
 
-              <!-- SECTION 2: Admissions & Progressions -->
+              <!-- SECTION 2: Admissions & SLC Progressions -->
               <div style="border-right:1.5px solid #cbd5e1; padding-right:10px;">
                 <div style="font-weight:900; color:#0f766e; font-size:12px; margin-bottom:6px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:4px; padding:3px 6px;">
-                  2. दाखिला व उत्तीर्ण विवरण
+                  2. दाखिला व निष्कासन (SLC) विवरण
                 </div>
                 <table class="mcd-mini-table" style="width:100%; border-collapse:collapse; font-size:10.5px;">
                   <thead>
@@ -3473,28 +3473,28 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td style="padding:3px 4px; font-weight:700; border:1px solid #cbd5e1;">प्रविष्ट (नए) विद्यार्थी</td>
+                      <td style="padding:3px 4px; font-weight:700; border:1px solid #cbd5e1;">इस माह प्रविष्ट (नए) विद्यार्थी</td>
                       <td style="text-align:center; font-weight:800; border:1px solid #cbd5e1;" id="sec2_adm_b">0</td>
                       <td style="text-align:center; font-weight:800; border:1px solid #cbd5e1;" id="sec2_adm_g">0</td>
                       <td style="text-align:center; font-weight:900; background:#f0fdf4; border:1px solid #cbd5e1;" id="sec2_adm_t">0</td>
                     </tr>
                     <tr>
-                      <td style="padding:3px 4px; font-weight:700; border:1px solid #cbd5e1;">उत्तीर्ण विद्यार्थी</td>
-                      <td style="text-align:center; font-weight:800; border:1px solid #cbd5e1;" id="sec2_pass_b">0</td>
-                      <td style="text-align:center; font-weight:800; border:1px solid #cbd5e1;" id="sec2_pass_g">0</td>
-                      <td style="text-align:center; font-weight:900; background:#f0fdf4; border:1px solid #cbd5e1;" id="sec2_pass_t">0</td>
+                      <td style="padding:3px 4px; font-weight:700; color:#dc2626; border:1px solid #cbd5e1;">इस माह निष्कासन (SLC)</td>
+                      <td style="text-align:center; font-weight:800; color:#dc2626; border:1px solid #cbd5e1;" id="sec2_month_slc_b">0</td>
+                      <td style="text-align:center; font-weight:800; color:#dc2626; border:1px solid #cbd5e1;" id="sec2_month_slc_g">0</td>
+                      <td style="text-align:center; font-weight:900; background:#fef2f2; color:#dc2626; border:1px solid #cbd5e1;" id="sec2_month_slc_t">0</td>
                     </tr>
                     <tr>
-                      <td style="padding:3px 4px; font-weight:700; border:1px solid #cbd5e1;">इस वर्ष का समस्त प्रवेश</td>
+                      <td style="padding:3px 4px; font-weight:700; border:1px solid #cbd5e1;">इस वर्ष कुल प्रवेश (सत्र आरंभ से)</td>
                       <td style="text-align:center; font-weight:800; border:1px solid #cbd5e1;" id="sec2_totadm_b">0</td>
                       <td style="text-align:center; font-weight:800; border:1px solid #cbd5e1;" id="sec2_totadm_g">0</td>
                       <td style="text-align:center; font-weight:900; background:#f0fdf4; border:1px solid #cbd5e1;" id="sec2_totadm_t">0</td>
                     </tr>
                     <tr>
-                      <td style="padding:3px 4px; font-weight:700; border:1px solid #cbd5e1;">इस वर्ष निष्कासन (SLC)</td>
-                      <td style="text-align:center; font-weight:800; color:#dc2626; border:1px solid #cbd5e1;" id="sec2_slc_b">0</td>
-                      <td style="text-align:center; font-weight:800; color:#dc2626; border:1px solid #cbd5e1;" id="sec2_slc_g">0</td>
-                      <td style="text-align:center; font-weight:900; background:#fef2f2; color:#dc2626; border:1px solid #cbd5e1;" id="sec2_slc_t">0</td>
+                      <td style="padding:3px 4px; font-weight:700; color:#991b1b; border:1px solid #cbd5e1;">इस वर्ष कुल निष्कासन (SLC)</td>
+                      <td style="text-align:center; font-weight:800; color:#dc2626; border:1px solid #cbd5e1;" id="sec2_totslc_b">0</td>
+                      <td style="text-align:center; font-weight:800; color:#dc2626; border:1px solid #cbd5e1;" id="sec2_totslc_g">0</td>
+                      <td style="text-align:center; font-weight:900; background:#fef2f2; color:#dc2626; border:1px solid #cbd5e1;" id="sec2_totslc_t">0</td>
                     </tr>
                   </tbody>
                 </table>
@@ -12323,6 +12323,11 @@ function getMonthHolidaysSet(monthKey) {
   return new Set(defaultList);
 }
 
+function isGirlStudent(s) {
+  if (!s) return false;
+  const g = String(s.gender || '').trim().toLowerCase();
+  return (g === 'girl' || g === 'f' || g === 'female' || g === 'g' || g === 'बालिका' || g === 'छात्रा' || g === 'लड़की' || g === 'महिला');
+}
 
 function calculateDailyAttendanceLedger(monthKey) {
   const info = ATT_MONTH_INFO[monthKey] || ATT_MONTH_INFO.apr;
@@ -12350,7 +12355,7 @@ function calculateDailyAttendanceLedger(monthKey) {
       (DB.students || []).forEach((s, r) => {
         if (s && s.studentName && s.studentName.trim().length > 0) {
           if (isStudentActiveOnDate(s, dt)) {
-            const isGirl = (s.gender === 'Girl' || s.gender === 'F' || s.gender === 'Female');
+            const isGirl = isGirlStudent(s);
             if (isGirl) eligibleGirls++;
             else eligibleBoys++;
 
@@ -12730,7 +12735,7 @@ function renderAttendanceRegister() {
     const sId = std.studentId || '';
     const name = std.studentName || '';
     const admn = std.admissionNo || '';
-    const gen = (std.gender === 'Girl' || std.gender === 'F' || std.gender === 'Female') ? 'G' : 'B';
+    const gen = isGirlStudent(std) ? 'G' : 'B';
     const cat = std.category || '';
 
     // Render SLC student with full day-wise cells (active days editable/visible, post-SLC days locked with 🔒)
@@ -13171,14 +13176,20 @@ function updateMcdAttendanceSummary(totalBoysAttSum, totalGirlsAttSum) {
 
   const setElVal = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = String(val); };
 
+  // Helper for universal, case-insensitive, trimmed gender classification
+  function isGirlStudent(s) {
+    if (!s) return false;
+    const g = String(s.gender || '').trim().toLowerCase();
+    return (g === 'girl' || g === 'f' || g === 'female' || g === 'g' || g === 'बालिका' || g === 'छात्रा' || g === 'लड़की' || g === 'महिला');
+  }
+
   // 1. POINT 1: Month Opening Strength (Active on 1st day of month)
   let startBoys = 0;
   let startGirls = 0;
   (DB.students || []).forEach(s => {
     if (s && s.studentName && s.studentName.trim().length > 0) {
       if (isStudentActiveOnDate(s, monthStartDate)) {
-        const isGirl = (s.gender === 'Girl' || s.gender === 'F' || s.gender === 'Female');
-        if (isGirl) startGirls++;
+        if (isGirlStudent(s)) startGirls++;
         else startBoys++;
       }
     }
@@ -13191,7 +13202,7 @@ function updateMcdAttendanceSummary(totalBoysAttSum, totalGirlsAttSum) {
   let slcBoys = 0;
   let slcGirls = 0;
 
-  // Cumulative Admissions & Cumulative SLC from session start (1 April)
+  // Cumulative Admissions & Cumulative SLC from session start (1 April) up to target month end
   let totAdmB = 0;
   let totAdmG = 0;
   let totSlcB = 0;
@@ -13207,23 +13218,20 @@ function updateMcdAttendanceSummary(totalBoysAttSum, totalGirlsAttSum) {
         if (isAprilSessionStart) {
           // In April (session start), new admissions are those admitted after April 1st
           if (admMs > sessionStartMs && admMs <= mEndMs) {
-            const isGirl = (s.gender === 'Girl' || s.gender === 'F' || s.gender === 'Female');
-            if (isGirl) newAdmGirls++;
+            if (isGirlStudent(s)) newAdmGirls++;
             else newAdmBoys++;
           }
         } else {
           // In subsequent months, new admissions are those admitted in this month
           if (admMs >= mStartMs && admMs <= mEndMs) {
-            const isGirl = (s.gender === 'Girl' || s.gender === 'F' || s.gender === 'Female');
-            if (isGirl) newAdmGirls++;
+            if (isGirlStudent(s)) newAdmGirls++;
             else newAdmBoys++;
           }
         }
 
-        // Cumulative admissions across the session
+        // Cumulative admissions across the session up to this month end
         if (admMs > sessionStartMs && admMs <= mEndMs) {
-          const isGirl = (s.gender === 'Girl' || s.gender === 'F' || s.gender === 'Female');
-          if (isGirl) totAdmG++;
+          if (isGirlStudent(s)) totAdmG++;
           else totAdmB++;
         }
       }
@@ -13235,14 +13243,12 @@ function updateMcdAttendanceSummary(totalBoysAttSum, totalGirlsAttSum) {
         const slcMs = new Date(slcDt.getFullYear(), slcDt.getMonth(), slcDt.getDate()).getTime();
         // This month SLC
         if (slcMs >= mStartMs && slcMs <= mEndMs) {
-          const isGirl = (s.gender === 'Girl' || s.gender === 'F' || s.gender === 'Female');
-          if (isGirl) slcGirls++;
+          if (isGirlStudent(s)) slcGirls++;
           else slcBoys++;
         }
-        // Cumulative SLC till month end
+        // Cumulative SLC from session start (1 April) up to target month end
         if (slcMs >= sessionStartMs && slcMs <= mEndMs) {
-          const isGirl = (s.gender === 'Girl' || s.gender === 'F' || s.gender === 'Female');
-          if (isGirl) totSlcG++;
+          if (isGirlStudent(s)) totSlcG++;
           else totSlcB++;
         }
       }
@@ -13251,6 +13257,8 @@ function updateMcdAttendanceSummary(totalBoysAttSum, totalGirlsAttSum) {
 
   const newAdmTotal = newAdmBoys + newAdmGirls;
   const slcTotal = slcBoys + slcGirls;
+  const totAdmTotal = totAdmB + totAdmG;
+  const totSlcTotal = totSlcB + totSlcG;
 
   // 3. POINT 3: Month-End Closing Strength (Active on last day of month)
   let endBoys = 0;
@@ -13258,8 +13266,7 @@ function updateMcdAttendanceSummary(totalBoysAttSum, totalGirlsAttSum) {
   (DB.students || []).forEach(s => {
     if (s && s.studentName && s.studentName.trim().length > 0) {
       if (isStudentActiveOnDate(s, monthEndDate)) {
-        const isGirl = (s.gender === 'Girl' || s.gender === 'F' || s.gender === 'Female');
-        if (isGirl) endGirls++;
+        if (isGirlStudent(s)) endGirls++;
         else endBoys++;
       }
     }
@@ -13301,22 +13308,26 @@ function updateMcdAttendanceSummary(totalBoysAttSum, totalGirlsAttSum) {
   setElVal('sec1_avg_g', girlsAvg);
   setElVal('sec1_avg_t', totalAvg);
 
-  // --- SECTION 2: Admissions & Progressions ---
+  // --- SECTION 2: Admissions & SLC Progressions ---
+  // Row 1: इस माह प्रविष्ट (नए) विद्यार्थी
   setElVal('sec2_adm_b', newAdmBoys);
   setElVal('sec2_adm_g', newAdmGirls);
   setElVal('sec2_adm_t', newAdmTotal);
 
-  setElVal('sec2_pass_b', 0);
-  setElVal('sec2_pass_g', 0);
-  setElVal('sec2_pass_t', 0);
+  // Row 2: इस माह निष्कासन (SLC)
+  setElVal('sec2_month_slc_b', slcBoys);
+  setElVal('sec2_month_slc_g', slcGirls);
+  setElVal('sec2_month_slc_t', slcTotal);
 
+  // Row 3: इस वर्ष कुल प्रवेश (सत्र आरंभ से)
   setElVal('sec2_totadm_b', totAdmB);
   setElVal('sec2_totadm_g', totAdmG);
-  setElVal('sec2_totadm_t', totAdmB + totAdmG);
+  setElVal('sec2_totadm_t', totAdmTotal);
 
-  setElVal('sec2_slc_b', slcBoys);
-  setElVal('sec2_slc_g', slcGirls);
-  setElVal('sec2_slc_t', slcTotal);
+  // Row 4: इस वर्ष कुल निष्कासन (SLC)
+  setElVal('sec2_totslc_b', totSlcB);
+  setElVal('sec2_totslc_g', totSlcG);
+  setElVal('sec2_totslc_t', totSlcTotal);
 
   // --- SECTION 3: 1st April Baseline & Month-End Document Coverage ---
   const apr1Date = new Date(2026, 3, 1);
@@ -13325,8 +13336,7 @@ function updateMcdAttendanceSummary(totalBoysAttSum, totalGirlsAttSum) {
   (DB.students || []).forEach(s => {
     if (s && s.studentName && s.studentName.trim().length > 0) {
       if (isStudentActiveOnDate(s, apr1Date)) {
-        const isGirl = (s.gender === 'Girl' || s.gender === 'F' || s.gender === 'Female');
-        if (isGirl) apr1Girls++;
+        if (isGirlStudent(s)) apr1Girls++;
         else apr1Boys++;
       }
     }
@@ -13343,17 +13353,16 @@ function updateMcdAttendanceSummary(totalBoysAttSum, totalGirlsAttSum) {
 
   (DB.students || []).forEach(s => {
     if (s && s.studentName && s.studentName.trim().length > 0 && isStudentActiveOnDate(s, monthEndDate)) {
-      const isGirl = (s.gender === 'Girl' || s.gender === 'F' || s.gender === 'Female');
       const aadharVal = s.aadhaar || s.aadhaarNo || s.aadhar || s.aadharNo || '';
       const bankVal = s.bankAccount || s.bankAccountNo || s.bankAc || s.bankAcc || '';
 
       if (isValidAadhaarNumber(aadharVal)) {
-        if (isGirl) aadharGirls++;
+        if (isGirlStudent(s)) aadharGirls++;
         else aadharBoys++;
       }
 
       if (isValidBankAccount(bankVal)) {
-        if (isGirl) bankGirls++;
+        if (isGirlStudent(s)) bankGirls++;
         else bankBoys++;
       }
     }
@@ -13381,7 +13390,7 @@ function updateMcdAttendanceSummary(totalBoysAttSum, totalGirlsAttSum) {
 
   (DB.students || []).forEach(s => {
     if (s && s.studentName && s.studentName.trim().length > 0 && isStudentActiveOnDate(s, monthEndDate)) {
-      const isGirl = (s.gender === 'Girl' || s.gender === 'F' || s.gender === 'Female');
+      const isGirl = isGirlStudent(s);
       const rawCat = (s.category || '').toUpperCase().trim();
       
       if (rawCat === 'GEN' || rawCat === 'GENERAL' || rawCat === 'UR') {
@@ -13395,13 +13404,13 @@ function updateMcdAttendanceSummary(totalBoysAttSum, totalGirlsAttSum) {
       }
 
       const rawRel = (s.religion || '').toUpperCase().trim();
-      if (rawRel === 'HINDU' || rawRel === 'H' || rawRel === 'HINDUISM') {
+      if (rawRel.startsWith('HIN') || rawRel === 'H') {
         if (isGirl) catMatrix.HINDU.g++; else catMatrix.HINDU.b++;
-      } else if (rawRel === 'SIKH' || rawRel === 'S' || rawRel === 'SIKHISM') {
+      } else if (rawRel.startsWith('SIK') || rawRel === 'S') {
         if (isGirl) catMatrix.SIKH.g++; else catMatrix.SIKH.b++;
-      } else if (rawRel === 'MUSLIM' || rawRel === 'ISLAM' || rawRel === 'M' || rawRel === 'MUS') {
+      } else if (rawRel.startsWith('MUS') || rawRel === 'ISLAM' || rawRel === 'M') {
         if (isGirl) catMatrix.MUS.g++; else catMatrix.MUS.b++;
-      } else if (rawRel === 'CHRISTIAN' || rawRel === 'JAIN' || rawRel === 'BUDDHIST' || rawRel === 'OTHERS' || rawRel === 'OTHER') {
+      } else if (rawRel) {
         if (isGirl) catMatrix.OTHERS.g++; else catMatrix.OTHERS.b++;
       }
     }
