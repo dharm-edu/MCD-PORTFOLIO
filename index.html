@@ -17263,23 +17263,49 @@ function initAsScriptUI() {
 function updateAsScriptUrlPreview() { /* live preview - no-op */ }
 
 async function _asFetchDataWithFallback(url) {
-  // Method 1: Try direct fetch first
-  try {
-    const fetchUrl = url + (url.includes('?') ? '&' : '?') + 't=' + Date.now();
-    const res = await fetch(fetchUrl, { method: 'GET', redirect: 'follow' });
-    const text = await res.text();
-    let parsed;
-    try {
-      parsed = JSON.parse(text);
-    } catch(e) { parsed = null; }
-    if (parsed && typeof parsed === 'object' && !parsed.error) {
-      return parsed;
-    }
-  } catch(directErr) {
-    console.warn('Direct fetch failed, attempting JSONP fallback...', directErr);
+  if (!url) throw new Error('Script URL खाली है');
+  if (!url.endsWith('/exec') && !url.includes('/exec?')) {
+    if (url.endsWith('/')) url += 'exec';
+    else if (!url.includes('/exec')) url += '/exec';
   }
 
-  // Method 2: Universal JSONP Fallback (Bypasses 100% of browser CORS and redirect barriers)
+  // Helper to normalize and unwrap parsed object
+  function unwrapData(raw) {
+    if (!raw) return null;
+    let obj = raw;
+    if (typeof obj === 'string') {
+      try { obj = JSON.parse(obj); } catch(e){}
+    }
+    if (typeof obj === 'string') {
+      try { obj = JSON.parse(obj); } catch(e){}
+    }
+    if (obj && typeof obj === 'object') {
+      if (obj.data && typeof obj.data === 'object' && (obj.data.students || obj.data.classSettings)) {
+        obj = obj.data;
+      }
+      if (!obj.error && (obj.students || obj.classSettings)) {
+        return obj;
+      }
+    }
+    return null;
+  }
+
+  // Method 1: Direct fetch with no-cache
+  try {
+    const fetchUrl = url + (url.includes('?') ? '&' : '?') + 't=' + Date.now();
+    const res = await fetch(fetchUrl, { method: 'GET', redirect: 'follow', cache: 'no-store' });
+    if (res && res.ok) {
+      const text = await res.text();
+      let parsed = null;
+      try { parsed = JSON.parse(text); } catch(e){ parsed = text; }
+      const cleanObj = unwrapData(parsed);
+      if (cleanObj) return cleanObj;
+    }
+  } catch(directErr) {
+    console.warn('Direct fetch failed, falling back to JSONP...', directErr);
+  }
+
+  // Method 2: Universal JSONP Fallback
   return new Promise((resolve, reject) => {
     const callbackName = 'mcd_jsonp_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
     const script = document.createElement('script');
@@ -17287,10 +17313,11 @@ async function _asFetchDataWithFallback(url) {
 
     window[callbackName] = function(data) {
       cleanup();
-      if (data && typeof data === 'object') {
-        resolve(data);
+      const cleanObj = unwrapData(data);
+      if (cleanObj) {
+        resolve(cleanObj);
       } else {
-        reject(new Error('Google Apps Script से अमान्य डेटा मिला।'));
+        reject(new Error('अमान्य डेटा फॉर्मेट मिला'));
       }
     };
 
@@ -17302,17 +17329,17 @@ async function _asFetchDataWithFallback(url) {
 
     script.onerror = function() {
       cleanup();
-      reject(new Error('Google Script से कनेक्ट नहीं हो सका। सुनिश्चित करें कि Google Script Deploy में "Who has access" = "Anyone" चुना है और पूरा URL सही डाला है।'));
+      reject(new Error('Google Script से कनेक्ट नहीं हो सका। सुनिश्चित करें कि Script Deploy में "Who has access" = "Anyone" चुना है।'));
     };
 
     timeoutId = setTimeout(() => {
       cleanup();
-      reject(new Error('Google Script से डेटा लोड होने में समय समाप्त (Timeout) हो गया। कृपया इंटरनेट और URL जांचें।'));
-    }, 15000);
+      reject(new Error('डेटा लोड होने में समय समाप्त (Timeout)। कृपया इंटरनेट और URL जांचें।'));
+    }, 12000);
 
     const jsonpUrl = url + (url.includes('?') ? '&' : '?') + 'callback=' + callbackName + '&t=' + Date.now();
     script.src = jsonpUrl;
-    document.body.appendChild(script);
+    (document.head || document.documentElement).appendChild(script);
   });
 }
 
@@ -17354,7 +17381,9 @@ async function connectAppsScript() {
 }
 
 async function asSyncNow() {
-  if (!isAsConnected()) { _asStatus('❌ पहले connect करें', 'error'); return; }
+  const inp = document.getElementById('asScriptUrlInput');
+  const url = getAsUrl() || (inp ? inp.value.trim() : '');
+  if (!url) { _asStatus('❌ पहले connect करें', 'error'); return; }
   _asStatus('🔄 Drive पर sync हो रहा है...', 'info');
   const ok = await _asPushData(JSON.stringify(DB));
   if (ok) {
@@ -17367,26 +17396,41 @@ async function asSyncNow() {
 }
 
 async function asLoadFromDrive() {
-  if (!isAsConnected()) { _asStatus('❌ पहले connect करें', 'error'); return; }
-  if (!confirm('⚠️ Drive से data load करने पर वर्तमान स्क्रीन का डेटा Drive के डेटा से बदल जाएगा। क्या आप जारी रखना चाहते हैं?')) return;
+  const inp = document.getElementById('asScriptUrlInput');
+  let url = getAsUrl() || (inp ? inp.value.trim() : '');
+  if (!url) {
+    _asStatus('❌ पहले Script URL पेस्ट करके "कनेक्ट करें" दबाएं', 'error');
+    showToast('❌ पहले Script URL पेस्ट करें', 'error');
+    return;
+  }
+  
   _asStatus('📥 Drive से लोड हो रहा है...', 'info');
+  showToast('📥 Google Drive से डेटा लोड हो रहा है...', 'info');
+  
   try {
-    const url = getAsUrl();
     const parsed = await _asFetchDataWithFallback(url);
     if (!parsed || typeof parsed !== 'object' || parsed.error) {
-      throw new Error(parsed ? parsed.error : 'Invalid data format');
+      throw new Error(parsed && parsed.error ? parsed.error : 'अमान्य डेटा मिला');
     }
     if (!parsed.students && !parsed.classSettings) {
-      throw new Error('Drive पर अभी कोई पुराना डेटा नहीं मिला। पहले ऐप से "अभी Sync करें" दबाएं।');
+      throw new Error('Drive पर अभी कोई पुराना डेटा नहीं मिला। पहले PC से "अभी Sync करें" दबाएं।');
     }
+    
     DB = parsed;
     saveToIndexedDB(DB);
     try { localStorage.setItem(PERMANENT_STORAGE_KEY, JSON.stringify(DB)); } catch(e){}
+    try { localStorage.setItem(AS_URL_KEY, url); } catch(e){}
+    try { localStorage.setItem(AS_CONNECTED_KEY, '1'); } catch(e){}
+    
     renderAllViews();
-    _asStatus('✅ Drive से डेटा सफलतापूर्वक लोड हो गया!', 'success');
-    showToast('✅ Google Drive से डेटा लोड हुआ!', 'success');
+    _refreshAsBadge();
+    
+    const count = (DB.students && Array.isArray(DB.students)) ? DB.students.length : 0;
+    _asStatus('✅ Drive से ' + count + ' बच्चों का डेटा सफलतापूर्वक लोड हो गया!', 'success');
+    showToast('✅ Google Drive से ' + count + ' बच्चों का डेटा लोड हुआ!', 'success');
   } catch(e) {
     _asStatus('❌ ' + e.message, 'error');
+    showToast('❌ लोड असफल: ' + e.message, 'error');
   }
 }
 
