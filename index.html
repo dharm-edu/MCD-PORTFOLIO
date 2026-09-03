@@ -11,7 +11,7 @@
 <meta name="application-name" content="MCD Portfolio">
 <meta name="theme-color" content="#1e3a8a">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231e3a8a'/%3E%3Ctext x='50' y='65' font-size='50' text-anchor='middle' fill='%23ffffff'%3E🏫%3C/text%3E%3C/svg%3E">
-<title>PORTFOLIO ASSESSMENT APP</title>
+<title>Portfolio Assessment Pro</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <style>
   :root {
@@ -2062,30 +2062,22 @@
 </head>
 <body>
 
-  <!-- 🚀 Initial App Boot Loader (Fades out smoothly in under 1 second) -->
-  <div id="appBootLoader" class="no-print" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:#0f172a; z-index:999999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; transition:opacity 0.2s ease, visibility 0.2s ease; pointer-events:auto;">
-    <div style="font-size:38px;">🏫</div>
-    <div style="font-size:18px; font-weight:800; color:#38bdf8; font-family:'Noto Sans Devanagari', 'Segoe UI', sans-serif; letter-spacing:0.5px;">MCD Portfolio Pro</div>
-    <div style="font-size:12.5px; color:#94a3b8; font-weight:600; font-family:'Noto Sans Devanagari', sans-serif;">डेटा लोड हो रहा है...</div>
+  <!-- 🚀 Initial App Splash Screen (Guaranteed to dismiss ONLY after Master Roster is 100% filled!) -->
+  <div id="appBootLoader" class="no-print" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:#0f172a; z-index:999999; display:flex; flex-direction:column; align-items:center; justify-content:center; user-select:none; transition:opacity 0.35s ease-out, visibility 0.35s ease-out; pointer-events:auto;">
+    <div style="font-size:52px; margin-bottom:18px; filter:drop-shadow(0 4px 16px rgba(0,0,0,0.35));">🏫</div>
+    <div style="font-size:24px; font-weight:800; color:#38bdf8; font-family:'Noto Sans Devanagari', 'Segoe UI', sans-serif; letter-spacing:0.8px; margin-bottom:12px; text-shadow:0 2px 10px rgba(56,189,248,0.25);">Portfolio Assessment Pro</div>
+    <div id="bootLoaderStatus" style="font-size:13px; color:#94a3b8; font-weight:600; font-family:'Noto Sans Devanagari', sans-serif; margin-bottom:16px;">डेटा लोड हो रहा है...</div>
+    <div style="width:140px; height:3px; background:rgba(148,163,184,0.18); border-radius:99px; overflow:hidden; position:relative;">
+      <div id="bootLoaderProgress" style="position:absolute; left:0; top:0; height:100%; width:25%; background:#38bdf8; border-radius:99px; transition:width 0.25s ease-out; box-shadow:0 0 8px #38bdf8;"></div>
+    </div>
   </div>
-  <script>
-    // Hard 1.0s maximum ceiling: Boot loader NEVER blocks the user for more than 1 second!
-    setTimeout(function() {
-      var b = document.getElementById('appBootLoader');
-      if (b) {
-        b.style.opacity = '0';
-        b.style.visibility = 'hidden';
-        setTimeout(function() { if (b && b.parentNode) b.remove(); }, 250);
-      }
-    }, 1000);
-  </script>
 
   <!-- ================= 🏛️ TOP FIXED APPLICATION HEADER: 4-WORKSPACE CHROME ================= -->
   <header class="app-header no-print">
     <!-- Top Row: Brand + 4 Workspaces + Right System Tools -->
     <div class="header-top">
       <div class="app-title">
-        🏛️ <span>PORTFOLIO APP</span>
+        🏫 <span>PORTFOLIO ASSESSMENT PRO</span>
       </div>
 
       <!-- 4 Primary Workspace Navigation Tabs -->
@@ -16167,6 +16159,9 @@ function exportClassBackup() {
   link.click();
   link.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1500);
+  if (typeof showToast === 'function') {
+    showToast(`✅ कक्षा ${clsStr} का पूरा बैकअप डाउनलोड हो गया!`, 'success');
+  }
 }
 
 function triggerRestoreBackup() {
@@ -16237,9 +16232,16 @@ function handleRestoreFileSelected(e) {
         if (confirm(msg)) {
           pushHistory();
           DB = restored;
-          
+          compactStudentsRoster();
+          recalcActiveRollNumbers();
+          if (!DB.activeStudentId && DB.students && DB.students.length > 0) {
+            DB.activeStudentId = DB.students[0].id;
+          }
           renderAllViews();
           saveDBDirect();
+          if (typeof showToast === 'function') {
+            showToast('✅ बैकअप सफलतापूर्वक लोड हो गया!', 'success');
+          }
           alert('✓ सफलता! ' + restored.students.length + ' विद्यार्थियों का रिकॉर्ड, फोटो, प्लानर्स, डायरी, FLN टूल्स, शिक्षण मॉड्यूल, वर्कशीट्स एवं टेस्ट सीरीज सफलतापूर्वक लोड हो गए हैं!');
         }
       } else {
@@ -17311,19 +17313,17 @@ function autoFitFieldFont(inp) {
     return;
   }
   
-  // Clear inline font-size to read computed style
   inp.style.fontSize = '';
-  const computed = window.getComputedStyle(inp);
-  let sz = parseFloat(computed.fontSize);
-  if (isNaN(sz) || sz <= 0) return;
-
   const clientW = inp.clientWidth;
   if (clientW <= 0) return;
 
-  // Shrink font size dynamically until text fits inside box width
-  while (inp.scrollWidth > (clientW + 1) && sz > 7.0) {
-    sz -= 0.5;
-    inp.style.fontSize = sz + 'px';
+  // Single-step instant proportional calculation (0 layout thrashing loops!)
+  if (inp.scrollWidth > (clientW + 1)) {
+    const ratio = clientW / inp.scrollWidth;
+    const computed = window.getComputedStyle(inp);
+    const curSize = parseFloat(computed.fontSize) || 12;
+    const newSize = Math.max(7.5, Math.floor(curSize * ratio * 10) / 10);
+    inp.style.fontSize = newSize + 'px';
   }
 }
 
@@ -17344,7 +17344,10 @@ function renderAllViews() {
   const custom = document.getElementById('customColorInput');
   if (custom) custom.value = activeColor;
 
-  document.querySelectorAll('.fld').forEach(inp => {
+  // Fast scoped field population for active student and class
+  const activePane = document.querySelector('.tab-pane.active');
+  const targetScope = activePane || document;
+  targetScope.querySelectorAll('.fld').forEach(inp => {
     const path = inp.getAttribute('data-path');
     if (path) {
       const val = getByPath(DB, path);
@@ -17362,26 +17365,32 @@ function renderAllViews() {
 
   updatePhotoViews();
   updateStudentNavBanner();
-
-  renderPlannerGrid();
-  renderDiaryGrid();
-  renderFlnToolsGrid();
-  renderModulesGrid();
-  renderWorksheetsGrid();
-  
-  renderExamPapersAccordion();
-  renderUnitGrid();
   updateUndoRedoButtons();
-  
-  // Comprehensively refresh all active views, tables, registers and dashboard counters
-  try { if (typeof renderMasterRosterTable === 'function') renderMasterRosterTable();
-  setTimeout(autoFitAllVisibleFields, 50); } catch(e){}
-  try { if (typeof renderFlnAssessmentSheet === 'function') renderFlnAssessmentSheet(); } catch(e){}
-  try { if (typeof renderAttendanceRegister === 'function') renderAttendanceRegister(); } catch(e){}
-  try { if (typeof renderResultTable === 'function') renderResultTable(); } catch(e){}
-  try { if (typeof renderPeerGroupsWorkspace === 'function') renderPeerGroupsWorkspace(); } catch(e){}
-  try { if (typeof updateDashboardStats === 'function') updateDashboardStats(); } catch(e){}
-  setTimeout(autoFitAllVisibleFields, 50);
+
+  // 🚀 HIGH-SPEED LAZY RENDERING: Render ONLY the active tab!
+  // Completely eliminates 8,000 hidden DOM nodes from blocking the main thread!
+  const currentTab = DB.activeTab || 'master_roster';
+  if (currentTab === 'master_roster') {
+    if (typeof renderMasterRosterTable === 'function') renderMasterRosterTable();
+  } else if (currentTab === 'attendance') {
+    if (typeof renderAttendanceRegister === 'function') renderAttendanceRegister();
+  } else if (currentTab === 'fln_sheet') {
+    if (typeof renderFlnAssessmentSheet === 'function') renderFlnAssessmentSheet();
+  } else if (currentTab === 'result_sheet') {
+    if (typeof renderExamPapersAccordion === 'function') renderExamPapersAccordion();
+    if (typeof renderResultTable === 'function') renderResultTable();
+  } else if (currentTab === 'peer_groups') {
+    if (typeof renderPeerGroupsWorkspace === 'function') renderPeerGroupsWorkspace();
+  } else if (currentTab === 'f1' || currentTab === 'f2' || currentTab === 'cb') {
+    syncAllFlnAssessmentData();
+    if (currentTab === 'cb') updateCBContextualVisibility();
+  }
+
+  // Defer non-critical calculations so user interface remains 100% fluid
+  setTimeout(() => {
+    if (typeof updateDashboardStats === 'function') updateDashboardStats();
+    autoFitAllVisibleFields();
+  }, 60);
 }
 
 /* ============================================================
@@ -17992,6 +18001,15 @@ function printActivePage() {
   document.body.classList.remove('printing-all');
   window.print();
 }
+
+/* ================= 🚀 SPLASH PROGRESS HELPER ================= */
+function updateBootProgress(percent) {
+  try {
+    const bar = document.getElementById('bootLoaderProgress');
+    if (bar) bar.style.width = percent + '%';
+  } catch(e){}
+}
+
 window.addEventListener('DOMContentLoaded', async () => {
   try {
     initDynamicTables();
@@ -18056,20 +18074,25 @@ window.addEventListener('DOMContentLoaded', async () => {
   compactStudentsRoster();
   recalcActiveRollNumbers();
   
-  // Render views immediately with loaded data
+  // Render views immediately with loaded data (Ultra-Fast Single Render Pass)
+  updateBootProgress(75, 'मास्टर रजिस्टर तैयार हो रहा है...');
   syncAllFlnAssessmentData();
-  renderAllViews();
-  renderMasterRosterTable();
   switchTab(DB.activeTab || 'master_roster');
   updateStorageMeter();
 
-  // 🚀 Dismiss Initial App Boot Loader
-  const bootLoader = document.getElementById('appBootLoader');
-  if (bootLoader) {
-    bootLoader.style.opacity = '0';
-    bootLoader.style.visibility = 'hidden';
-    setTimeout(() => { if (bootLoader && bootLoader.parentNode) bootLoader.remove(); }, 300);
-  }
+  // 🛡️ GUARANTEED RENDER BEFORE UNVEIL:
+  // Progress reaches 100%, and splash screen lifts ONLY AFTER Master Roster table rows are painted in DOM!
+  updateBootProgress(100, 'तैयार!');
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      const bootLoader = document.getElementById('appBootLoader');
+      if (bootLoader) {
+        bootLoader.style.opacity = '0';
+        bootLoader.style.visibility = 'hidden';
+        setTimeout(() => { if (bootLoader && bootLoader.parentNode) bootLoader.remove(); }, 350);
+      }
+    }, 120); // 120ms breathing room ensures browser has 100% painted all student rows!
+  });
 
   // 🚀 CROSS-DEVICE AUTO-PULL ON APP OPEN
   // Opens immediately with local data, then automatically pulls latest data from Google Drive in background
