@@ -12,7 +12,7 @@
 <meta name="theme-color" content="#1e3a8a">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231e3a8a'/%3E%3Ctext x='50' y='65' font-size='50' text-anchor='middle' fill='%23ffffff'%3E🏫%3C/text%3E%3C/svg%3E">
 <title>PORTFOLIO ASSESSMENT APP</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
 <style>
   :root {
     --ink-color: #111111;
@@ -2062,12 +2062,23 @@
 </head>
 <body>
 
-  <!-- 🚀 Initial App Boot Loader (Fades out smoothly once ready) -->
-  <div id="appBootLoader" class="no-print" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:#0f172a; z-index:999999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; transition:opacity 0.25s ease, visibility 0.25s ease; pointer-events:auto;">
+  <!-- 🚀 Initial App Boot Loader (Fades out smoothly in under 1 second) -->
+  <div id="appBootLoader" class="no-print" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:#0f172a; z-index:999999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; transition:opacity 0.2s ease, visibility 0.2s ease; pointer-events:auto;">
     <div style="font-size:38px;">🏫</div>
     <div style="font-size:18px; font-weight:800; color:#38bdf8; font-family:'Noto Sans Devanagari', 'Segoe UI', sans-serif; letter-spacing:0.5px;">MCD Portfolio Pro</div>
-    <div style="font-size:12.5px; color:#94a3b8; font-weight:600; font-family:'Noto Sans Devanagari', sans-serif;">डेटा लोड हो रहा है, कृपया प्रतीक्षा करें...</div>
+    <div style="font-size:12.5px; color:#94a3b8; font-weight:600; font-family:'Noto Sans Devanagari', sans-serif;">डेटा लोड हो रहा है...</div>
   </div>
+  <script>
+    // Hard 1.0s maximum ceiling: Boot loader NEVER blocks the user for more than 1 second!
+    setTimeout(function() {
+      var b = document.getElementById('appBootLoader');
+      if (b) {
+        b.style.opacity = '0';
+        b.style.visibility = 'hidden';
+        setTimeout(function() { if (b && b.parentNode) b.remove(); }, 250);
+      }
+    }, 1000);
+  </script>
 
   <!-- ================= 🏛️ TOP FIXED APPLICATION HEADER: 4-WORKSPACE CHROME ================= -->
   <header class="app-header no-print">
@@ -14780,15 +14791,10 @@ const IDB_KEY = 'current_portfolio_data';
 let dbInstance = null;
 
 function initIndexedDB() {
-  return new Promise(async (resolve, reject) => {
-    // 1. Request Persistent Storage (Expands quota to 50 GB - 200 GB+ of disk space and prevents auto-clearing)
+  return new Promise((resolve) => {
+    // Request persistence asynchronously in background (NEVER block startup!)
     if (navigator.storage && navigator.storage.persist) {
-      try {
-        const isPersisted = await navigator.storage.persist();
-        console.log('Persistent disk storage granted:', isPersisted);
-      } catch(pErr) {
-        console.warn('Persistent storage request:', pErr);
-      }
+      navigator.storage.persist().then(p => console.log('Persistent:', p)).catch(() => {});
     }
 
     if (!window.indexedDB) {
@@ -14796,21 +14802,38 @@ function initIndexedDB() {
       resolve(null);
       return;
     }
-    const request = indexedDB.open(IDB_NAME, IDB_VERSION);
-    request.onupgradeneeded = function(e) {
-      const db = e.target.result;
-      if (!db.objectStoreNames.contains(IDB_STORE)) {
-        db.createObjectStore(IDB_STORE);
+
+    let resolved = false;
+    const safetyTimer = setTimeout(() => {
+      if (!resolved) {
+        resolved = true;
+        console.warn('IDB open timed out (500ms ceiling), falling back to fast localStorage');
+        resolve(null);
       }
-    };
-    request.onsuccess = function(e) {
-      dbInstance = e.target.result;
-      resolve(dbInstance);
-    };
-    request.onerror = function(e) {
-      console.error('IndexedDB open error:', e);
-      resolve(null);
-    };
+    }, 500);
+
+    try {
+      const request = indexedDB.open(IDB_NAME, IDB_VERSION);
+      request.onblocked = function() {
+        if (!resolved) { resolved = true; clearTimeout(safetyTimer); resolve(null); }
+      };
+      request.onupgradeneeded = function(e) {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains(IDB_STORE)) {
+          db.createObjectStore(IDB_STORE);
+        }
+      };
+      request.onsuccess = function(e) {
+        dbInstance = e.target.result;
+        if (!resolved) { resolved = true; clearTimeout(safetyTimer); resolve(dbInstance); }
+      };
+      request.onerror = function(e) {
+        console.error('IndexedDB open error:', e);
+        if (!resolved) { resolved = true; clearTimeout(safetyTimer); resolve(null); }
+      };
+    } catch(e) {
+      if (!resolved) { resolved = true; clearTimeout(safetyTimer); resolve(null); }
+    }
   });
 }
 
@@ -14839,19 +14862,23 @@ function loadFromIndexedDB() {
       resolve(null);
       return;
     }
+    let resolved = false;
+    const timer = setTimeout(() => {
+      if (!resolved) { resolved = true; resolve(null); }
+    }, 400);
     try {
       const tx = dbInstance.transaction([IDB_STORE], 'readonly');
       const store = tx.objectStore(IDB_STORE);
       const req = store.get(IDB_KEY);
       req.onsuccess = function() {
-        resolve(req.result || null);
+        if (!resolved) { resolved = true; clearTimeout(timer); resolve(req.result || null); }
       };
       req.onerror = function() {
-        resolve(null);
+        if (!resolved) { resolved = true; clearTimeout(timer); resolve(null); }
       };
     } catch(err) {
       console.error('IDB load error', err);
-      resolve(null);
+      if (!resolved) { resolved = true; clearTimeout(timer); resolve(null); }
     }
   });
 }
@@ -17370,8 +17397,24 @@ function getAsUrl() {
   return localStorage.getItem(AS_URL_KEY) || '';
 }
 
+
+/* ================= 🛡️ TITANIUM ANTI-WIPEOUT DATA PROTECTION SHIELD ================= */
+function hasRealStudentData(dbObj) {
+  if (!dbObj || typeof dbObj !== 'object') return false;
+  if (!dbObj.students || !Array.isArray(dbObj.students) || dbObj.students.length === 0) return false;
+  
+  // Real data exists if at least 1 student has a real name or admission number, or school name is set
+  const hasNamedStudent = dbObj.students.some(s => {
+    return s && ((s.studentName && s.studentName.trim().length > 0) || 
+                 (s.admissionNo && s.admissionNo.trim().length > 0));
+  });
+  const hasSchoolName = !!(dbObj.classSettings && dbObj.classSettings.schoolName && dbObj.classSettings.schoolName.trim().length > 0);
+  return hasNamedStudent || hasSchoolName;
+}
+
 function isAsConnected() {
-  return !!(getAsUrl() && localStorage.getItem(AS_CONNECTED_KEY) === '1');
+  const u = getAsUrl();
+  return !!(u && u.startsWith('https://script.google.com') && localStorage.getItem(AS_CONNECTED_KEY) !== '0');
 }
 
 // Called when user opens Settings → Cloud Sync tab
@@ -17568,6 +17611,16 @@ async function _asPushData(jsonStr) {
   try {
     const url = getAsUrl();
     if (!url) return false;
+
+    // 🛡️ SECONDARY HARD BARRIER: Inspect payload before sending over the wire
+    try {
+      const checkObj = JSON.parse(jsonStr);
+      if (!hasRealStudentData(checkObj)) {
+        console.warn('🛡️ HARD BLOCKED: Attempted to push blank student roster to Google Drive! Aborted.');
+        return false;
+      }
+    } catch(parseErr){}
+
     // Use mode: 'no-cors' with text/plain to ensure Google Apps Script POST runs without CORS preflight block
     await fetch(url, {
       method: 'POST',
@@ -17583,19 +17636,30 @@ async function _asPushData(jsonStr) {
   }
 }
 
-function _asAutoSync() {
+function _asAutoSync(immediate) {
   if (!isAsConnected()) return;
-  // 🛡️ SAFETY GUARD: कभी भी 0 बच्चों वाला खाली डेटाबेस Drive पर ऑटो-सेव करके पुराना डेटा ओवरराइट न करें!
-  if (!DB.students || DB.students.length === 0) {
-    console.warn('Skipping auto-push: local DB has 0 students to prevent blank cloud overwrite');
+  
+  // 🛡️ TITANIUM ANTI-WIPEOUT SHIELD:
+  // If local device has NO REAL DATA (all names blank), NEVER push to Drive!
+  // This guarantees an empty second device CAN NEVER wipe out your Drive backup!
+  if (!hasRealStudentData(DB)) {
+    console.warn('🛡️ ANTI-WIPEOUT SHIELD: Local database is blank! REFUSING to auto-push to Google Drive to protect cloud data from being wiped out!');
     return;
   }
+
   clearTimeout(asSyncDebounce);
-  asSyncDebounce = setTimeout(() => {
+  const doPush = () => {
+    if (!hasRealStudentData(DB)) return;
+    DB._lastSaved = Date.now();
     _asPushData(JSON.stringify(DB)).then(ok => {
       if (ok) _updateAsLastSyncTime();
     });
-  }, 1500); // 1.5 sec after last change
+  };
+  if (immediate) {
+    doPush();
+  } else {
+    asSyncDebounce = setTimeout(doPush, 1000); // 1.0 sec debounced auto-push
+  }
 }
 
 function _asStatus(msg, type) {
@@ -17704,18 +17768,102 @@ function getDataFile() {
   });
 }
 
-function saveDBDirect() {
+
+/* ================= 🔄 UNBREAKABLE CROSS-DEVICE SMART AUTO-PULL ENGINE ================= */
+let _isAutoPullActive = false;
+
+async function triggerSmartAutoPull(sourceReason) {
+  if (_isAutoPullActive) return;
+  if (!isAsConnected()) return;
+  const url = getAsUrl();
+  if (!url) return;
+
+  _isAutoPullActive = true;
+  console.log('🔄 Checking Google Drive for cross-device updates (Reason: ' + (sourceReason || 'auto') + ')...');
+  
   try {
+    const parsed = await _asFetchDataWithFallback(url);
+    if (!parsed || typeof parsed !== 'object' || parsed.error) {
+      _isAutoPullActive = false;
+      return;
+    }
+    
+    const remote = parsed.data || parsed;
+    if (!remote || !remote.students || !Array.isArray(remote.students)) {
+      _isAutoPullActive = false;
+      return;
+    }
+
+    const remoteHasNames = remote.students.some(s => s && s.studentName && s.studentName.trim().length > 0);
+    const localHasNames  = (DB.students && DB.students.some(s => s && s.studentName && s.studentName.trim().length > 0));
+
+    const remoteTs = remote._lastSaved || 0;
+    const localTs  = DB._lastSaved || 0;
+
+    let shouldPull = false;
+    let pullReason = '';
+
+    // Condition A: Local device is blank/empty and Drive has filled student roster -> ALWAYS PULL!
+    if (!localHasNames && remoteHasNames) {
+      shouldPull = true;
+      pullReason = 'लोकल डिवाइस पर कोई छात्र नहीं थे, Drive से पूरी कक्षा लोड हुई';
+    }
+    // Condition B: Drive has a newer timestamp than this device
+    else if (remoteTs > localTs) {
+      shouldPull = true;
+      pullReason = 'दूसरे डिवाइस से नया डेटा मिला';
+    }
+    // Condition C: Timestamps are missing/equal, but student data is different and remote has names
+    else if (remoteHasNames && JSON.stringify(remote.students) !== JSON.stringify(DB.students)) {
+      shouldPull = true;
+      pullReason = 'दूसरे डिवाइस का नवीनतम अपडेट मिला';
+    }
+
+    if (shouldPull) {
+      console.log('⚡ Applying cross-device auto-pull: ' + pullReason);
+      DB = remote;
+      saveToIndexedDB(DB);
+      try { localStorage.setItem(PERMANENT_STORAGE_KEY, JSON.stringify(DB)); } catch(e){}
+      try { localStorage.setItem('mcd_official_portfolio_backup_latest', JSON.stringify(DB)); } catch(e){}
+      try { localStorage.setItem(AS_URL_KEY, url); } catch(e){}
+      try { localStorage.setItem(AS_CONNECTED_KEY, '1'); } catch(e){}
+
+      renderAllViews();
+      renderMasterRosterTable();
+      _refreshAsBadge();
+
+      const count = (DB.students && Array.isArray(DB.students)) ? DB.students.length : 0;
+      showToast('☁️ Drive से ' + count + ' बच्चों का डेटा अपने-आप लोड हो गया!', 'success');
+      console.log('✓ Cross-device auto-pull SUCCESS! Active students:', count);
+      if (sourceReason === 'app-open') console.log('✓ App open: auto-pulled latest data from Drive');
+      if (sourceReason === 'tab-focus') console.log('✓ Auto-pulled latest data from Drive on tab focus');
+    } else {
+      console.log('✓ Cross-device check: Local data is already fully up to date.');
+    }
+  } catch(err) {
+    console.warn('Cross-device check notice:', err);
+  } finally {
+    _isAutoPullActive = false;
+  }
+}
+
+function saveDBDirect(immediate) {
+  try {
+    DB._lastSaved = Date.now();
     // 1. High-Capacity IndexedDB Save (Primary 500 MB+ Engine)
     saveToIndexedDB(DB);
     try { queueCloudSync(); } catch(syncErr){}
-    // 2. Apps Script Drive Auto-Sync
-    try { _asAutoSync(); } catch(asErr){}
+    // 2. Apps Script Drive Auto-Sync (Passes immediate flag for instant cloud save)
+    try { _asAutoSync(immediate); } catch(asErr){}
 
-    // 3. Secondary LocalStorage Save (Fallback)
+    // 3. Secondary LocalStorage Save & Immutable Rescue Vault
     try {
       localStorage.setItem(PERMANENT_STORAGE_KEY, JSON.stringify(DB));
       localStorage.setItem('mcd_official_portfolio_backup_latest', JSON.stringify(DB));
+      // 🛡️ IMMUTABLE RESCUE VAULT: Only saved when real student data exists, never overwritten by blank
+      if (hasRealStudentData(DB)) {
+        localStorage.setItem('mcd_immutable_rescue_backup', JSON.stringify(DB));
+      }
     } catch(quotaErr) {
       console.warn('LocalStorage quota reached, saved securely in IndexedDB', quotaErr);
     }
@@ -17747,37 +17895,14 @@ function saveDB() {
   saveTimer = setTimeout(saveDBDirect, 250);
 }
 
-window.addEventListener('beforeunload', () => saveDBDirect());
+window.addEventListener('beforeunload', () => saveDBDirect(true));
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden') {
-    // Local save when tab goes background
-    saveDBDirect();
+    // Immediate push to Google Drive when tab/browser goes to background
+    saveDBDirect(true);
   } else if (document.visibilityState === 'visible') {
-    // Auto-pull from Drive when tab comes back to foreground
-    // Only if Google Drive is connected — silent (no toast spam)
-    if (isAsConnected()) {
-      setTimeout(() => {
-        const url = getAsUrl();
-        if (!url) return;
-        _asFetchDataWithFallback(url).then(parsed => {
-          if (!parsed || typeof parsed !== 'object' || parsed.error) return;
-          const remote = parsed.data || parsed;
-          if (!remote || !remote.students || remote.students.length === 0) return;
-          // Only update if remote data is newer (has more students or newer timestamp)
-          const localCount  = DB.students ? DB.students.length : 0;
-          const remoteCount = remote.students.length;
-          const remoteTs    = remote._lastSaved || 0;
-          const localTs     = DB._lastSaved || 0;
-          if (remoteTs > localTs || remoteCount > localCount) {
-            DB = Object.assign(DB, remote);
-            saveDBDirect();
-            renderAllViews();
-            renderMasterRosterTable();
-            console.log('✓ Auto-pulled latest data from Drive on tab focus');
-          }
-        }).catch(() => {}); // silent fail — no error toast
-      }, 800); // 0.8s delay to let page settle
-    }
+    // When returning to tab, check Drive immediately for updates from other devices!
+    setTimeout(() => { triggerSmartAutoPull('tab-focus'); }, 500);
   }
 });
 
@@ -17946,31 +18071,11 @@ window.addEventListener('DOMContentLoaded', async () => {
     setTimeout(() => { if (bootLoader && bootLoader.parentNode) bootLoader.remove(); }, 300);
   }
 
-  // ✅ AUTO-PULL on App Open: Drive connected hai to latest data fetch karo
-  // Local data pehle load ho gaya hai — ab Drive se newer data check karo
-  setTimeout(async () => {
-    try {
-      if (!isAsConnected()) return; // Only if Google Drive connected
-      const url = getAsUrl();
-      if (!url) return;
-      const parsed = await _asFetchDataWithFallback(url);
-      if (!parsed || typeof parsed !== 'object' || parsed.error) return;
-      const remote = parsed.data || parsed;
-      if (!remote || !remote.students || remote.students.length === 0) return;
-      const remoteTs = remote._lastSaved || 0;
-      const localTs  = DB._lastSaved || 0;
-      const remoteCount = remote.students.length;
-      const localCount  = DB.students ? DB.students.length : 0;
-      if (remoteTs > localTs || remoteCount > localCount) {
-        DB = Object.assign(DB, remote);
-        saveDBDirect();
-        renderAllViews();
-        renderMasterRosterTable();
-        showToast('☁️ Drive से नया डेटा अपने-आप लोड हो गया!', 'success');
-        console.log('✓ App open: auto-pulled latest data from Drive');
-      }
-    } catch(e) { /* silent fail */ }
-  }, 2000); // 2 sec after app loads — local data settle ho jaye pehle
+  // 🚀 CROSS-DEVICE AUTO-PULL ON APP OPEN
+  // Opens immediately with local data, then automatically pulls latest data from Google Drive in background
+  setTimeout(() => {
+    triggerSmartAutoPull('app-open');
+  }, 1200);
 });
 </script>
 
