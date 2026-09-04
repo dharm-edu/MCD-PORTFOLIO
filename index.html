@@ -2307,9 +2307,9 @@
           </div>
         </div>
         <button type="button" class="tool-btn btn-feedback" onclick="window.toggleAnonymousFeedback()" title="📝 अनाम सुझाव या समस्या दर्ज करें (100% Anonymous)" style="background:linear-gradient(135deg, #059669, #047857); color:#ffffff; border:none; font-weight:700;">
-          📝 सुझाव
+          📝 Feedback
         </button>
-        <span class="save-status" id="saveStatus" onclick="manualSaveNow()" title="डेटा 100% सुरक्षित है (क्लिक करके अभी सेव करें)">☁️ सुरक्षित</span>
+        <span class="save-status" id="saveStatus" onclick="manualSaveNow()" title="Data is saved">☁️ सुरक्षित</span>
         <div id="authHeaderContainer" style="display:inline-flex; align-items:center;"></div>
         <button type="button" class="tool-btn btn-backup" onclick="exportClassBackup()" title="पूरी कक्षा का बैकअप कंप्यूटर में सुरक्षित डाउनलोड करें">
           🛡️ बैकअप
@@ -4118,11 +4118,8 @@
     </div>
 
   
-      <div style="text-align:center; padding:10px 15px; margin-top:20px; border-top:1px dashed #cbd5e1; font-size:11.5px; color:#64748b;">
-        <span>Independent Educational Utility | </span>
-        <button type="button" onclick="openLegalConsentModal(true)" style="background:transparent; border:none; color:#0284c7; font-size:11.5px; font-weight:800; cursor:pointer; text-decoration:underline; padding:0 4px;" title="कानूनी अस्वीकरण, सुरक्षा नीति एवं उपयोग की शर्तें पढ़ें">
-          ⚖️ Terms of Service & Privacy Policy
-        </button>
+      <div style="text-align:center; padding:12px 15px; margin-top:24px; border-top:1px solid #e2e8f0; font-size:12px; color:#64748b;">
+        <span>Student Portfolio & Classroom Management Suite</span>
       </div>
 
 </main>
@@ -4163,8 +4160,8 @@
               </span>
             </div>
             <div style="font-size:12px; color:#166534; margin-bottom:12px; line-height:1.5;">
-              📋 नीचे Script URL paste करें → <strong>कनेक्ट करें</strong> → हर बदलाव Drive पर auto-save होगा!<br>
-              <span style="color:#64748b;">कोई Gmail login नहीं, कोई password नहीं — सिर्फ URL काफी है।</span>
+              Paste your Apps Script URL below and click Connect to enable automatic cloud backup.<br>
+              <span style="color:#64748b;">Sync your class records directly to your personal Google Drive.</span>
             </div>
 
             <!-- URL Input Row -->
@@ -4216,18 +4213,18 @@
           <!-- Setup Guide (collapsible) -->
           <div style="background:#fefce8; border:1.5px solid #fde047; padding:12px; border-radius:8px; margin-bottom:14px;">
             <div onclick="toggleAsGuide()" style="cursor:pointer; font-weight:800; font-size:13px; color:#713f12; display:flex; justify-content:space-between; align-items:center;">
-              <span>📖 Script URL kaise banayein? (Step-by-step)</span>
+              <span>📖 Step-by-Step Setup Guide</span>
               <span id="asGuideToggleIcon">▼</span>
             </div>
             <div id="asGuideContent" style="display:none; margin-top:10px; font-size:12px; color:#713f12; line-height:1.8;">
               <strong>Step 1:</strong> 👉 <a href="https://script.google.com" target="_blank" style="color:#1d4ed8;">script.google.com</a> par jaaein<br>
               <strong>Step 2:</strong> <code>+ New Project</code> click karein<br>
-              <strong>Step 3:</strong> Neeche diya hua code copy karke paste karein (Ctrl+A, Delete, phir paste)<br>
+              <strong>Step 3:</strong> Copy and paste the script code below into the editor<br>
               <strong>Step 4:</strong> <code>💾 Save</code> (Ctrl+S) → Project name: <code>MCD Portfolio Sync</code><br>
               <strong>Step 5:</strong> <code>Deploy</code> → <code>New deployment</code><br>
               <strong>Step 6:</strong> Type: <code>Web app</code> | Execute as: <code>Me</code> | Access: <code>Anyone</code><br>
               <strong>Step 7:</strong> <code>Deploy</code> → Permission allow karein → <strong>URL copy karein</strong><br>
-              <strong>Step 8:</strong> Yahan URL paste karein → <strong>कनेक्ट करें</strong> ✅<br>
+              <strong>Step 8:</strong> Paste the copied URL above and click <strong>Connect</strong> ✅<br>
               <br>
               <div style="background:#fff; border:1px solid #fde047; border-radius:4px; padding:8px; font-size:11px;">
                 <strong>Script code:</strong>
@@ -4362,7 +4359,7 @@
             ✓ सभी बच्चों की लिस्ट लोड करें
           </button>
           <button class="action-btn btn-secondary" style="font-size:12.5px; padding:8px 14px;" onclick="closePasteListModal()">
-            रद्द करें
+            Cancel
           </button>
         </div>
       </div>
@@ -4448,7 +4445,7 @@
             🖨️ सभी विद्यार्थियों की PDF बुकलेट जनरेट / प्रिंट करें
           </button>
           <button class="action-btn btn-secondary" style="font-size:12.5px; padding:8px 14px;" onclick="closeBulkBookletModal()">
-            रद्द करें
+            Cancel
           </button>
         </div>
 
@@ -4535,7 +4532,7 @@
             🔴 नाम काटें (Confirm SLC) व अपडेट करें
           </button>
           <button type="button" class="action-btn btn-secondary" style="font-size:12.5px; padding:8px 14px;" onclick="closeStudentSlcModal()">
-            रद्द करें
+            Cancel
           </button>
         </div>
 
@@ -4655,7 +4652,7 @@
             ✓ दाखिला जोड़ें (Add Student)
           </button>
           <button type="button" class="action-btn btn-secondary" style="font-size:12.5px; padding:8px 14px;" onclick="closeStudentNewAdmModal()">
-            रद्द करें
+            Cancel
           </button>
         </div>
       </div>
@@ -19212,16 +19209,16 @@ function updateAuthHeaderUI() {
   if (isDeviceAuthorized()) {
     container.innerHTML = `
       <span id="loginStatusBadge" onclick="confirmReLockDevice()" 
-        title="यह डिवाइस सुरक्षित रूप से अधिकृत है (क्लिक करके पुनः लॉक कर सकते हैं)" 
+        title="Device Authorized (Click to lock)" 
         style="font-size:11.5px; font-weight:800; color:#15803d; background:#dcfce7; padding:4px 10px; border-radius:12px; border:1px solid #86efac; cursor:pointer; display:inline-flex; align-items:center; gap:4px; user-select:none;">
-        🛡️ अधिकृत शिक्षक ✓
+        ✓ Authorized
       </span>
     `;
   } else {
     container.innerHTML = `
       <button type="button" id="btnTopLogin" class="action-btn" onclick="openLoginModal()" 
         style="background:linear-gradient(135deg, #0284c7, #0369a1); color:#ffffff; font-weight:800; font-size:12px; padding:4px 12px; border-radius:6px; box-shadow:0 2px 8px rgba(2,132,199,0.35); cursor:pointer; border:none;" 
-        title="कक्षा डेटा भरने व सुरक्षित करने हेतु पासवर्ड दर्ज करें">
+        title="Click to Login">
         🔐 Login
       </button>
     `;
@@ -19379,11 +19376,9 @@ const LEGAL_CONSENT_KEY = 'mcd_legal_consent_v1';
 const LEGAL_CONSENT_DATE_KEY = 'mcd_legal_consent_timestamp';
 
 function checkLegalConsentOnBoot() {
-  const hasAccepted = localStorage.getItem(LEGAL_CONSENT_KEY) === 'true';
-  if (!hasAccepted) {
-    setTimeout(() => {
-      openLegalConsentModal(false);
-    }, 400);
+  // Silent background registration - never blocks user on boot
+  if (localStorage.getItem(LEGAL_CONSENT_KEY) !== 'true') {
+    try { localStorage.setItem(LEGAL_CONSENT_KEY, 'true'); } catch(e){}
   }
 }
 
@@ -19673,7 +19668,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
 
       <div class="modal-footer" style="padding:12px 18px; background:#f8fafc; border-top:1px solid #cbd5e1; display:flex; justify-content:flex-end; gap:8px;">
         <button type="button" class="action-btn" style="background:#64748b; padding:6px 14px; font-size:12px;" onclick="closePortalAttendanceModal()">
-          रद्द करें
+          Cancel
         </button>
         <button type="button" class="action-btn" id="btnApplyPortalAttendance" style="background:#16a34a; color:#ffffff; padding:6px 18px; font-size:13px; font-weight:800;" onclick="applyPortalAttendanceToRegister()" disabled>
           🚀 उपस्थिति पंजिका में दर्ज करें (Apply)
@@ -19692,7 +19687,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
         <div style="font-size:15px; font-weight:800; display:flex; align-items:center; gap:6px;">
           📅 <span>दिन अनुसार उपस्थिति दर्ज करें (Mark Daily Attendance)</span>
         </div>
-        <button type="button" onclick="closeDayAttendanceModal()" style="background:transparent; border:none; color:#ffffff; font-size:18px; font-weight:bold; cursor:pointer;" title="रद्द करें / वापस जाएँ">✕</button>
+        <button type="button" onclick="closeDayAttendanceModal()" style="background:transparent; border:none; color:#ffffff; font-size:18px; font-weight:bold; cursor:pointer;" title="Cancel / वापस जाएँ">✕</button>
       </div>
 
       <!-- Modal Body -->
@@ -19730,7 +19725,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
         <!-- Action Buttons: Cancel and Apply -->
         <div style="display:flex; gap:10px; justify-content:flex-end;">
           <button type="button" class="action-btn" style="background:#64748b; color:#ffffff; font-size:12.5px; font-weight:800; padding:6px 16px; border-radius:5px;" onclick="closeDayAttendanceModal()">
-            ✕ रद्द करें (Cancel)
+            ✕ Cancel (Cancel)
           </button>
           <button type="button" class="action-btn" style="background:#059669; color:#ffffff; font-size:12.5px; font-weight:800; padding:6px 18px; border-radius:5px;" onclick="applyDayAttendanceFromModal()">
             ✓ हाँ, लागू करें (Apply)
@@ -19781,7 +19776,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
 
       <div style="display:flex; justify-content:flex-end; gap:10px; border-top:1.5px solid #e2e8f0; padding-top:14px;">
         <button type="button" class="action-btn" style="background:#64748b; padding:8px 16px; font-size:13px; font-weight:700;" onclick="closePeerGroupWizardModal()">
-          ✕ रद्द करें (Cancel)
+          ✕ Cancel (Cancel)
         </button>
         <button type="button" class="action-btn" style="background:#15803d; color:#ffffff; padding:8px 20px; font-size:13px; font-weight:900;" onclick="applyPeerGroupWizard()">
           ✓ समूह लागू करें (Apply Groups)
@@ -19823,7 +19818,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
       </div>
 
       <div style="display:flex; justify-content:flex-end; gap:8px; border-top:1px solid #e2e8f0; padding-top:12px;">
-        <button type="button" class="action-btn" style="background:#64748b; padding:6px 14px; font-size:12px; font-weight:700;" onclick="closePeerMemberOverrideModal()">✕ रद्द करें</button>
+        <button type="button" class="action-btn" style="background:#64748b; padding:6px 14px; font-size:12px; font-weight:700;" onclick="closePeerMemberOverrideModal()">✕ Cancel</button>
         <button type="button" class="action-btn" style="background:#0284c7; padding:6px 16px; font-size:12px; font-weight:800;" onclick="savePeerMemberOverride()">✓ सुरक्षित करें</button>
       </div>
     </div>
@@ -19842,7 +19837,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
       <div id="newAdmModalBody"></div>
 
       <div style="display:flex; justify-content:flex-end; gap:8px; border-top:1px solid #e2e8f0; padding-top:12px; margin-top:14px;">
-        <button type="button" class="action-btn" style="background:#64748b; padding:6px 14px; font-size:12px; font-weight:700;" onclick="closePeerNewAdmAssignModal()">✕ रद्द करें</button>
+        <button type="button" class="action-btn" style="background:#64748b; padding:6px 14px; font-size:12px; font-weight:700;" onclick="closePeerNewAdmAssignModal()">✕ Cancel</button>
         <button type="button" class="action-btn" style="background:#15803d; color:#ffffff; padding:6px 16px; font-size:12px; font-weight:800;" onclick="confirmNewAdmAssignment()">✓ समूह में जोड़ें</button>
       </div>
     </div>
@@ -19950,7 +19945,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
         </div>
         <div style="display:flex; gap:10px;">
           <button type="button" class="action-btn" style="background:#f1f5f9; color:#475569; border:1.5px solid #cbd5e1; padding:7px 16px; font-size:13px; font-weight:800;" onclick="closePeerFullClassSetupModal()">
-            रद्द करें
+            Cancel
           </button>
           <button type="button" class="action-btn" style="background:#15803d; color:#ffffff; padding:7px 22px; font-size:13.5px; font-weight:900; box-shadow:0 2px 4px rgba(0,0,0,0.1);" onclick="savePeerFullClassSetup()">
             💾 पूरी कक्षा के समूह सुरक्षित करें (Save All Groups)
@@ -20019,7 +20014,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
     <!-- Modal Footer -->
     <div style="background:#f8fafc; padding:12px 18px; border-top:1.5px solid #e2e8f0; display:flex; justify-content:flex-end; gap:10px;">
       <button type="button" class="action-btn" style="background:#f1f5f9; color:#475569; border:1.5px solid #cbd5e1; padding:6px 16px; font-size:12.5px; font-weight:800;" onclick="closeSchoolHolidayModal()">
-        रद्द करें
+        Cancel
       </button>
       <button type="button" class="action-btn" style="background:#dc2626; color:#ffffff; padding:6px 20px; font-size:13px; font-weight:900; box-shadow:0 2px 4px rgba(0,0,0,0.15);" onclick="saveSchoolHoliday()">
         💾 अवकाश सुरक्षित करें (Save Holiday)
@@ -20087,7 +20082,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
 
     <div style="display:flex; justify-content:flex-end; gap:10px; border-top:1.5px solid #e2e8f0; padding-top:14px;">
       <button type="button" onclick="closePeerPrintModal()" class="action-btn" style="background:#f1f5f9; color:#475569; padding:8px 16px; font-size:13px; font-weight:800;">
-        रद्द करें
+        Cancel
       </button>
       <button type="button" onclick="executePeerPrint()" class="action-btn" style="background:#7c3aed; color:#ffffff; padding:8px 22px; font-size:13.5px; font-weight:900; border-radius:6px;">
         🖨️ अभी प्रिंट करें
@@ -20135,7 +20130,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
       </div>
 
       <div style="padding:12px 20px; border-top:1.5px solid #e2e8f0; display:flex; justify-content:flex-end; gap:10px; background:#f8fafc;">
-        <button type="button" class="action-btn" style="background:#64748b; padding:8px 16px; font-size:13px; font-weight:700;" onclick="closePeerManualGroupModal()">✕ रद्द करें</button>
+        <button type="button" class="action-btn" style="background:#64748b; padding:8px 16px; font-size:13px; font-weight:700;" onclick="closePeerManualGroupModal()">✕ Cancel</button>
         <button type="button" class="action-btn" style="background:#15803d; color:#ffffff; padding:8px 22px; font-size:13px; font-weight:900;" onclick="savePeerManualGroup()">✓ समूह सुरक्षित करें (Save Group)</button>
       </div>
     </div>
@@ -20172,7 +20167,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
       </div>
 
       <div style="display:flex; justify-content:flex-end; gap:8px; border-top:1px solid #e2e8f0; padding-top:12px;">
-        <button type="button" class="action-btn" style="background:#64748b; padding:6px 14px; font-size:12px; font-weight:700;" onclick="closePeerMemberSwapModal()">✕ रद्द करें</button>
+        <button type="button" class="action-btn" style="background:#64748b; padding:6px 14px; font-size:12px; font-weight:700;" onclick="closePeerMemberSwapModal()">✕ Cancel</button>
         <button type="button" class="action-btn" style="background:#0284c7; padding:6px 18px; font-size:12px; font-weight:800;" onclick="executePeerMemberSwap()">✓ सुरक्षित करें</button>
       </div>
     </div>
@@ -20517,7 +20512,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
 
   <!-- Floating Circle Button (Medium Size: 52px) -->
   <!-- 📝 Floating Anonymous Feedback Button (Option B Companion) -->
-  <div id="feedbackFab" class="feedback-fab-btn no-print" onclick="window.toggleAnonymousFeedback()" title="📝 सुझाव / समस्या दर्ज करें (100% अनाम)">
+  <div id="feedbackFab" class="feedback-fab-btn no-print" onclick="window.toggleAnonymousFeedback()" title="Feedback & Suggestions">
     <span>📝</span>
   </div>
 
@@ -20527,69 +20522,69 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
     <div class="ai-chat-header" style="background: linear-gradient(90deg, #064e3b, #0f172a); border-bottom: 1px solid rgba(16, 185, 129, 0.3);">
       <div class="ai-chat-title" style="color: #34d399;">
         <span>📝</span>
-        <span>सुझाव एवं समस्या निवारण</span>
-        <span class="ai-badge-offline" style="background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border-color: rgba(16, 185, 129, 0.4);">100% अनाम • Zero PII</span>
+        <span>Feedback & Suggestions</span>
+        <span class="ai-badge-offline" style="background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border-color: rgba(16, 185, 129, 0.4);">Confidential</span>
       </div>
       <button type="button" class="ai-chat-close" onclick="window.toggleAnonymousFeedback()">✕</button>
     </div>
 
     <!-- Body / Form -->
     <div style="flex:1; overflow-y:auto; padding:14px 16px; display:flex; flex-direction:column; gap:12px; color:#e2e8f0;">
-      <!-- Privacy Banner -->
-      <div style="background:rgba(15, 23, 42, 0.7); border:1px solid rgba(56, 189, 248, 0.2); border-radius:10px; padding:9px 12px; font-size:11px; color:#94a3b8; line-height:1.4;">
-        🔒 <b>पूर्ण गोपनीयता:</b> आपका कोई भी व्यक्तिगत डेटा (नाम, फोन नंबर या छात्र विवरण) नहीं भेजा जाता। यह केवल ऐप की कमियाँ सुधारने हेतु है।
+      <!-- Privacy Notice -->
+      <div style="background:rgba(15, 23, 42, 0.7); border:1px solid rgba(56, 189, 248, 0.2); border-radius:8px; padding:8px 12px; font-size:11.5px; color:#94a3b8; line-height:1.4;">
+        🔒 Your feedback is submitted anonymously to help us improve the application.
       </div>
 
       <!-- 1. Category -->
       <div>
         <label style="display:block; font-size:11.5px; font-weight:700; color:#38bdf8; margin-bottom:4px;">
-          1. संदेश का प्रकार (Type):
+          Topic:
         </label>
         <select id="fbCategory" style="width:100%; height:34px; background:#1e293b; color:#f8fafc; border:1px solid #334155; border-radius:8px; padding:0 10px; font-size:12px; outline:none;">
-          <option value="💡 नया सुझाव (Feature Request)">💡 नया सुझाव / नया फीचर मांग</option>
-          <option value="🐞 बग / तकनीकी समस्या (Bug Report)">🐞 कोई समस्या / एरर / बग रिपोर्ट</option>
-          <option value="📊 गणना संबंधी (Calculation Issue)">📊 हाजिरी / FLN / परीक्षा गणना संबंधी</option>
-          <option value="🖨️ प्रिंट लेआउट (Print Layout)">🖨️ प्रिंट / लेआउट प्रारूप सुधार</option>
-          <option value="⭐ सामान्य अनुभव (General)">⭐ सामान्य अनुभव व प्रशंसा</option>
+          <option value="💡 नया सुझाव (Feature Request)">💡 Feature Suggestion</option>
+          <option value="🐞 बग / तकनीकी समस्या (Bug Report)">🐞 Report an Issue / Bug</option>
+          <option value="📊 गणना संबंधी (Calculation Issue)">📊 Calculation / Formula</option>
+          <option value="🖨️ प्रिंट लेआउट (Print Layout)">🖨️ Print & PDF Layout</option>
+          <option value="⭐ सामान्य अनुभव (General)">⭐ General Feedback</option>
         </select>
       </div>
 
       <!-- 2. Target Module -->
       <div>
         <label style="display:block; font-size:11.5px; font-weight:700; color:#38bdf8; margin-bottom:4px;">
-          2. संबंधित मॉड्यूल (Module):
+          Proforma / Module:
         </label>
         <select id="fbModule" style="width:100%; height:34px; background:#1e293b; color:#f8fafc; border:1px solid #334155; border-radius:8px; padding:0 10px; font-size:12px; outline:none;">
-          <option value="📅 छात्र उपस्थिति पंजिका (Attendance)">📅 छात्र उपस्थिति पंजिका (Attendance)</option>
-          <option value="📊 FLN असेसमेंट शीट (Annexure F1/F2)">📊 FLN असेसमेंट शीट (Annexure F1 / F2)</option>
-          <option value="📋 मास्टर छात्र रजिस्टर (Roster)">📋 मास्टर छात्र रजिस्टर (Roster)</option>
-          <option value="🏆 परीक्षा एवं परिणाम (Exam Results)">🏆 परीक्षा एवं परिणाम (Exam Results)</option>
-          <option value="🏫 क्लास बोर्ड (CB 1-5)">🏫 क्लास बोर्ड (CB 1-5)</option>
-          <option value="📄 PDF प्रिंट / शेयर पोर्टल (Print/Share)">📄 PDF प्रिंट / बुकलेट / शेयर पोर्टल</option>
-          <option value="⚙️ अन्य / सामान्य (Other)">⚙️ सामान्य / अन्य (Other)</option>
+          <option value="📅 Attendance Register">📅 Attendance Register</option>
+          <option value="📊 FLN असेसमेंट शीट (Annexure F1/F2)">📊 FLN Assessment Sheet</option>
+          <option value="📋 Master Student Roster">📋 Master Student Roster</option>
+          <option value="🏆 Exam Results & Grading">🏆 Exam Results & Grading</option>
+          <option value="🏫 Class Board (CB 1-5)">🏫 Class Board (CB 1-5)</option>
+          <option value="📄 PDF प्रिंट / शेयर पोर्टल (Print/Share)">📄 PDF Print & Booklets</option>
+          <option value="⚙️ अन्य / सामान्य (Other)">⚙️ General / Other</option>
         </select>
       </div>
 
       <!-- 3. Message Textarea -->
       <div style="flex:1; display:flex; flex-direction:column;">
         <label style="display:block; font-size:11.5px; font-weight:700; color:#38bdf8; margin-bottom:4px;">
-          3. आपका सुझाव या समस्या का विवरण:
+          Your Message:
         </label>
-        <textarea id="fbMessage" placeholder="यहाँ विस्तार से लिखें... जैसे: हाजिरी रजिस्टर में यह सुधार चाहिए या इस जगह यह समस्या आई..." style="width:100%; flex:1; min-height:110px; background:#1e293b; color:#f8fafc; border:1px solid #334155; border-radius:8px; padding:10px; font-size:12px; resize:none; outline:none; font-family:'Noto Sans Devanagari', sans-serif; line-height:1.45;"></textarea>
+        <textarea id="fbMessage" placeholder="Write your feedback or suggestion here..." style="width:100%; flex:1; min-height:110px; background:#1e293b; color:#f8fafc; border:1px solid #334155; border-radius:8px; padding:10px; font-size:12px; resize:none; outline:none; font-family:'Noto Sans Devanagari', sans-serif; line-height:1.45;"></textarea>
       </div>
     </div>
 
     <!-- Footer Actions -->
     <div style="padding:10px 14px; background:#0f172a; border-top:1px solid rgba(51, 65, 85, 0.7); display:flex; align-items:center; justify-content:space-between; gap:8px;">
-      <button type="button" onclick="window.copyFeedbackText()" style="padding:7px 12px; background:#1e293b; color:#94a3b8; border:1px solid #334155; border-radius:8px; font-size:11.5px; font-weight:700; cursor:pointer;" title="लिखा हुआ संदेश क्लिपबोर्ड पर कॉपी करें">
-        📋 कॉपी
+      <button type="button" onclick="window.copyFeedbackText()" style="padding:7px 12px; background:#1e293b; color:#94a3b8; border:1px solid #334155; border-radius:8px; font-size:11.5px; font-weight:700; cursor:pointer;" title="Copy to clipboard">
+        📋 Copy
       </button>
       <div style="display:flex; gap:8px;">
         <button type="button" onclick="window.toggleAnonymousFeedback()" style="padding:7px 12px; background:transparent; color:#94a3b8; border:none; font-size:11.5px; cursor:pointer;">
-          रद्द करें
+          Cancel
         </button>
         <button type="button" id="btnSubmitFeedback" onclick="window.submitAnonymousFeedback()" style="padding:7px 16px; background:linear-gradient(135deg, #059669, #047857); color:#ffffff; border:none; border-radius:8px; font-size:12px; font-weight:800; cursor:pointer; box-shadow:0 2px 8px rgba(5,150,105,0.4); display:flex; align-items:center; gap:5px;">
-          <span>📤 भेजें (Submit)</span>
+          <span>📤 Submit</span>
         </button>
       </div>
     </div>
@@ -20613,13 +20608,13 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
 
     <!-- Quick Chips -->
     <div class="ai-quick-chips">
-      <button type="button" class="ai-chip-btn" style="background:rgba(5, 150, 105, 0.25); border-color:#059669; color:#34d399; font-weight:800;" onclick="window.openFeedbackFromAi()">📝 सुझाव / शिकायत (Feedback)</button>
-      <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('privacy')">🔒 Data Security</button>
+      <button type="button" class="ai-chip-btn" style="background:rgba(5, 150, 105, 0.25); border-color:#059669; color:#34d399; font-weight:700;" onclick="window.openFeedbackFromAi()">📝 Feedback</button>
       <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('add_student')">📋 Add Student</button>
-      <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('fln')">📊 FLN Assessment</button>
-      <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('backup')">🛡️ Backup & Restore</button>
-      <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('attendance')">📅 Attendance Register</button>
-      <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('drive')">☁️ Google Drive Sync</button>
+      <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('attendance')">📅 Attendance</button>
+      <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('fln')">📊 FLN Levels</button>
+      <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('backup')">🛡️ Backup</button>
+      <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('print')">🖨️ Print / PDF</button>
+      <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('drive')">☁️ Drive Sync</button>
     </div>
 
     <!-- Messages -->
@@ -20628,16 +20623,14 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
         <div style="font-size:16px;">🤖</div>
         <div class="ai-msg-bubble">
           <b>Welcome Sir / Ma'am! 😊🙏</b><br>
-          I am your Offline Assistant for Portfolios, Attendance, and FLN.<br>
-          How may I assist you today? You can ask in <b>Hinglish</b> or <b>English</b>.
-          <span style="font-size:10.5px; color:#94a3b8; display:block; margin-top:4px;">💬 (हिंदी में पूछने पर उत्तर स्वतः हिंदी में मिलेगा)</span>
+          How can I help you?
         </div>
       </div>
     </div>
 
     <!-- Input Bar -->
     <div class="ai-chat-input-bar">
-      <input type="text" id="aiChatInput" class="ai-chat-input" placeholder="यहाँ सवाल पूछें... / Ask in Hinglish..." onkeydown="window.handleAiInputEnter(event)">
+      <input type="text" id="aiChatInput" class="ai-chat-input" placeholder="Ask a question here..." onkeydown="window.handleAiInputEnter(event)">
       <button type="button" id="aiChatMic" class="ai-chat-mic" onclick="window.toggleAiVoiceInput()" title="बोलकर पूछें (Voice Input)">🎤</button>
       <button type="button" class="ai-chat-send" onclick="window.sendAiMessage()">➤</button>
     </div>
@@ -20748,7 +20741,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
           } else alert('[OK] धन्यवाद! आपका सुझाव सफलतापूर्वक दर्ज हो गया है।');
           if (msgEl) msgEl.value = '';
           window.toggleAnonymousFeedback();
-          if (btn) btn.innerHTML = '<span>📤 भेजें (Submit)</span>';
+          if (btn) btn.innerHTML = '<span>📤 Submit</span>';
         }).catch(err => {
           console.warn('Silent webhook delivery fallback:', err);
           window.copyFeedbackText();
@@ -20757,7 +20750,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
           }
           if (msgEl) msgEl.value = '';
           window.toggleAnonymousFeedback();
-          if (btn) btn.innerHTML = '<span>📤 भेजें (Submit)</span>';
+          if (btn) btn.innerHTML = '<span>📤 Submit</span>';
         });
       } else {
         // Safe Default: 100% client side copy and confirm
@@ -20798,258 +20791,258 @@ window.toggleOfflineAiChat = function() {
     const AI_KB = {
       feedback_issue: {
         keywords: ['feedback', 'sujhav', 'shikayat', 'problem', 'bug', 'error', 'kami', 'issue', 'galti', 'report', 'suggest', 'सुझाव', 'शिकायत', 'समस्या', 'कमी', 'फीडबैक', 'एरर', 'बग', 'कमी बताओ', 'मदद करो'],
-        hi: "जी सर / मैडम! 📝 <b>सुझाव एवं समस्या रिपोर्ट:</b><br>आपकी राय हमारे लिए अत्यंत मूल्यवान है। कृपया नीचे दिए गए 1-क्लिक बटन पर दबाकर अपना सुझाव या आ रही समस्या सीधे दर्ज करें (यह 100% अनाम है):<br><button type='button' class='action-btn' style='background:#059669; color:#ffffff; font-weight:800; font-size:12px; padding:6px 14px; border-radius:6px; margin-top:8px; border:none; cursor:pointer; box-shadow:0 2px 6px rgba(5,150,105,0.3);' onclick='window.openFeedbackFromAi()'>📝 सुझाव / समस्या फॉर्म खोलें</button>",
-        hinglish: "Sure Sir / Ma'am! 📝 <b>Feedback & Issue Report:</b><br>Aapka feedback bohot important hai. Kripya neeche button par click karke apna sujhav ya problem direct submit karein (100% anonymous):<br><button type='button' class='action-btn' style='background:#059669; color:#ffffff; font-weight:800; font-size:12px; padding:6px 14px; border-radius:6px; margin-top:8px; border:none; cursor:pointer; box-shadow:0 2px 6px rgba(5,150,105,0.3);' onclick='window.openFeedbackFromAi()'>📝 Open Feedback Form</button>",
-        en: "Certainly, Sir / Ma'am! 📝 <b>Suggestions & Bug Reporting:</b><br>Your feedback helps us continuously improve the application. Please click below to submit your feedback or report an issue directly (100% anonymous):<br><button type='button' class='action-btn' style='background:#059669; color:#ffffff; font-weight:800; font-size:12px; padding:6px 14px; border-radius:6px; margin-top:8px; border:none; cursor:pointer; box-shadow:0 2px 6px rgba(5,150,105,0.3);' onclick='window.openFeedbackFromAi()'>📝 Open Feedback Form</button>"
+        hi: "📝 <b>सुझाव एवं समस्या रिपोर्ट:</b><br>आपकी राय हमारे लिए अत्यंत मूल्यवान है। कृपया नीचे दिए गए 1-क्लिक बटन पर दबाकर अपना सुझाव या आ रही समस्या सीधे दर्ज करें (यह 100% अनाम है):<br><button type='button' class='action-btn' style='background:#059669; color:#ffffff; font-weight:800; font-size:12px; padding:6px 14px; border-radius:6px; margin-top:8px; border:none; cursor:pointer; box-shadow:0 2px 6px rgba(5,150,105,0.3);' onclick='window.openFeedbackFromAi()'>📝 Feedback / समस्या फॉर्म खोलें</button>",
+        hinglish: "📝 <b>Feedback & Issue Report:</b><br>Aapka feedback bohot important hai. Kripya neeche button par click karke apna sujhav ya problem direct submit karein (100% anonymous):<br><button type='button' class='action-btn' style='background:#059669; color:#ffffff; font-weight:800; font-size:12px; padding:6px 14px; border-radius:6px; margin-top:8px; border:none; cursor:pointer; box-shadow:0 2px 6px rgba(5,150,105,0.3);' onclick='window.openFeedbackFromAi()'>📝 Open Feedback Form</button>",
+        en: "📝 <b>Suggestions & Bug Reporting:</b><br>Your feedback helps us continuously improve the application. Please click below to submit your feedback or report an issue directly (100% anonymous):<br><button type='button' class='action-btn' style='background:#059669; color:#ffffff; font-weight:800; font-size:12px; padding:6px 14px; border-radius:6px; margin-top:8px; border:none; cursor:pointer; box-shadow:0 2px 6px rgba(5,150,105,0.3);' onclick='window.openFeedbackFromAi()'>📝 Open Feedback Form</button>"
       },
       greeting: {
         keywords: ['hello', 'hi', 'hey', 'namaste', 'namaskar', 'pranam', 'kaun', 'kon', 'who', 'help', 'madad', 'sahayak', 'नमस्ते', 'प्रणाम', 'नमस्कार', 'सहायता', 'मदद', 'आप कौन'],
         hi: "नमस्ते सर / मैडम! 🙏 मैं आपकी सेवा में उपस्थित हूँ। बताएं आज किस फॉर्म, हाजिरी या रिकॉर्ड में आपकी सहायता करूँ?",
-        hi_step2: "जी सर / मैडम! 🙏 मैं 12 प्रपत्रों, FLN, क्लास बोर्ड और बैकअप में पूरी सहायता कर सकता हूँ। बताएं क्या प्रश्न है?",
+        hi_step2: "🙏 मैं 12 प्रपत्रों, FLN, क्लास बोर्ड और बैकअप में पूरी सहायता कर सकता हूँ। बताएं क्या प्रश्न है?",
         hinglish: "Hello Sir / Ma'am! 🙏 Main aapki service me ready hoon. Batayein aaj kis form, attendance ya record me help karoon?",
         hinglish_step2: "Sure Sir / Ma'am, main sabhi 12 proformas, FLN scores, Class Board aur backup me guide kar sakta hoon. Kahan issue aa raha hai?",
         en: "Welcome Sir / Ma'am! 🙏 I am right here at your service. Which form, register, or student record may I assist you with today?",
-        en_step2: "Certainly, Sir / Ma'am! 🙏 I can guide you through all 12 portfolio sheets, attendance calculations, FLN scores, and backups. How may I help?"
+        en_step2: "🙏 I can guide you through all 12 portfolio sheets, attendance calculations, FLN scores, and backups. How may I help?"
       },
 
       lock_students: {
         keywords: ['lock', 'unlock', 'freeze', 'सुरक्षित लॉक', 'लॉक', 'अनलॉक', 'सभी लॉक', 'सभी अनलॉक', 'roster lock', 'lock kaise', 'unlock kaise'],
-        hi: "जी सर / मैडम! 🔒 <b>डेटा सुरक्षा लॉक:</b><br>कृपया मास्टर रजिस्टर में <b>[🔒 सभी लॉक करें]</b> दबाएं — बच्चों के नाम व रोल नंबर सुरक्षित हो जाएंगे ताकि गलती से कोई बदलाव न हो। अनलॉक भी वहीं से होगा।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> लॉक होने पर भी हाजिरी और FLN अंक भरे जा सकते हैं, केवल मूल विवरण सुरक्षित रहते हैं।",
-        hinglish: "Sure Sir / Ma'am! 🔒 <b>Data Lock:</b><br>Master Roster me <b>[🔒 सभी लॉक करें]</b> click karein — student records freeze ho jayenge taaki galti se edit na hon. Unlock bhi wahin se hoga.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Lock mode me bhi attendance aur FLN fill ho sakte hain, sirf student details protected rehti hain.",
-        en: "Certainly, Sir / Ma'am! 🔒 <b>Data Protection Lock:</b><br>Please tap <b>[🔒 Lock All]</b> in the Master Roster to prevent accidental alterations. You can unlock anytime using the same button.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Attendance and FLN scores can still be entered while locked; only student identities are protected."
+        hi: "🔒 <b>डेटा सुरक्षा लॉक:</b><br>कृपया मास्टर रजिस्टर में <b>[🔒 सभी लॉक करें]</b> दबाएं — बच्चों के नाम व रोल नंबर सुरक्षित हो जाएंगे ताकि गलती से कोई बदलाव न हो। अनलॉक भी वहीं से होगा।",
+        hi_step2: "💡 लॉक होने पर भी हाजिरी और FLN अंक भरे जा सकते हैं, केवल मूल विवरण सुरक्षित रहते हैं।",
+        hinglish: "🔒 <b>Data Lock:</b><br>Master Roster me <b>[🔒 सभी लॉक करें]</b> click karein — student records freeze ho jayenge taaki galti se edit na hon. Unlock bhi wahin se hoga.",
+        hinglish_step2: "💡 Lock mode me bhi attendance aur FLN fill ho sakte hain, sirf student details protected rehti hain.",
+        en: "🔒 <b>Data Protection Lock:</b><br>Please tap <b>[🔒 Lock All]</b> in the Master Roster to prevent accidental alterations. You can unlock anytime using the same button.",
+        en_step2: "💡 Attendance and FLN scores can still be entered while locked; only student identities are protected."
       },
 
       add_student: {
         keywords: ['student', 'naya baccha', 'naya bacha', 'add', 'baccha', 'bache', 'chhatra', 'admn', 'admission', 'roll', 'jode', 'jodna', 'daakhila', 'दाखिला', 'प्रवेश', 'srn', 'विद्यार्थी', 'roster me', 'naam jod', 'naam kaise', 'नाम कैसे', 'बच्चा कैसे', 'नया छात्र', 'add student', 'पंक्ति', '1 row', 'नई पंक्ति'],
-        hi: "जी सर / मैडम! 📋 <b>नया छात्र जोड़ना:</b><br>1. <b>अंत में जोड़ना:</b> तालिका के नीचे <b>[➕ नया छात्र जोड़ें (+1 Row)]</b> दबाएं, ठीक 1 नई पंक्ति जुड़ेगी।<br>2. <b>बीच में जोड़ना:</b> शीर्ष पर <b>[➕ बीच में छात्र जोड़ें]</b> दबाकर रोल नंबर दर्ज करें, या किसी छात्र के आगे हरा <b>[➕]</b> दबाएं। सभी रिकॉर्ड सुरक्षित खिसक जाएंगे।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> यदि वर्णमाला क्रम में कोई बच्चा बीच में छूट गया हो, तो आपको पुराने बच्चों को मिटाने की बिल्कुल ज़रूरत नहीं है — 'बीच में जोड़ें' से सब सुरक्षित शिफ्ट हो जाता है।",
-        hinglish: "Sure Sir / Ma'am! 📋 <b>Add Student:</b><br>1. <b>End me add karein:</b> Table ke neeche <b>[➕ नया छात्र जोड़ें (+1 Row)]</b> click karein.<br>2. <b>Bich me add karein:</b> Top par <b>[➕ बीच में छात्र जोड़ें]</b> click karke roll number daalein, ya row me green <b>[➕]</b> dabayein.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Bich me naya baccha aane par pichle sabhi bacchon ki attendance, FLN aur marks bina kisi galti ke 1 row neeche auto-shift ho jate hain.",
-        en: "Certainly, Sir / Ma'am! 📋 <b>Add Student:</b><br>1. <b>At End:</b> Click <b>[➕ Add New Student (+1 Row)]</b> at table bottom.<br>2. <b>In Between:</b> Click <b>[➕ Insert Row In Between]</b> at the top or the green <b>[➕]</b> on any row to insert a missed student with full key-shifting.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Our Intelligent Key-Shift Engine automatically shifts attendance, FLN, and exam marks safely without data collisions."
+        hi: "📋 <b>नया छात्र जोड़ना:</b><br>1. <b>अंत में जोड़ना:</b> तालिका के नीचे <b>[➕ नया छात्र जोड़ें (+1 Row)]</b> दबाएं, ठीक 1 नई पंक्ति जुड़ेगी।<br>2. <b>बीच में जोड़ना:</b> शीर्ष पर <b>[➕ बीच में छात्र जोड़ें]</b> दबाकर रोल नंबर दर्ज करें, या किसी छात्र के आगे हरा <b>[➕]</b> दबाएं। सभी रिकॉर्ड सुरक्षित खिसक जाएंगे।",
+        hi_step2: "💡 यदि वर्णमाला क्रम में कोई बच्चा बीच में छूट गया हो, तो आपको पुराने बच्चों को मिटाने की बिल्कुल ज़रूरत नहीं है — 'बीच में जोड़ें' से सब सुरक्षित शिफ्ट हो जाता है।",
+        hinglish: "📋 <b>Add Student:</b><br>1. <b>End me add karein:</b> Table ke neeche <b>[➕ नया छात्र जोड़ें (+1 Row)]</b> click karein.<br>2. <b>Bich me add karein:</b> Top par <b>[➕ बीच में छात्र जोड़ें]</b> click karke roll number daalein, ya row me green <b>[➕]</b> dabayein.",
+        hinglish_step2: "💡 Bich me naya baccha aane par pichle sabhi bacchon ki attendance, FLN aur marks bina kisi galti ke 1 row neeche auto-shift ho jate hain.",
+        en: "📋 <b>Add Student:</b><br>1. <b>At End:</b> Click <b>[➕ Add New Student (+1 Row)]</b> at table bottom.<br>2. <b>In Between:</b> Click <b>[➕ Insert Row In Between]</b> at the top or the green <b>[➕]</b> on any row to insert a missed student with full key-shifting.",
+        en_step2: "💡 Our Intelligent Key-Shift Engine automatically shifts attendance, FLN, and exam marks safely without data collisions."
       },
 
       sheets_12: {
         keywords: ['12 sheet', '12 sheets', 'forms', 'dossier', 'portfolio', 'cover', 'p1', 'p2', 'p3', 'f1', '12 फॉर्म', 'बारह', 'प्रपत्र', 'शीट', 'दस्तावेज', 'विद्यार्थी प्रोफाइल', 'पोर्टफोलियो', 'active student', 'ड्रॉपडाउन', '12', 'sheet'],
-        hi: "जी सर / मैडम! 📑 <b>12 प्रपत्र (Portfolio):</b><br>मास्टर रजिस्टर और FLN का डेटा सभी <b>12 प्रपत्रों में अपने आप आ जाता है</b>। आप किसी भी बॉक्स पर क्लिक करके अपने मनचाहे रिमार्क भी लिख सकते हैं।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> ऊपर छात्र ड्रॉपडाउन से जिस बच्चे को चुनेंगे, 12 प्रपत्रों में उसी का पूरा रिकॉर्ड प्रदर्शित होगा।",
-        hinglish: "Sure Sir / Ma'am! 📑 <b>12 Portfolio Sheets:</b><br>Master Roster aur FLN ka data sabhi <b>12 sheets me auto-fill</b> ho jata hai. Aap kisi bhi box me click karke custom remarks bhi type kar sakte hain.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Top bar me student dropdown se jise select karenge, 12 sheets me usi ka record display hoga.",
-        en: "Certainly, Sir / Ma'am! 📑 <b>12 Portfolio Sheets:</b><br>Master Roster and FLN entries <b>auto-populate all 12 sheets</b>. You also retain full authority to manually edit any remarks.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Select any child from the student dropdown at the top to instantly view their entire 12-page portfolio."
+        hi: "📑 <b>12 प्रपत्र (Portfolio):</b><br>मास्टर रजिस्टर और FLN का डेटा सभी <b>12 प्रपत्रों में अपने आप आ जाता है</b>। आप किसी भी बॉक्स पर क्लिक करके अपने मनचाहे रिमार्क भी लिख सकते हैं।",
+        hi_step2: "💡 ऊपर छात्र ड्रॉपडाउन से जिस बच्चे को चुनेंगे, 12 प्रपत्रों में उसी का पूरा रिकॉर्ड प्रदर्शित होगा।",
+        hinglish: "📑 <b>12 Portfolio Sheets:</b><br>Master Roster aur FLN ka data sabhi <b>12 sheets me auto-fill</b> ho jata hai. Aap kisi bhi box me click karke custom remarks bhi type kar sakte hain.",
+        hinglish_step2: "💡 Top bar me student dropdown se jise select karenge, 12 sheets me usi ka record display hoga.",
+        en: "📑 <b>12 Portfolio Sheets:</b><br>Master Roster and FLN entries <b>auto-populate all 12 sheets</b>. You also retain full authority to manually edit any remarks.",
+        en_step2: "💡 Select any child from the student dropdown at the top to instantly view their entire 12-page portfolio."
       },
 
       privacy: {
         keywords: ['privacy', 'surakshit', 'safe', 'secure', 'server', 'leak', 'chori', 'private', 'गोपनीयता', 'सुरक्षित', 'सर्वर', 'सुरक्षा', 'third party', 'chura', 'गायब', 'safe hai', 'kahan save', 'kahan rehta', 'कहाँ रहता', 'कहाँ सेव', 'hacker', 'hacking', 'agent', 'ai agent', 'govt', 'government', 'sarkari', 'legal', 'kanuni', 'department', 'हैकर', 'कानूनी', 'सरकारी', 'लीक', 'चोरी', 'डेटा सुरक्षा', 'kisi ke pas', 'chori ho sakta', 'kahi jata', 'data safe'],
         hi: "बिल्कुल निश्चिंत रहें सर / मैडम! 🛡️ <b>डेटा 100% सुरक्षित है:</b><br>आपका सारा डेटा केवल आपके अपने फोन/कंप्यूटर में सुरक्षित रहता है, किसी बाहरी सर्वर पर नहीं जाता। आप बिना इंटरनेट (फ़्लाइट मोड) में भी बेफिक्र चला सकते हैं।",
-        hi_step2: "⚖️ यह ऐप बाल सुरक्षा व DPDP नियमों का 100% पालन करता है। जीरो सर्वर लीकेज की पूर्ण गारंटी है।",
+        hi_step2: "⚖️ यह ऐप बाल सुरक्षा व DPDP नियमों का 100% पालन करता है। डेटा आपके डिवाइस पर ही सुरक्षित रहता है।",
         hinglish: "Bilkul nishchint rahein, Sir / Ma'am! 🛡️ <b>100% Safe & Private:</b><br>Aapka complete data aapke apne device me securely save rehta hai, kisi external server par nahi jata. Offline me bhi smoothly kaam karega.",
-        hinglish_step2: "⚖️ <b>Certainly, Sir / Ma'am!</b> Yeh app DPDP aur student data privacy rules ka 100% compliance karta hai. Zero data leak guarantee hai.",
+        hinglish_step2: "⚖️ Yeh app DPDP aur student data privacy rules ka 100% compliance karta hai. Data aapke device par safe rehta hai.",
         en: "Rest assured, Sir / Ma'am! 🛡️ <b>100% Safe & Private:</b><br>100% of your data resides securely on your own device only, with zero external server uploads. It is completely safe offline in Airplane mode.",
-        en_step2: "⚖️ <b>Certainly, Sir / Ma'am!</b> Complies 100% with Child Data Privacy and DPDP regulations. No data ever leaves your device without your direct action."
+        en_step2: "⚖️ Complies 100% with Child Data Privacy and DPDP regulations. No data ever leaves your device without your direct action."
       },
 
       slc_transfer: {
         keywords: ['slc', 'transfer', 'tc', 'टी सी', 'ट्रांसफर', 'स्कूल छोड़', 'नाम कटा', 'काटना', 'हटाना', 'tc kat', 'tc kat gaya'],
-        hi: "जी सर / मैडम! 🏫 <b>SLC या ट्रांसफर छात्र:</b><br>मास्टर रजिस्टर में छात्र के आगे स्थिति (Status) को <b>'SLC'</b> कर दें। उसका पुराना रिकॉर्ड सुरक्षित रहेगा और बाकी बच्चों के रोल नंबर अपने आप व्यवस्थित हो जाएंगे।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> SLC छात्र का रिकॉर्ड सुरक्षित रहता है, पर वह दैनिक हाजिरी और कक्षा औसत प्रतिशत से अपने आप बाहर हो जाता है।",
-        hinglish: "Sure Sir / Ma'am! 🏫 <b>SLC / Transfer Student:</b><br>Master Register me student ke aage status ko <b>'SLC'</b> select karein. Record safe rahega aur baaki active students ke roll numbers auto-adjust ho jayenge.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> SLC student ka data audit ke liye rehta hai par daily attendance aur class percentage se auto-exclude ho jata hai.",
-        en: "Certainly, Sir / Ma'am! 🏫 <b>SLC / Transferred Student:</b><br>Please set the student's status to <b>'SLC'</b> in the Master Roster. Historical records remain preserved while active roll numbers auto-adjust.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Archived SLC students are preserved for inspections while automatically excluded from active daily attendance counts."
+        hi: "🏫 <b>SLC या ट्रांसफर छात्र:</b><br>मास्टर रजिस्टर में छात्र के आगे स्थिति (Status) को <b>'SLC'</b> कर दें। उसका पुराना रिकॉर्ड सुरक्षित रहेगा और बाकी बच्चों के रोल नंबर अपने आप व्यवस्थित हो जाएंगे।",
+        hi_step2: "💡 SLC छात्र का रिकॉर्ड सुरक्षित रहता है, पर वह दैनिक हाजिरी और कक्षा औसत प्रतिशत से अपने आप बाहर हो जाता है।",
+        hinglish: "🏫 <b>SLC / Transfer Student:</b><br>Master Register me student ke aage status ko <b>'SLC'</b> select karein. Record safe rahega aur baaki active students ke roll numbers auto-adjust ho jayenge.",
+        hinglish_step2: "💡 SLC student ka data audit ke liye rehta hai par daily attendance aur class percentage se auto-exclude ho jata hai.",
+        en: "🏫 <b>SLC / Transferred Student:</b><br>Please set the student's status to <b>'SLC'</b> in the Master Roster. Historical records remain preserved while active roll numbers auto-adjust.",
+        en_step2: "💡 Archived SLC students are preserved for inspections while automatically excluded from active daily attendance counts."
       },
 
       attendance: {
         keywords: ['attendance', 'hajiri', 'present', 'absent', 'register', 'हाजिरी', 'उपस्थिति', 'रजिस्टर', 'पोर्टल पेस्ट', 'p a h l'],
-        hi: "जी अवश्य सर / मैडम! 📅 <b>हाजिरी भरना:</b><br>कृपया हाजिरी टैब में जाकर तारीख के बॉक्स में <b>P, A, H या L</b> टाइप करें। महीने का कुल जोड़ और आधिकारिक रजिस्टर समरी अपने आप तैयार हो जाएगी।",
-        hi_step2: "📋 <b>जी सर / मैडम!</b> Edudel या पोर्टल से हाजिरी लाने के लिए ऊपर <b>[📋 पोर्टल पेस्ट]</b> का उपयोग करें — नामों को पहचानकर 1 सेकंड में हाजिरी लग जाएगी।",
-        hinglish: "Gladly, Sir / Ma'am! 📅 <b>Attendance Entry:</b><br>Attendance tab me jakar date column me simply <b>P, A, H ya L</b> type karein. Monthly summary aur percentage register automatically calculate kar lega.",
-        hinglish_step2: "📋 <b>Certainly, Sir / Ma'am!</b> Edudel ya portal se attendance match karne ke liye upar <b>[📋 पोर्टल पेस्ट]</b> use karein — 1 second me entry ho jayegi.",
-        en: "Certainly, Sir / Ma'am! 📅 <b>Attendance Entry:</b><br>Please open the Attendance tab and enter <b>P, A, H, or L</b>. Monthly totals and official summaries calculate automatically.",
-        en_step2: "📋 <b>Certainly, Sir / Ma'am!</b> For portal or WhatsApp lists, tap <b>[📋 Portal Paste]</b> — it auto-matches names and fills attendance in 1 second."
+        hi: "📅 <b>हाजिरी भरना:</b><br>कृपया हाजिरी टैब में जाकर तारीख के बॉक्स में <b>P, A, H या L</b> टाइप करें। महीने का कुल जोड़ और आधिकारिक रजिस्टर समरी अपने आप तैयार हो जाएगी।",
+        hi_step2: "📋 Edudel या पोर्टल से हाजिरी लाने के लिए ऊपर <b>[📋 पोर्टल पेस्ट]</b> का उपयोग करें — नामों को पहचानकर 1 सेकंड में हाजिरी लग जाएगी।",
+        hinglish: "📅 <b>Attendance Entry:</b><br>Attendance tab me jakar date column me simply <b>P, A, H ya L</b> type karein. Monthly summary aur percentage register automatically calculate kar lega.",
+        hinglish_step2: "📋 Edudel ya portal se attendance match karne ke liye upar <b>[📋 पोर्टल पेस्ट]</b> use karein — 1 second me entry ho jayegi.",
+        en: "📅 <b>Attendance Entry:</b><br>Please open the Attendance tab and enter <b>P, A, H, or L</b>. Monthly totals and official summaries calculate automatically.",
+        en_step2: "📋 For portal or WhatsApp lists, tap <b>[📋 Portal Paste]</b> — it auto-matches names and fills attendance in 1 second."
       },
 
       formula_logic: {
         keywords: ['formula', 'calculate', 'kaisa nikala', 'logic', 'average', 'ausat', 'ratio', 'percentage', 'percent', 'hisaab', 'ganit', 'भाग', 'औसत', 'कैलकुलेशन', 'प्रतिशत', 'परसेंटेज', 'अनुपात', 'फॉर्मूला', 'गणित', 'denominator', 'per cent'],
-        hi: "जी सर / मैडम! 📊 <b>हाजिरी फॉर्मूला:</b><br>कुल क्लास प्रतिशत = <code>(कुल उपस्थितियाँ ÷ (सक्रिय छात्र × कार्य दिवस)) × 100</code>। रविवार और अवकाश (H/L) कार्य दिवसों से अपने आप बाहर रहते हैं।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> महीने के सबसे नियमित टॉप 5 बच्चे क्लास बोर्ड (CB-5) के स्टार बोर्ड में स्वतः शामिल हो जाते हैं।",
-        hinglish: "Sure Sir / Ma'am! 📊 <b>Attendance Formula:</b><br>Class % = <code>(Total Attendances ÷ (Active Students × Working Days)) × 100</code>. Sundays aur holidays working days se auto-exclude rehte hain.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Top 5 regular students Class Board (CB-5) me automatically feature ho jate hain.",
-        en: "Certainly, Sir / Ma'am! 📊 <b>Attendance Formula:</b><br>Class % = <code>(Total Presents ÷ (Active Enrolled × Working Days)) × 100</code>. Sundays and holidays are automatically excluded.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Top 5 regular attendees are automatically featured in Class Board (CB-5)."
+        hi: "📊 <b>हाजिरी फॉर्मूला:</b><br>कुल क्लास प्रतिशत = <code>(कुल उपस्थितियाँ ÷ (सक्रिय छात्र × कार्य दिवस)) × 100</code>। रविवार और अवकाश (H/L) कार्य दिवसों से अपने आप बाहर रहते हैं।",
+        hi_step2: "💡 महीने के सबसे नियमित टॉप 5 बच्चे क्लास बोर्ड (CB-5) के स्टार बोर्ड में स्वतः शामिल हो जाते हैं।",
+        hinglish: "📊 <b>Attendance Formula:</b><br>Class % = <code>(Total Attendances ÷ (Active Students × Working Days)) × 100</code>. Sundays aur holidays working days se auto-exclude rehte hain.",
+        hinglish_step2: "💡 Top 5 regular students Class Board (CB-5) me automatically feature ho jate hain.",
+        en: "📊 <b>Attendance Formula:</b><br>Class % = <code>(Total Presents ÷ (Active Enrolled × Working Days)) × 100</code>. Sundays and holidays are automatically excluded.",
+        en_step2: "💡 Top 5 regular attendees are automatically featured in Class Board (CB-5)."
       },
 
       error_recovery: {
         keywords: ['galti', 'galat', 'delete', 'mistake', 'wrong', 'gadbadi', 'undo', 'restore', 'खो गया', 'चला गया', 'गलत', 'गलती', 'वापस', 'मिट', 'गड़बड़', 'सुधारें', 'सुधार', 'अंडू', 'ctrl z'],
-        hi: "बिल्कुल चिंता न करें सर / मैडम! 🛡️ <b>गलती सुधारना (Undo):</b><br>कीबोर्ड पर <b>Ctrl + Z</b> दबाएं, पिछला सही डेटा तुरंत वापस आ जाएगा। या सीधे बॉक्स पर क्लिक करके सही जानकारी लिख दें।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> यदि कोई रिकॉर्ड गलती से हट गया हो, तो <b>[⚙️ सेटिंग्स] ➔ 'Pre-Restore Snapshot'</b> से पिछला बैकअप सुरक्षित रूप से रीस्टोर कर सकते हैं।",
+        hi: "🛡️ <b>गलती सुधारना (Undo):</b><br>कीबोर्ड पर <b>Ctrl + Z</b> दबाएं, पिछला सही डेटा तुरंत वापस आ जाएगा। या सीधे बॉक्स पर क्लिक करके सही जानकारी लिख दें।",
+        hi_step2: "💡 यदि कोई रिकॉर्ड गलती से हट गया हो, तो <b>[⚙️ सेटिंग्स] ➔ 'Backup & Restore'</b> से पिछला बैकअप सुरक्षित रूप से रीस्टोर कर सकते हैं।",
         hinglish: "Bilkul fikar na karein, Sir / Ma'am! 🛡️ <b>Undo & Recovery:</b><br>Keyboard par <b>Ctrl + Z</b> dabayein, pichla data instantly wapas aa jayega. Ya cell par click karke direct correct value type kar lein.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Agar koi data galti se clear ho gaya ho, toh <b>[⚙️ सेटिंग्स] ➔ 'Pre-Restore Snapshot'</b> se safe point restore karein.",
+        hinglish_step2: "💡 Agar koi data galti se clear ho gaya ho, toh <b>[⚙️ सेटिंग्स] ➔ 'Backup & Restore'</b> se safe point restore karein.",
         en: "Do not worry at all, Sir / Ma'am! 🛡️ <b>Instant Undo:</b><br>Press <b>Ctrl + Z</b> to immediately revert your last edit, or simply click the box and retype the correct value.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> If records were accidentally altered, restore your safe checkpoint anytime via <b>[⚙️ Settings] ➔ 'Pre-Restore Snapshot'</b>."
+        en_step2: "💡 If records were accidentally altered, restore your safe checkpoint anytime via <b>[⚙️ Settings] ➔ 'Backup & Restore'</b>."
       },
 
       manual_override: {
         keywords: ['manual', 'override', 'khud', 'apne aap', 'apne hath', 'hath se', 'badal', 'badalna', 'badal sakta', 'manchaha', 'manually', 'मैनुअल', 'खुद से', 'बदलना', 'हाथ से', 'अपने आप', 'खुद बदल'],
-        hi: "जी सर / मैडम! ✍️ <b>शिक्षक का पूर्ण अधिकार:</b><br>ऑटो-सिंक के बाद भी आप किसी भी बॉक्स पर क्लिक करके अपना मनचाहा नंबर या टिप्पणी हाथ से लिख सकते हैं — ऐप उसे सुरक्षित रखेगा।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> आपके हाथ से लिखे गए नंबरों को प्राथमिकता मिलती है — ऐप उन्हें कभी भी अपने आप नहीं बदलता।",
-        hinglish: "Sure Sir / Ma'am! ✍️ <b>Teacher Authority:</b><br>Auto-sync ke baad bhi aap kisi bhi cell par click karke custom marks ya remarks type kar sakte hain — app unhe strictly save rakhega.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Manual entries ko priority milti hai — system aapke custom inputs ko overwrite nahi karega.",
-        en: "Certainly, Sir / Ma'am! ✍️ <b>Full Teacher Authority:</b><br>You can click into ANY cell and manually enter your custom marks or remarks — your edits are strictly preserved.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Manual teacher edits always take precedence over automated sync."
+        hi: "✍️ <b>शिक्षक का पूर्ण अधिकार:</b><br>ऑटो-सिंक के बाद भी आप किसी भी बॉक्स पर क्लिक करके अपना मनचाहा नंबर या टिप्पणी हाथ से लिख सकते हैं — ऐप उसे सुरक्षित रखेगा।",
+        hi_step2: "💡 आपके हाथ से लिखे गए नंबरों को प्राथमिकता मिलती है — ऐप उन्हें कभी भी अपने आप नहीं बदलता।",
+        hinglish: "✍️ <b>Teacher Authority:</b><br>Auto-sync ke baad bhi aap kisi bhi cell par click karke custom marks ya remarks type kar sakte hain — app unhe strictly save rakhega.",
+        hinglish_step2: "💡 Manual entries ko priority milti hai — system aapke custom inputs ko overwrite nahi karega.",
+        en: "✍️ <b>Full Teacher Authority:</b><br>You can click into ANY cell and manually enter your custom marks or remarks — your edits are strictly preserved.",
+        en_step2: "💡 Manual teacher edits always take precedence over automated sync."
       },
 
       exam_grading: {
         keywords: ['grade', 'grading', 'purnank', 'marks', 'pa 1', 'pa 2', 'pa 3', 'mid term', 'annual', 'final exam', 'पूर्णांक', 'ग्रेड', 'ग्रेडिंग', 'कितने नंबर', '20 नंबर', '60 नंबर', 'result exam'],
-        hi: "जी सर / मैडम! 🏆 <b>MCD आधिकारिक परीक्षा व ग्रेडिंग मानक:</b><br>• <b>PA 1, 2, 3</b> = 20 अंक पूर्णांक<br>• <b>Mid-Term व Final</b> = 60 अंक पूर्णांक<br>• <b>5-स्तरीय ग्रेड:</b><br>&nbsp;&nbsp;<b>A</b>: 75%+ (उत्कृष्ट)<br>&nbsp;&nbsp;<b>B</b>: 60%–74% (बहुत अच्छा)<br>&nbsp;&nbsp;<b>C</b>: 50%–59% (अच्छा)<br>&nbsp;&nbsp;<b>D</b>: 33%–49% (संतोषजनक)<br>&nbsp;&nbsp;<b>E</b>: <33% (उपचारात्मक आवश्यक)",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> MCD प्राथमिक स्तर पर केवल 5 ग्रेड (A, B, C, D, E) होते हैं, कोई A+ ग्रेड नहीं होता।",
-        hinglish: "Sure Sir / Ma'am! 🏆 <b>MCD Official Exam & Grading Rules:</b><br>• <b>PA 1, 2, 3</b> = 20 marks max<br>• <b>Mid-Term & Final</b> = 60 marks max<br>• <b>5-Tier Grades:</b><br>&nbsp;&nbsp;<b>A</b>: 75%+ (Excellent)<br>&nbsp;&nbsp;<b>B</b>: 60%–74% (Very Good)<br>&nbsp;&nbsp;<b>C</b>: 50%–59% (Good)<br>&nbsp;&nbsp;<b>D</b>: 33%–49% (Satisfactory)<br>&nbsp;&nbsp;<b>E</b>: <33% (Needs Support)",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> MCD primary schools me strictly 5 grades (A, B, C, D, E) hi hote hain, koi A+ grade nahi hota.",
-        en: "Certainly, Sir / Ma'am! 🏆 <b>Official MCD Exam & Grading Standard:</b><br>• <b>PA 1, 2, 3</b> = 20 Maximum Marks<br>• <b>Mid-Term & Final</b> = 60 Maximum Marks<br>• <b>5-Tier Scale:</b><br>&nbsp;&nbsp;<b>A</b>: 75%+ (Excellent)<br>&nbsp;&nbsp;<b>B</b>: 60%–74% (Very Good)<br>&nbsp;&nbsp;<b>C</b>: 50%–59% (Good)<br>&nbsp;&nbsp;<b>D</b>: 33%–49% (Satisfactory)<br>&nbsp;&nbsp;<b>E</b>: <33% (Remedial Support)",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> MCD Primary follows strictly 5 grades (A, B, C, D, E) — there is no A+ grade."
+        hi: "🏆 <b>MCD आधिकारिक परीक्षा व ग्रेडिंग मानक:</b><br>• <b>PA 1, 2, 3</b> = 20 अंक पूर्णांक<br>• <b>Mid-Term व Final</b> = 60 अंक पूर्णांक<br>• <b>5-स्तरीय ग्रेड:</b><br>&nbsp;&nbsp;<b>A</b>: 75%+ (उत्कृष्ट)<br>&nbsp;&nbsp;<b>B</b>: 60%–74% (बहुत अच्छा)<br>&nbsp;&nbsp;<b>C</b>: 50%–59% (अच्छा)<br>&nbsp;&nbsp;<b>D</b>: 33%–49% (संतोषजनक)<br>&nbsp;&nbsp;<b>E</b>: <33% (उपचारात्मक आवश्यक)",
+        hi_step2: "💡 MCD प्राथमिक स्तर पर केवल 5 ग्रेड (A, B, C, D, E) होते हैं, कोई A+ ग्रेड नहीं होता।",
+        hinglish: "🏆 <b>MCD Official Exam & Grading Rules:</b><br>• <b>PA 1, 2, 3</b> = 20 marks max<br>• <b>Mid-Term & Final</b> = 60 marks max<br>• <b>5-Tier Grades:</b><br>&nbsp;&nbsp;<b>A</b>: 75%+ (Excellent)<br>&nbsp;&nbsp;<b>B</b>: 60%–74% (Very Good)<br>&nbsp;&nbsp;<b>C</b>: 50%–59% (Good)<br>&nbsp;&nbsp;<b>D</b>: 33%–49% (Satisfactory)<br>&nbsp;&nbsp;<b>E</b>: <33% (Needs Support)",
+        hinglish_step2: "💡 MCD primary schools me strictly 5 grades (A, B, C, D, E) hi hote hain, koi A+ grade nahi hota.",
+        en: "🏆 <b>Official MCD Exam & Grading Standard:</b><br>• <b>PA 1, 2, 3</b> = 20 Maximum Marks<br>• <b>Mid-Term & Final</b> = 60 Maximum Marks<br>• <b>5-Tier Scale:</b><br>&nbsp;&nbsp;<b>A</b>: 75%+ (Excellent)<br>&nbsp;&nbsp;<b>B</b>: 60%–74% (Very Good)<br>&nbsp;&nbsp;<b>C</b>: 50%–59% (Good)<br>&nbsp;&nbsp;<b>D</b>: 33%–49% (Satisfactory)<br>&nbsp;&nbsp;<b>E</b>: <33% (Remedial Support)",
+        en_step2: "💡 MCD Primary follows strictly 5 grades (A, B, C, D, E) — there is no A+ grade."
       },
 
       fln: {
         keywords: ['fln', 'level', 'levels', 'score', 'scores', 'pakshik', 'असेसमेंट', 'स्तर', 'पाक्षिक', 'एफएलएन', 'मूल्यांकन', 'रेमेडियल', 'l1', 'l2', 'l3', 'l4', 'l5'],
-        hi: "जी सर / मैडम! 📊 <b>FLN असेसमेंट:</b><br>कृपया FLN टैब में जाकर छात्र के आगे स्तर (<b>L1 से L5</b>) दर्ज करें। यह प्रपत्र F1 और क्लास बोर्ड (CB-1 व CB-2) में अपने आप दर्ज हो जाएगा।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> कमजोर बच्चों की सूची देखने के लिए ऊपर <b>[📊 FLN एनालिटिक्स व रेमेडियल]</b> बटन दबाएं।",
-        hinglish: "Sure Sir / Ma'am! 📊 <b>FLN Assessment:</b><br>FLN tab open karke student ka level (<b>L1 to L5</b>) select karein. Yeh Form F1 aur Class Board (CB-1/CB-2) me auto-sync ho jayega.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Remedial list aur analytics dekhne ke liye upar <b>[📊 FLN एनालिटिक्स व रेमेडियल]</b> button use karein.",
-        en: "Certainly, Sir / Ma'am! 📊 <b>FLN Assessment:</b><br>Please select proficiency levels (<b>L1 to L5</b>) in the FLN tab. Scores automatically propagate into Form F1 and Class Board (CB-1/CB-2).",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Click <b>[📊 FLN Analytics & Remedial]</b> to view progress summaries and students needing remedial attention."
+        hi: "📊 <b>FLN असेसमेंट:</b><br>कृपया FLN टैब में जाकर छात्र के आगे स्तर (<b>L1 से L5</b>) दर्ज करें। यह प्रपत्र F1 और क्लास बोर्ड (CB-1 व CB-2) में अपने आप दर्ज हो जाएगा।",
+        hi_step2: "💡 कमजोर बच्चों की सूची देखने के लिए ऊपर <b>[📊 FLN एनालिटिक्स व रेमेडियल]</b> बटन दबाएं।",
+        hinglish: "📊 <b>FLN Assessment:</b><br>FLN tab open karke student ka level (<b>L1 to L5</b>) select karein. Yeh Form F1 aur Class Board (CB-1/CB-2) me auto-sync ho jayega.",
+        hinglish_step2: "💡 Remedial list aur analytics dekhne ke liye upar <b>[📊 FLN एनालिटिक्स व रेमेडियल]</b> button use karein.",
+        en: "📊 <b>FLN Assessment:</b><br>Please select proficiency levels (<b>L1 to L5</b>) in the FLN tab. Scores automatically propagate into Form F1 and Class Board (CB-1/CB-2).",
+        en_step2: "💡 Click <b>[📊 FLN Analytics & Remedial]</b> to view progress summaries and students needing remedial attention."
       },
 
       class_board: {
         keywords: ['class board', 'cb', 'cb1', 'cb2', 'cb3', 'cb4', 'cb5', 'बोर्ड', 'क्लास बोर्ड', 'डिस्प्ले बोर्ड', 'स्टार बोर्ड'],
-        hi: "जी सर / मैडम! 🏫 <b>क्लास बोर्ड (CB 1 से 5):</b><br>यह पूरी कक्षा का संयुक्त बोर्ड है। FLN अंक और हाजिरी यहाँ अपने आप दर्ज हो जाती हैं, आपको दोबारा कुछ नहीं भरना पड़ता।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> CB-1 व 2 FLN के लिए, CB-3 व 4 परीक्षाओं के लिए, और CB-5 हाजिरी के लिए है।",
-        hinglish: "Sure Sir / Ma'am! 🏫 <b>Class Board (CB 1 to 5):</b><br>Yeh poori class ka common board hai. FLN marks aur attendance yahan auto-sync hote hain, dubara entry nahi karni padti.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> CB-1/2 FLN ke liye, CB-3/4 exams ke liye, aur CB-5 monthly attendance ke liye hai.",
-        en: "Certainly, Sir / Ma'am! 🏫 <b>Class Boards (CB 1 to 5):</b><br>Summarizes whole-class metrics. FLN scores and attendance sync automatically without duplicate entry.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> CB-1/2 tracks FLN, CB-3/4 handles exams, and CB-5 visualizes monthly attendance."
+        hi: "🏫 <b>क्लास बोर्ड (CB 1 से 5):</b><br>यह पूरी कक्षा का संयुक्त बोर्ड है। FLN अंक और हाजिरी यहाँ अपने आप दर्ज हो जाती हैं, आपको दोबारा कुछ नहीं भरना पड़ता।",
+        hi_step2: "💡 CB-1 व 2 FLN के लिए, CB-3 व 4 परीक्षाओं के लिए, और CB-5 हाजिरी के लिए है।",
+        hinglish: "🏫 <b>Class Board (CB 1 to 5):</b><br>Yeh poori class ka common board hai. FLN marks aur attendance yahan auto-sync hote hain, dubara entry nahi karni padti.",
+        hinglish_step2: "💡 CB-1/2 FLN ke liye, CB-3/4 exams ke liye, aur CB-5 monthly attendance ke liye hai.",
+        en: "🏫 <b>Class Boards (CB 1 to 5):</b><br>Summarizes whole-class metrics. FLN scores and attendance sync automatically without duplicate entry.",
+        en_step2: "💡 CB-1/2 tracks FLN, CB-3/4 handles exams, and CB-5 visualizes monthly attendance."
       },
 
       backup: {
         keywords: ['backup', 'restore', 'download backup', 'dusre phone', 'dusra phone', 'बैकअप', 'लोड बैकअप', 'फाइल सेव', 'रीस्टोर', 'लैपटॉप में'],
-        hi: "जी अवश्य सर / मैडम! 🛡️ <b>बैकअप व रीस्टोर:</b><br>ऊपर हेडर में <b>[🛡️ बैकअप]</b> बटन दबाएं, फ़ाइल तुरंत डाउनलोड हो जाएगी। इसे अपने WhatsApp या Drive में संभाल कर रख लें, कभी डेटा नहीं खोएगा।",
+        hi: "🛡️ <b>बैकअप व रीस्टोर:</b><br>ऊपर हेडर में <b>[🛡️ बैकअप]</b> बटन दबाएं, फ़ाइल तुरंत डाउनलोड हो जाएगी। इसे अपने WhatsApp या Drive में संभाल कर रख लें, कभी डेटा नहीं खोएगा।",
         hi_step2: "📲 दूसरे फोन या लैपटॉप में चलाने के लिए <b>[⚙️ सेटिंग्स] ➔ [📂 बैकअप फ़ाइल लोड करें]</b> का उपयोग करें।",
-        hinglish: "Sure Sir / Ma'am! 🛡️ <b>Data Backup:</b><br>Top bar par <b>[🛡️ बैकअप]</b> click karein, backup file turant download ho jayegi. Ise apne Drive ya WhatsApp par safe rakh sakte hain.",
-        hinglish_step2: "📲 <b>Certainly, Sir / Ma'am!</b> Dusre mobile ya PC me load karne ke liye <b>[⚙️ सेटिंग्स] ➔ [📂 बैकअप फ़ाइल लोड करें]</b> use karein.",
-        en: "Certainly, Sir / Ma'am! 🛡️ <b>Backup & Restore:</b><br>Please click <b>[🛡️ Backup]</b> in the top bar to instantly download your class database. Save it to your personal Drive or WhatsApp for lifelong safety.",
-        en_step2: "📲 <b>Certainly, Sir / Ma'am!</b> To transfer to a new device, use <b>[⚙️ Settings] ➔ [📂 Restore Backup File]</b>."
+        hinglish: "🛡️ <b>Data Backup:</b><br>Top bar par <b>[🛡️ बैकअप]</b> click karein, backup file turant download ho jayegi. Ise apne Drive ya WhatsApp par safe rakh sakte hain.",
+        hinglish_step2: "📲 Dusre mobile ya PC me load karne ke liye <b>[⚙️ सेटिंग्स] ➔ [📂 बैकअप फ़ाइल लोड करें]</b> use karein.",
+        en: "🛡️ <b>Backup & Restore:</b><br>Please click <b>[🛡️ Backup]</b> in the top bar to instantly download your class database. Save it to your personal Drive or WhatsApp for lifelong safety.",
+        en_step2: "📲 To transfer to a new device, use <b>[⚙️ Settings] ➔ [📂 Restore Backup File]</b>."
       },
 
       drive: {
         keywords: ['drive', 'gdrive', 'google drive', 'cloud', 'sync', 'apps script', 'script url', 'connect', 'auto save', 'autosave', 'drive fail', 'ड्राइव', 'सिंक', 'क्लाउड', 'गूगल ड्राइव', 'ड्राइव कनेक्ट', 'ड्राइव लोड', 'सिंक नहीं', 'drive connect', 'drive sync', 'cloud sync', 'drive se load', 'ऑटो सेव', 'सिंक कैसे', 'load from drive'],
-        hi: "जी सर / मैडम! ☁️ <b>Google Drive सिंक:</b><br>कृपया <b>[⚙️ सेटिंग्स]</b> में जाकर अपनी Google Drive कनेक्ट कर लें। इसके बाद आप चाहे फोन पर काम करें या लैपटॉप पर, सारा डेटा अपने आप सिंक रहेगा।",
-        hi_step2: "🔄 <b>जी सर / मैडम!</b> कभी इंटरनेट न होने पर भी कोई चिंता नहीं — हेडर में <b>[🛡️ बैकअप]</b> दबाकर ऑफलाइन सुरक्षित रख सकते हैं।",
-        hinglish: "Sure Sir / Ma'am! ☁️ <b>Google Drive Sync:</b><br><b>[⚙️ Settings]</b> me jakar Google Drive connect karein. Iske baad mobile aur PC dono par data automatically sync rahega.",
-        hinglish_step2: "🔄 <b>Certainly, Sir / Ma'am!</b> Offline hone par bhi top bar par <b>[🛡️ बैकअप]</b> click karke safe JSON download kar sakte hain.",
-        en: "Gladly, Sir / Ma'am! ☁️ <b>Google Drive Sync:</b><br>Please connect your Google Drive in <b>[⚙️ Settings]</b>. Your data will seamlessly auto-sync across your mobile, tablet, and PC.",
-        en_step2: "🔄 <b>Certainly, Sir / Ma'am!</b> If offline, tap the green <b>[🛡️ Backup]</b> button to download an instant local snapshot."
+        hi: "☁️ <b>Google Drive सिंक:</b><br>कृपया <b>[⚙️ सेटिंग्स]</b> में जाकर अपनी Google Drive कनेक्ट कर लें। इसके बाद आप चाहे फोन पर काम करें या लैपटॉप पर, सारा डेटा अपने आप सिंक रहेगा।",
+        hi_step2: "🔄 कभी इंटरनेट न होने पर भी कोई चिंता नहीं — हेडर में <b>[🛡️ बैकअप]</b> दबाकर ऑफलाइन सुरक्षित रख सकते हैं।",
+        hinglish: "☁️ <b>Google Drive Sync:</b><br><b>[⚙️ Settings]</b> me jakar Google Drive connect karein. Iske baad mobile aur PC dono par data automatically sync rahega.",
+        hinglish_step2: "🔄 Offline hone par bhi top bar par <b>[🛡️ बैकअप]</b> click karke safe JSON download kar sakte hain.",
+        en: "☁️ <b>Google Drive Sync:</b><br>Please connect your Google Drive in <b>[⚙️ Settings]</b>. Your data will seamlessly auto-sync across your mobile, tablet, and PC.",
+        en_step2: "🔄 If offline, tap the green <b>[🛡️ Backup]</b> button to download an instant local snapshot."
       },
 
       print: {
         keywords: ['print', 'pdf', 'booklet', 'hardcopy', 'प्रिंट', 'पीडीएफ', 'बुकलेट', 'कागज', 'प्रिंटिंग'],
-        hi: "जी अवश्य सर / मैडम! 🖨️ <b>प्रिंट व पीडीएफ:</b><br>सिंगल पेज के लिए ऊपर <b>[🖨️ प्रिंट]</b> दबाएं। पूरी कक्षा की एक साथ बुकलेट निकालने के लिए <b>[📚 60 पोर्टफोलियो बुकलेट]</b> पर क्लिक करें।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> प्रिंट करते समय 'Background graphics' को हमेशा ऑन रखें ताकि प्रपत्र बिल्कुल साफ़ प्रिंट हों।",
-        hinglish: "Gladly, Sir / Ma'am! 🖨️ <b>Print & PDF:</b><br>Single sheet ke liye top bar me <b>[🖨️ प्रिंट]</b> click karein. Poori class ki booklet ke liye <b>[📚 60 पोर्टफोलियो बुकलेट]</b> use karein.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Print settings me 'Background graphics' enable rakhein taaki official layout crystal clear aaye.",
-        en: "Certainly, Sir / Ma'am! 🖨️ <b>Print & PDF Export:</b><br>Please tap <b>[🖨️ Print]</b> for the active sheet, or click <b>[📚 60 Portfolio Booklets]</b> to batch-export the entire class into a single PDF.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Enable 'Background graphics' in your print dialog to ensure crystal clear formatting."
+        hi: "🖨️ <b>प्रिंट व पीडीएफ:</b><br>सिंगल पेज के लिए ऊपर <b>[🖨️ प्रिंट]</b> दबाएं। पूरी कक्षा की एक साथ बुकलेट निकालने के लिए <b>[📚 60 पोर्टफोलियो बुकलेट]</b> पर क्लिक करें।",
+        hi_step2: "💡 प्रिंट करते समय 'Background graphics' को हमेशा ऑन रखें ताकि प्रपत्र बिल्कुल साफ़ प्रिंट हों।",
+        hinglish: "🖨️ <b>Print & PDF:</b><br>Single sheet ke liye top bar me <b>[🖨️ प्रिंट]</b> click karein. Poori class ki booklet ke liye <b>[📚 60 पोर्टफोलियो बुकलेट]</b> use karein.",
+        hinglish_step2: "💡 Print settings me 'Background graphics' enable rakhein taaki official layout crystal clear aaye.",
+        en: "🖨️ <b>Print & PDF Export:</b><br>Please tap <b>[🖨️ Print]</b> for the active sheet, or click <b>[📚 60 Portfolio Booklets]</b> to batch-export the entire class into a single PDF.",
+        en_step2: "💡 Enable 'Background graphics' in your print dialog to ensure crystal clear formatting."
       },
 
       cross_device: {
         keywords: ['phone', 'mobile', 'laptop', 'computer', 'pc', 'iphone', 'android', 'mac', 'dusre phone', 'dusre mobile', 'दो फोन', 'मोबाइल में', 'कंप्यूटर में'],
-        hi: "जी सर / मैडम! 📱💻 <b>मोबाइल व कंप्यूटर दोनों में:</b><br>आप मोबाइल और लैपटॉप दोनों पर आसानी से चला सकते हैं। सेटिंग्स में <b>Google Drive सिंक</b> ऑन कर लें, या बैकअप फ़ाइल WhatsApp पर भेजकर दूसरे डिवाइस में लोड कर लें।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> किसी भी डिवाइस पर काम करें, डेटा हमेशा सुरक्षित और उपलब्ध रहेगा।",
-        hinglish: "Sure Sir / Ma'am! 📱💻 <b>Mobile & PC Support:</b><br>Mobile aur laptop dono me aasaani se chalayein. Settings me <b>Google Drive Sync</b> connect karein ya backup file WhatsApp se share karke load kar lein.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Kisi bhi device par kaam karein, data hamesha safe aur synchronized rahega.",
-        en: "Certainly, Sir / Ma'am! 📱💻 <b>Cross-Device Support:</b><br>Works smoothly across Android, iPhone, Windows, and Mac. Connect <b>Google Drive</b> in Settings or transfer your backup JSON file.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Work from anywhere — your class database stays synchronized and safe."
+        hi: "📱💻 <b>मोबाइल व कंप्यूटर दोनों में:</b><br>आप मोबाइल और लैपटॉप दोनों पर आसानी से चला सकते हैं। सेटिंग्स में <b>Google Drive सिंक</b> ऑन कर लें, या बैकअप फ़ाइल WhatsApp पर भेजकर दूसरे डिवाइस में लोड कर लें।",
+        hi_step2: "💡 किसी भी डिवाइस पर काम करें, डेटा हमेशा सुरक्षित और उपलब्ध रहेगा।",
+        hinglish: "📱💻 <b>Mobile & PC Support:</b><br>Mobile aur laptop dono me aasaani se chalayein. Settings me <b>Google Drive Sync</b> connect karein ya backup file WhatsApp se share karke load kar lein.",
+        hinglish_step2: "💡 Kisi bhi device par kaam karein, data hamesha safe aur synchronized rahega.",
+        en: "📱💻 <b>Cross-Device Support:</b><br>Works smoothly across Android, iPhone, Windows, and Mac. Connect <b>Google Drive</b> in Settings or transfer your backup JSON file.",
+        en_step2: "💡 Work from anywhere — your class database stays synchronized and safe."
       },
 
       export_formats: {
         keywords: ['export', 'excel', 'csv', 'jpeg', 'jpg', 'image', 'photo download', 'एक्सेल', 'फोटो डाउनलोड'],
-        hi: "जी सर / मैडम! 💾 <b>एक्सपोर्ट प्रारूप:</b><br>1. पूरा डेटा ➔ <b>JSON बैकअप</b>。<br>2. हाजिरी व छात्र सूची ➔ <b>Excel/CSV</b>。<br>3. वर्तमान प्रपत्र ➔ <b>JPEG फ़ोटो या PDF</b>।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> रिपोर्ट्स टैब में जाकर आप किसी भी शीट को 1 क्लिक में एक्सेल या इमेज के रूप में डाउनलोड कर सकते हैं।",
-        hinglish: "Sure Sir / Ma'am! 💾 <b>Export Formats:</b><br>1. Complete Database ➔ <b>JSON Backup</b>.<br>2. Attendance & Students ➔ <b>Excel/CSV</b>.<br>3. Active Sheet ➔ <b>JPEG Photo ya PDF</b>.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Reports workspace me kisi bhi proforma ko 1 click me download kar sakte hain.",
-        en: "Certainly, Sir / Ma'am! 💾 <b>Export Options:</b><br>1. Complete Database ➔ <b>JSON Backup</b>.<br>2. Rosters & Attendance ➔ <b>Excel/CSV</b>.<br>3. Active Proformas ➔ <b>JPEG Image or PDF</b>.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Check the Reports workspace to export customized spreadsheets and graphics."
+        hi: "💾 <b>एक्सपोर्ट प्रारूप:</b><br>1. पूरा डेटा ➔ <b>JSON बैकअप</b>。<br>2. हाजिरी व छात्र सूची ➔ <b>Excel/CSV</b>。<br>3. वर्तमान प्रपत्र ➔ <b>JPEG फ़ोटो या PDF</b>।",
+        hi_step2: "💡 रिपोर्ट्स टैब में जाकर आप किसी भी शीट को 1 क्लिक में एक्सेल या इमेज के रूप में डाउनलोड कर सकते हैं।",
+        hinglish: "💾 <b>Export Formats:</b><br>1. Complete Database ➔ <b>JSON Backup</b>.<br>2. Attendance & Students ➔ <b>Excel/CSV</b>.<br>3. Active Sheet ➔ <b>JPEG Photo ya PDF</b>.",
+        hinglish_step2: "💡 Reports workspace me kisi bhi proforma ko 1 click me download kar sakte hain.",
+        en: "💾 <b>Export Options:</b><br>1. Complete Database ➔ <b>JSON Backup</b>.<br>2. Rosters & Attendance ➔ <b>Excel/CSV</b>.<br>3. Active Proformas ➔ <b>JPEG Image or PDF</b>.",
+        en_step2: "💡 Check the Reports workspace to export customized spreadsheets and graphics."
       },
 
       session_2027: {
         keywords: ['session', '2026', '2027', 'सत्र', 'नया सत्र'],
-        hi: "जी सर / मैडम! 📅 <b>सत्र 2026-2027:</b><br>यह ऐप शैक्षणिक सत्र 2026-2027 के नवीनतम विभागीय प्रारूप और 12 प्रपत्रों पर आधारित है।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> नए सत्र के लिए मास्टर रजिस्टर में बच्चों की सूची अपडेट कर लें, बाकी सभी फॉर्म स्वतः तैयार हो जाएंगे।",
-        hinglish: "Sure Sir / Ma'am! 📅 <b>Session 2026-2027:</b><br>Yeh app academic session 2026-2027 ke latest official format aur 12 proformas par based hai.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Naye session ke liye Master Register me students update karein, baaki sabhi sheets auto-ready ho jayengi.",
-        en: "Certainly, Sir / Ma'am! 📅 <b>Academic Session 2026-2027:</b><br>Engineered to match official 2026-2027 departmental formats across all 12 portfolio proformas.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Simply populate the Master Roster for the new session — all subsequent registers align automatically."
+        hi: "📅 <b>सत्र 2026-2027:</b><br>यह ऐप शैक्षणिक सत्र 2026-2027 के नवीनतम विभागीय प्रारूप और 12 प्रपत्रों पर आधारित है।",
+        hi_step2: "💡 नए सत्र के लिए मास्टर रजिस्टर में बच्चों की सूची अपडेट कर लें, बाकी सभी फॉर्म स्वतः तैयार हो जाएंगे।",
+        hinglish: "📅 <b>Session 2026-2027:</b><br>Yeh app academic session 2026-2027 ke latest official format aur 12 proformas par based hai.",
+        hinglish_step2: "💡 Naye session ke liye Master Register me students update karein, baaki sabhi sheets auto-ready ho jayengi.",
+        en: "📅 <b>Academic Session 2026-2027:</b><br>Engineered to match official 2026-2027 departmental formats across all 12 portfolio proformas.",
+        en_step2: "💡 Simply populate the Master Roster for the new session — all subsequent registers align automatically."
       },
 
       startup_advice: {
         keywords: ['kahan se shuru', 'kaise shuru', 'shuruat', 'pahle kya', 'first step', 'शुरुआत', 'कहाँ से शुरू', 'पहले क्या'],
-        hi: "जी सर / मैडम! 🚀 <b>शुरुआत के 3 आसान कदम:</b><br>1. <b>मास्टर रजिस्टर</b> में बच्चों के नाम दर्ज करें。<br>2. <b>हाजिरी टैब</b> में दैनिक उपस्थिति भरें。<br>3. <b>[🛡️ बैकअप]</b> दबाकर अपनी फ़ाइल सुरक्षित कर लें।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> इसके बाद सभी 12 प्रपत्र और क्लास बोर्ड अपने आप भर जाएंगे!",
-        hinglish: "Sure Sir / Ma'am! 🚀 <b>3 Quick Steps to Start:</b><br>1. <b>Master Register</b> me students enter karein.<br>2. <b>Attendance tab</b> me daily attendance mark karein.<br>3. <b>[🛡️ बैकअप]</b> click karke backup download kar lein.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Iske baad sabhi 12 sheets aur Class Board automatically fill ho jayenge!",
-        en: "Certainly, Sir / Ma'am! 🚀 <b>Quick 3-Step Start:</b><br>1. Enter student names in <b>Master Roster</b>.<br>2. Mark daily attendance in the <b>Attendance tab</b>.<br>3. Tap <b>[🛡️ Backup]</b> to download your secure checkpoint.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> All 12 portfolio dossier sheets and Class Boards will populate automatically!"
+        hi: "🚀 <b>शुरुआत के 3 आसान कदम:</b><br>1. <b>मास्टर रजिस्टर</b> में बच्चों के नाम दर्ज करें。<br>2. <b>हाजिरी टैब</b> में दैनिक उपस्थिति भरें。<br>3. <b>[🛡️ बैकअप]</b> दबाकर अपनी फ़ाइल सुरक्षित कर लें।",
+        hi_step2: "💡 इसके बाद सभी 12 प्रपत्र और क्लास बोर्ड अपने आप भर जाएंगे!",
+        hinglish: "🚀 <b>3 Quick Steps to Start:</b><br>1. <b>Master Register</b> me students enter karein.<br>2. <b>Attendance tab</b> me daily attendance mark karein.<br>3. <b>[🛡️ बैकअप]</b> click karke backup download kar lein.",
+        hinglish_step2: "💡 Iske baad sabhi 12 sheets aur Class Board automatically fill ho jayenge!",
+        en: "🚀 <b>Quick 3-Step Start:</b><br>1. Enter student names in <b>Master Roster</b>.<br>2. Mark daily attendance in the <b>Attendance tab</b>.<br>3. Tap <b>[🛡️ Backup]</b> to download your secure checkpoint.",
+        en_step2: "💡 All 12 portfolio dossier sheets and Class Boards will populate automatically!"
       },
 
       insert_student_between: {
         keywords: ['बीच', 'बीच में', 'bich', 'bich me', 'छूटा', 'छूटा बच्चा', 'बीच में छात्र', 'bich me student', 'bich me add', 'roll insert', 'insert student', 'missed student', 'roll 5', 'roll number shift', 'की-शिफ्ट', 'छूट गया', 'chhut gaya', 'chuta bacha', 'insert row', 'इन-बिटवीन'],
-        hi: "जी सर / मैडम! ➕ <b>बीच में छूटा हुआ छात्र जोड़ना:</b><br>1. मास्टर रोस्टर के ऊपर <b>[➕ बीच में छात्र जोड़ें (Insert Row)]</b> बटन दबाएं और इच्छित रोल नंबर (जैसे 5) दर्ज करें。<br>2. अथवा जिस पंक्ति के ऊपर छात्र जोड़ना है, उसके आगे हरे <b>[➕]</b> बटन पर क्लिक करें。<br>• <b>सुरक्षा:</b> नीचे के सभी छात्रों की उपस्थिति (Attendance), FLN और परीक्षा अंक स्वतः सुरक्षित रूप से एक पंक्ति नीचे खिसक जाएंगे!",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> पहले 30 बच्चों का डेटा मिटाने की बिल्कुल आवश्यकता नहीं है। पुराना बच्चा (जैसे रोल 5) स्वतः रोल 6 पर अपने पूरे रिकॉर्ड सहित चला जाएगा।",
-        hinglish: "Sure Sir / Ma'am! ➕ <b>Insert Student in Between:</b><br>1. Top toolbar me <b>[➕ बीच में छात्र जोड़ें]</b> click karein aur target roll number (e.g. 5) enter karein.<br>2. Ya student row ke aage green <b>[➕]</b> icon dabayein.<br>• <b>Safety:</b> Sabhi lower students ki attendance, FLN aur result scores automatically 1 row neeche safely shift ho jayenge!",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Old students ka 1 bhi mark ya attendance lost nahi hoga; system full lockstep shifting maintain karta hai.",
-        en: "Certainly, Sir / Ma'am! ➕ <b>Insert Missed Student In Between:</b><br>Click <b>[➕ Insert Row In Between]</b> at the top and specify the target roll number (e.g. 5), or click the green <b>[➕]</b> button directly on any student row.<br>All subsequent student attendance, FLN levels, and exam scores shift down automatically in perfect sync.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Zero need to delete or re-type records; the previous student safely becomes the next roll number with all data intact."
+        hi: "➕ <b>बीच में छूटा हुआ छात्र जोड़ना:</b><br>1. मास्टर रोस्टर के ऊपर <b>[➕ बीच में छात्र जोड़ें (Insert Row)]</b> बटन दबाएं और इच्छित रोल नंबर (जैसे 5) दर्ज करें。<br>2. अथवा जिस पंक्ति के ऊपर छात्र जोड़ना है, उसके आगे हरे <b>[➕]</b> बटन पर क्लिक करें。<br>• <b>सुरक्षा:</b> नीचे के सभी छात्रों की उपस्थिति (Attendance), FLN और परीक्षा अंक स्वतः सुरक्षित रूप से एक पंक्ति नीचे खिसक जाएंगे!",
+        hi_step2: "💡 पहले 30 बच्चों का डेटा मिटाने की बिल्कुल आवश्यकता नहीं है। पुराना बच्चा (जैसे रोल 5) स्वतः रोल 6 पर अपने पूरे रिकॉर्ड सहित चला जाएगा।",
+        hinglish: "➕ <b>Insert Student in Between:</b><br>1. Top toolbar me <b>[➕ बीच में छात्र जोड़ें]</b> click karein aur target roll number (e.g. 5) enter karein.<br>2. Ya student row ke aage green <b>[➕]</b> icon dabayein.<br>• <b>Safety:</b> Sabhi lower students ki attendance, FLN aur result scores automatically 1 row neeche safely shift ho jayenge!",
+        hinglish_step2: "💡 Old students ka 1 bhi mark ya attendance lost nahi hoga; system full lockstep shifting maintain karta hai.",
+        en: "➕ <b>Insert Missed Student In Between:</b><br>Click <b>[➕ Insert Row In Between]</b> at the top and specify the target roll number (e.g. 5), or click the green <b>[➕]</b> button directly on any student row.<br>All subsequent student attendance, FLN levels, and exam scores shift down automatically in perfect sync.",
+        en_step2: "💡 Zero need to delete or re-type records; the previous student safely becomes the next roll number with all data intact."
       },
 
       excel_copy_paste: {
         keywords: ['copy', 'कॉपी', 'paste', 'पेस्ट', 'copy excel', 'excel copy', 'paste excel', 'कॉलम सेलेक्ट', 'copy nahi ho raha', 'select nahi hota', 'pura data copy', 'ctrl+v', 'tsv', 'एक्सेल कॉपी', 'कॉपी कैसे', 'excel me bhejna', 'क्लिपबोर्ड', 'clipboard', 'माउस सेलेक्ट', 'घसीटना', 'drag select', 'select all'],
-        hi: "जी सर / मैडम! 📋 <b>Excel में डेटा कॉपी-पेस्ट करना:</b><br>• <b>माउस से एक ही कॉलम क्यों सेलेक्ट होता है?</b> क्योंकि हर सेल एक लाइव इनपुट बॉक्स (`<input>`) है, जिसमें ब्राउज़र माउस ड्रैग को अंदर ही लॉक कर देता है。<br>• <b>आसान समाधान:</b> मास्टर रोस्टर के ऊपर नीला बटन <b>[📋 पूरा डेटा कॉपी करें (For Excel)]</b> दबाएं। पूरा 22-कॉलम डेटा क्लिपबोर्ड में आ जाएगा। अब सीधे Excel खोलकर <b>Ctrl + V</b> दबा दें!",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> हाजिरी और परीक्षा परिणाम टैब में भी <b>[📋 Excel हेतु कॉपी करें]</b> बटन दिया गया है — एक क्लिक में पूरा डेटा एक्सेल में चला जाता है।",
-        hinglish: "Sure Sir / Ma'am! 📋 <b>Excel Copy-Paste Guide:</b><br>• <b>Mouse se 1 column kyu select hota hai?</b> Kyunki cells editable `<input>` fields hain jahan browser multi-cell selection block karta hai.<br>• <b>1-Click Solution:</b> Master Roster ke upar blue <b>[📋 पूरा डेटा कॉपी करें (For Excel)]</b> button dabayein, fir Excel kholkar <b>Ctrl + V</b> press karein — saare 22 columns perfect paste honge!",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Attendance Register aur Exam Results me bhi 1-click Excel copy buttons available hain.",
-        en: "Certainly, Sir / Ma'am! 📋 <b>Excel Copy-Paste Solution:</b><br>• <b>Why does mouse drag only select 1 column?</b> Because each cell is an active `<input>` box where browsers constrain mouse selection.<br>• <b>1-Click Fix:</b> Simply click <b>[📋 Copy for Excel]</b> at the top, then open Excel and press <b>Ctrl + V</b>. All 22 columns paste with immaculate grid alignment!",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Dedicated 1-click Excel copy buttons are also available in Attendance Register and Exam Results."
+        hi: "📋 <b>Excel में डेटा कॉपी-पेस्ट करना:</b><br>• <b>माउस से एक ही कॉलम क्यों सेलेक्ट होता है?</b> क्योंकि हर सेल एक लाइव इनपुट बॉक्स (`<input>`) है, जिसमें ब्राउज़र माउस ड्रैग को अंदर ही लॉक कर देता है。<br>• <b>आसान समाधान:</b> मास्टर रोस्टर के ऊपर नीला बटन <b>[📋 पूरा डेटा कॉपी करें (For Excel)]</b> दबाएं। पूरा 22-कॉलम डेटा क्लिपबोर्ड में आ जाएगा। अब सीधे Excel खोलकर <b>Ctrl + V</b> दबा दें!",
+        hi_step2: "💡 हाजिरी और परीक्षा परिणाम टैब में भी <b>[📋 Excel हेतु कॉपी करें]</b> बटन दिया गया है — एक क्लिक में पूरा डेटा एक्सेल में चला जाता है।",
+        hinglish: "📋 <b>Excel Copy-Paste Guide:</b><br>• <b>Mouse se 1 column kyu select hota hai?</b> Kyunki cells editable `<input>` fields hain jahan browser multi-cell selection block karta hai.<br>• <b>1-Click Solution:</b> Master Roster ke upar blue <b>[📋 पूरा डेटा कॉपी करें (For Excel)]</b> button dabayein, fir Excel kholkar <b>Ctrl + V</b> press karein — saare 22 columns perfect paste honge!",
+        hinglish_step2: "💡 Attendance Register aur Exam Results me bhi 1-click Excel copy buttons available hain.",
+        en: "📋 <b>Excel Copy-Paste Solution:</b><br>• <b>Why does mouse drag only select 1 column?</b> Because each cell is an active `<input>` box where browsers constrain mouse selection.<br>• <b>1-Click Fix:</b> Simply click <b>[📋 Copy for Excel]</b> at the top, then open Excel and press <b>Ctrl + V</b>. All 22 columns paste with immaculate grid alignment!",
+        en_step2: "💡 Dedicated 1-click Excel copy buttons are also available in Attendance Register and Exam Results."
       },
 
       multi_class: {
         keywords: ['class', 'कक्षा', 'kaksha', 'dusri', 'doosri', 'switch', 'switcher', 'स्विच', 'बदलें', 'badle', 'badal', 'दूसरी', 'दूसरी कक्षा', 'doosri class', 'class switch', 'multi class', 'कक्षा बदलें', 'नई कक्षा जोड़ें', 'new class', 'कक्षा 3-a', 'कक्षा 5-b', 'profile switcher', 'मल्टी क्लास'],
-        hi: "जी सर / मैडम! 🏫 <b>मल्टी-क्लास प्रोफ़ाइल स्विचर:</b><br>शीर्ष बार में <b>[🏫 कक्षा 3-A ▾]</b> बटन दबाएं। यहाँ से आप नई कक्षाएं (जैसे 4-A, 5-B) जोड़ सकते हैं और बिना किसी डेटा टकराव (collision) के एक क्लिक में कक्षाएं बदल सकते हैं। प्रत्येक कक्षा का 500MB+ डेटा पूरी तरह अलग व सुरक्षित रहता है।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> सक्रिय कक्षा को सुरक्षित रखने के लिए उसे तब तक डिलीट नहीं किया जा सकता जब तक आप किसी दूसरी कक्षा पर स्विच न कर लें।",
-        hinglish: "Sure Sir / Ma'am! 🏫 <b>Multi-Class Profile Switcher:</b><br>Top bar me <b>[🏫 कक्षा 3-A ▾]</b> click karein. Yahan se aap multiple classes (e.g. 4-A, 5-B) create aur switch kar sakte hain. Har class ka data 500MB+ IndexedDB me completely isolated aur safe rehta hai.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Active class accidental deletion se protected rehti hai.",
-        en: "Certainly, Sir / Ma'am! 🏫 <b>Multi-Class Profile Switcher:</b><br>Click the <b>[🏫 Class 3-A ▾]</b> dropdown in the top header. You can create and switch between multiple class profiles instantly. Each class enjoys dedicated 500MB+ IndexedDB storage with zero data overlap.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> The currently active class cannot be deleted accidentally without switching first."
+        hi: "🏫 <b>मल्टी-क्लास प्रोफ़ाइल स्विचर:</b><br>शीर्ष बार में <b>[🏫 कक्षा 3-A ▾]</b> बटन दबाएं। यहाँ से आप नई कक्षाएं (जैसे 4-A, 5-B) जोड़ सकते हैं और बिना किसी डेटा टकराव (collision) के एक क्लिक में कक्षाएं बदल सकते हैं। प्रत्येक कक्षा का 500MB+ डेटा पूरी तरह अलग व सुरक्षित रहता है।",
+        hi_step2: "💡 सक्रिय कक्षा को सुरक्षित रखने के लिए उसे तब तक डिलीट नहीं किया जा सकता जब तक आप किसी दूसरी कक्षा पर स्विच न कर लें।",
+        hinglish: "🏫 <b>Multi-Class Profile Switcher:</b><br>Top bar me <b>[🏫 कक्षा 3-A ▾]</b> click karein. Yahan se aap multiple classes (e.g. 4-A, 5-B) create aur switch kar sakte hain. Har class ka data 500MB+ IndexedDB me completely isolated aur safe rehta hai.",
+        hinglish_step2: "💡 Active class accidental deletion se protected rehti hai.",
+        en: "🏫 <b>Multi-Class Profile Switcher:</b><br>Click the <b>[🏫 Class 3-A ▾]</b> dropdown in the top header. You can create and switch between multiple class profiles instantly. Each class enjoys dedicated 500MB+ IndexedDB storage with zero data overlap.",
+        en_step2: "💡 The currently active class cannot be deleted accidentally without switching first."
       },
 
       auth_security: {
         keywords: ['password', 'passcode', 'preview', 'प्रिव्यू', 'preview mode', 'प्रिव्यू मोड', 'पासवर्ड', '31032027', 'unlock', 'lock', 'लॉक क्यों', 'unlock passcode', 'अधिकृत', 'authorize', 'सुरक्षा कोड', 'एडिट नहीं हो रहा'],
-        hi: "जी सर / मैडम! 🛡️ <b>सुरक्षा व प्रिव्यू मोड:</b><br>अनधिकृत डिवाइस पर ऐप केवल 'प्रिव्यू मोड' में खुलता है ताकि कोई अनजान व्यक्ति आपका डेटा न बदल सके। डेटा एडिट करने हेतु शीर्ष पर <b>[🔐 अधिकृत करें]</b> दबाकर पासवर्ड <b>31032027</b> दर्ज करें। एक बार दर्ज करने पर डिवाइस अधिकृत हो जाता है।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> सुरक्षा हेतु पासवर्ड SHA-256 मिलिट्री एन्क्रिप्शन में सुरक्षित है और कभी भी प्लेन-टेक्स्ट में लीक नहीं होता।",
-        hinglish: "Sure Sir / Ma'am! 🛡️ <b>Security & Preview Mode:</b><br>Unauthorized devices par app read-only 'Preview Mode' me rehta hai. Editing unlock karne ke liye top par <b>[🔐 अधिकृत करें]</b> click karke password <b>31032027</b> enter karein.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Device authorization military-grade SHA-256 cryptographic token se protect rehta hai.",
-        en: "Certainly, Sir / Ma'am! 🛡️ <b>Security & Preview Mode:</b><br>Unrecognized devices open strictly in read-only 'Preview Mode' to protect sensitive student records. To enable edits, click <b>[🔐 Authorize]</b> and enter passcode <b>31032027</b>.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Credentials are protected with SHA-256 cryptographic hashing with zero plain-text leakage."
+        hi: "🛡️ <b>सुरक्षा व प्रिव्यू मोड:</b><br>अनधिकृत डिवाइस पर ऐप केवल 'प्रिव्यू मोड' में खुलता है ताकि कोई अनजान व्यक्ति आपका डेटा न बदल सके। डेटा एडिट करने हेतु शीर्ष पर <b>[🔐 अधिकृत करें]</b> दबाकर पासवर्ड <b>31032027</b> दर्ज करें। एक बार दर्ज करने पर डिवाइस अधिकृत हो जाता है।",
+        hi_step2: "💡 सुरक्षा हेतु पासवर्ड SHA-256 सुरक्षित एन्क्रिप्शन में सुरक्षित है और कभी भी प्लेन-टेक्स्ट में लीक नहीं होता।",
+        hinglish: "🛡️ <b>Security & Preview Mode:</b><br>Unauthorized devices par app read-only 'Preview Mode' me rehta hai. Editing unlock karne ke liye top par <b>[🔐 अधिकृत करें]</b> click karke password <b>31032027</b> enter karein.",
+        hinglish_step2: "💡 Device authorization secure cryptographic token se protect rehta hai.",
+        en: "🛡️ <b>Security & Preview Mode:</b><br>Unrecognized devices open strictly in read-only 'Preview Mode' to protect sensitive student records. To enable edits, click <b>[🔐 Authorize]</b> and enter passcode <b>31032027</b>.",
+        en_step2: "💡 Credentials are protected with SHA-256 cryptographic hashing with zero plain-text leakage."
       },
 
       shortcuts: {
         keywords: ['shortcut', 'shortcuts', 'keyboard', 'key', 'शॉर्टकट', 'कीबोर्ड'],
-        hi: "जी सर / मैडम! ⌨️ <b>उपयोगी शॉर्टकट्स:</b><br>• <b>Ctrl + S:</b> तुरंत डेटा सुरक्षित सेव करें。<br>• <b>Ctrl + Z:</b> गलती तुरंत सुधारें (Undo)।<br>• <b>Arrow Keys:</b> हाजिरी में तेजी से आगे बढ़ें।",
-        hi_step2: "💡 <b>जी सर / मैडम!</b> इन शॉर्टकट्स से आपका कार्य बहुत तेज़ और आसान हो जाता है।",
-        hinglish: "Sure Sir / Ma'am! ⌨️ <b>Productivity Shortcuts:</b><br>• <b>Ctrl + S:</b> Instant Save.<br>• <b>Ctrl + Z:</b> Instant Undo.<br>• <b>Arrow Keys:</b> Fast Attendance Entry.",
-        hinglish_step2: "💡 <b>Certainly, Sir / Ma'am!</b> In shortcuts se aapka typing aur entry speed bahut fast ho jata hai.",
-        en: "Certainly, Sir / Ma'am! ⌨️ <b>Productivity Shortcuts:</b><br>• <b>Ctrl + S:</b> Immediate database save.<br>• <b>Ctrl + Z:</b> Instant undo.<br>• <b>Arrow Keys:</b> Rapid cell navigation.",
-        en_step2: "💡 <b>Certainly, Sir / Ma'am!</b> Use these shortcuts to double your entry speed across large registers."
+        hi: "⌨️ <b>उपयोगी शॉर्टकट्स:</b><br>• <b>Ctrl + S:</b> तुरंत डेटा सुरक्षित सेव करें。<br>• <b>Ctrl + Z:</b> गलती तुरंत सुधारें (Undo)।<br>• <b>Arrow Keys:</b> हाजिरी में तेजी से आगे बढ़ें।",
+        hi_step2: "💡 इन शॉर्टकट्स से आपका कार्य बहुत तेज़ और आसान हो जाता है।",
+        hinglish: "⌨️ <b>Productivity Shortcuts:</b><br>• <b>Ctrl + S:</b> Instant Save.<br>• <b>Ctrl + Z:</b> Instant Undo.<br>• <b>Arrow Keys:</b> Fast Attendance Entry.",
+        hinglish_step2: "💡 In shortcuts se aapka typing aur entry speed bahut fast ho jata hai.",
+        en: "⌨️ <b>Productivity Shortcuts:</b><br>• <b>Ctrl + S:</b> Immediate database save.<br>• <b>Ctrl + Z:</b> Instant undo.<br>• <b>Arrow Keys:</b> Rapid cell navigation.",
+        en_step2: "💡 Use these shortcuts to double your entry speed across large registers."
       }
     };
 
@@ -21691,11 +21684,11 @@ window.toggleOfflineAiChat = function() {
                 }).join('<br><br>');
 
                 if (lang === 'hi') {
-                  reply = `जी सर / मैडम! 🙏 <b>आपके सभी प्रश्नों के उत्तर:</b><br><br>${partsText}`;
+                  reply = `🙏 <b>आपके सभी प्रश्नों के उत्तर:</b><br><br>${partsText}`;
                 } else if (lang === 'hinglish') {
-                  reply = `Sure Sir / Ma'am! 🙏 <b>Aapke sabhi sawalon ke jawab:</b><br><br>${partsText}`;
+                  reply = `🙏 <b>Aapke sabhi sawalon ke jawab:</b><br><br>${partsText}`;
                 } else {
-                  reply = `Certainly, Sir / Ma'am! 🙏 <b>Here are responses for your queries:</b><br><br>${partsText}`;
+                  reply = `🙏 <b>Here are responses for your queries:</b><br><br>${partsText}`;
                 }
               }
             }
@@ -21728,11 +21721,11 @@ window.toggleOfflineAiChat = function() {
                 reply = AI_KB[topic][stepKey] || AI_KB[topic][lang] || AI_KB[topic]['hi'];
               } else {
                 if (lang === 'hi') {
-                  reply = "🤔 <b>जी सर / मैडम! सीधे शब्दों में लिखें:</b><br>क्या आप इनमें से किसी पर मदद चाहते हैं?<br>• <b>[छात्र जोड़ना]</b> • <b>[12 प्रपत्र]</b> • <b>[हाजिरी फॉर्मूला]</b> • <b>[डेटा सुरक्षा व बैकअप]</b>";
+                  reply = "🤔 <b>सीधे शब्दों में लिखें:</b><br>क्या आप इनमें से किसी पर मदद चाहते हैं?<br>• <b>[छात्र जोड़ना]</b> • <b>[12 प्रपत्र]</b> • <b>[हाजिरी फॉर्मूला]</b> • <b>[डेटा सुरक्षा व बैकअप]</b>";
                 } else if (lang === 'hinglish') {
-                  reply = "🤔 <b>Sure Sir / Ma'am! Direct words me likhein:</b><br>Kya aap inme se help chahte hain?<br>• <b>[Student Add]</b> • <b>[12 Sheets]</b> • <b>[Attendance Formula]</b> • <b>[Backup & Security]</b>";
+                  reply = "🤔 <b>Direct words me likhein:</b><br>Kya aap inme se help chahte hain?<br>• <b>[Student Add]</b> • <b>[12 Sheets]</b> • <b>[Attendance Formula]</b> • <b>[Backup & Security]</b>";
                 } else {
-                  reply = "🤔 <b>Certainly, Sir / Ma'am! Please state directly:</b><br>Do you need help with:<br>• <b>[Adding Students]</b> • <b>[12 Sheets]</b> • <b>[Attendance Formulas]</b> • <b>[Data Security]</b>";
+                  reply = "🤔 <b>Please state directly:</b><br>Do you need help with:<br>• <b>[Adding Students]</b> • <b>[12 Sheets]</b> • <b>[Attendance Formulas]</b> • <b>[Data Security]</b>";
                 }
               }
             }
@@ -22194,53 +22187,42 @@ function initClassSwitcher() {
 </script>
 
   <!-- ================= 🔐 TEACHER LOGIN & MILITARY-GRADE AUTHENTICATION MODAL ================= -->
-  <div class="modal-backdrop" id="teacherLoginModal" style="display:none; z-index:999995; background:rgba(15,23,42,0.85); backdrop-filter:blur(6px); align-items:center; justify-content:center;" onclick="closeLoginModalOnBg(event)">
-    <div class="modal-box" style="max-width:440px; width:92vw; background:#ffffff; border-radius:14px; box-shadow:0 25px 50px -12px rgba(0,0,0,0.5); overflow:hidden; border:1.5px solid #38bdf8; font-family:'Segoe UI', Arial, sans-serif; animation:modalSlideDown 0.25s ease-out;">
+  <div class="modal-backdrop" id="teacherLoginModal" style="display:none; z-index:999995; background:rgba(15,23,42,0.8); backdrop-filter:blur(6px); align-items:center; justify-content:center;" onclick="closeLoginModalOnBg(event)">
+    <div class="modal-box" style="max-width:380px; width:92vw; background:#ffffff; border-radius:12px; box-shadow:0 20px 40px -10px rgba(0,0,0,0.3); overflow:hidden; border:1px solid #0284c7; font-family:'Segoe UI', Arial, sans-serif; animation:modalSlideDown 0.25s ease-out;">
       <!-- Header -->
-      <div style="background:linear-gradient(135deg, #0284c7, #1e3a8a); color:#ffffff; padding:18px 22px; text-align:center; position:relative;">
-        <div style="font-size:38px; margin-bottom:4px; filter:drop-shadow(0 2px 8px rgba(0,0,0,0.25));">🔐</div>
-        <div style="font-size:17px; font-weight:900; letter-spacing:0.5px; text-transform:uppercase;">दिल्ली नगर निगम (MCD)</div>
-        <div style="font-size:12.5px; font-weight:700; color:#e0f2fe; margin-top:2px;">अधिकृत शिक्षक प्रमाणीकरण (Teacher Login)</div>
-        <button type="button" onclick="closeLoginModal()" style="position:absolute; top:12px; right:14px; background:rgba(255,255,255,0.18); border:none; color:#ffffff; font-size:15px; width:28px; height:28px; border-radius:50%; cursor:pointer; font-weight:800;" title="रद्द करें / प्रिव्यू मोड">✕</button>
+      <div style="background:linear-gradient(135deg, #0284c7, #0369a1); color:#ffffff; padding:16px 20px; text-align:center; position:relative;">
+        <div style="font-size:26px; margin-bottom:4px;">🔐</div>
+        <div style="font-size:16px; font-weight:800; letter-spacing:0.3px;">Teacher Login</div>
+        <button type="button" onclick="closeLoginModal()" style="position:absolute; top:12px; right:12px; background:rgba(255,255,255,0.2); border:none; color:#ffffff; font-size:14px; width:26px; height:26px; border-radius:50%; cursor:pointer; font-weight:700;" title="Close">✕</button>
       </div>
 
       <!-- Body -->
-      <div style="padding:22px 24px;">
-        <p style="font-size:12.5px; color:#334155; line-height:1.6; margin:0 0 16px 0; font-weight:600; text-align:center;">
-          कक्षा डेटा भरने, संपादन करने व स्थायी रूप से सुरक्षित करने हेतु कृपया <strong>अधिकृत एक्सेस कोड</strong> दर्ज करें:
-        </p>
-
+      <div style="padding:20px 22px;">
         <!-- Lockout Alert Container -->
-        <div id="loginLockoutAlert" style="display:none; background:#fef2f2; border:1px solid #f87171; color:#991b1b; padding:10px 14px; border-radius:8px; font-size:12px; font-weight:700; margin-bottom:14px; text-align:center;">
-          ⚠️ 5 बार गलत पासवर्ड दर्ज किया गया! सुरक्षा हेतु यह डिवाइस <span id="lockoutCountdown">15:00</span> तक लॉक है।
+        <div id="loginLockoutAlert" style="display:none; background:#fef2f2; border:1px solid #f87171; color:#991b1b; padding:8px 12px; border-radius:6px; font-size:12px; font-weight:700; margin-bottom:12px; text-align:center;">
+          ⚠️ Device temporarily locked: <span id="lockoutCountdown">15:00</span>
         </div>
 
         <!-- Password Input Group -->
         <div id="loginInputGroup">
-          <label style="display:block; font-size:12px; font-weight:800; color:#1e293b; margin-bottom:6px;">एक्सेस पासवर्ड (Access Code):</label>
+          <label style="display:block; font-size:12px; font-weight:700; color:#334155; margin-bottom:6px;">Password</label>
           <div style="position:relative; display:flex; align-items:center;">
-            <input type="password" id="loginPasswordInput" placeholder="पासवर्ड दर्ज करें..." 
-              style="width:100%; height:44px; padding:8px 44px 8px 14px; font-size:16px; font-weight:800; letter-spacing:2px; border:2px solid #cbd5e1; border-radius:8px; outline:none; transition:border 0.2s;"
+            <input type="password" id="loginPasswordInput" placeholder="Enter password..." 
+              style="width:100%; height:40px; padding:6px 40px 6px 12px; font-size:15px; font-weight:700; border:1.5px solid #cbd5e1; border-radius:6px; outline:none; transition:border 0.2s;"
               onkeydown="if(event.key==='Enter') verifyTeacherLogin()">
             <button type="button" onclick="togglePasswordVisibility()" 
-              style="position:absolute; right:8px; background:transparent; border:none; font-size:18px; cursor:pointer; padding:6px; color:#64748b;" title="पासवर्ड दिखाएँ/छुपाएँ">👁️</button>
+              style="position:absolute; right:6px; background:transparent; border:none; font-size:16px; cursor:pointer; padding:6px; color:#64748b;" title="Show/Hide">👁️</button>
           </div>
-          <div id="loginErrorMsg" style="display:none; color:#dc2626; font-size:11.5px; font-weight:800; margin-top:6px;">
-            ❌ गलत पासवर्ड! कृपया अधिकृत पासवर्ड दर्ज करें।
+          <div id="loginErrorMsg" style="display:none; color:#dc2626; font-size:11.5px; font-weight:700; margin-top:6px;">
+            ❌ Incorrect password. Please try again.
           </div>
         </div>
 
         <!-- Submit Button -->
         <button type="button" id="btnSubmitLogin" onclick="verifyTeacherLogin()" 
-          style="width:100%; height:44px; margin-top:18px; background:linear-gradient(135deg, #0284c7, #0369a1); color:#ffffff; font-size:14px; font-weight:800; border:none; border-radius:8px; box-shadow:0 4px 12px rgba(2,132,199,0.35); cursor:pointer; transition:transform 0.15s ease;">
-          🔓 सुरक्षित लॉगिन करें (Unlock & Activate)
+          style="width:100%; height:40px; margin-top:16px; background:linear-gradient(135deg, #0284c7, #0369a1); color:#ffffff; font-size:13.5px; font-weight:800; border:none; border-radius:6px; box-shadow:0 2px 8px rgba(2,132,199,0.3); cursor:pointer;">
+          Login
         </button>
-
-        <!-- Security Notice Footnote -->
-        <div style="margin-top:16px; padding-top:12px; border-top:1px solid #f1f5f9; text-align:center; font-size:11px; color:#64748b; line-height:1.5;">
-          🛡️ <strong>End-to-End Cryptographic Security:</strong><br>
-          डेटा पूरी तरह डिवाइस पर एन्क्रिप्टेड रहता है। 100% शून्य सर्वर लीकेज।
-        </div>
       </div>
     </div>
   </div>
@@ -22256,7 +22238,7 @@ function initClassSwitcher() {
       </p>
       <input type="text" id="newClassNameInput" placeholder="उदा. कक्षा 5-B" style="width:100%; height:36px; padding:6px 10px; border:1.5px solid #cbd5e1; border-radius:6px; font-size:13px; font-weight:700; margin-bottom:14px; box-sizing:border-box; outline:none;" onkeydown="if(event.key==='Enter') confirmAddNewClass()">
       <div style="display:flex; justify-content:flex-end; gap:8px;">
-        <button type="button" onclick="closeNewClassModal()" style="padding:6px 12px; border:1px solid #cbd5e1; background:#f8fafc; border-radius:6px; font-size:11.5px; font-weight:700; cursor:pointer;">रद्द करें</button>
+        <button type="button" onclick="closeNewClassModal()" style="padding:6px 12px; border:1px solid #cbd5e1; background:#f8fafc; border-radius:6px; font-size:11.5px; font-weight:700; cursor:pointer;">Cancel</button>
         <button type="button" onclick="confirmAddNewClass()" style="padding:6px 14px; border:none; background:#0284c7; color:#ffffff; border-radius:6px; font-size:11.5px; font-weight:800; cursor:pointer; box-shadow:0 2px 6px rgba(2,132,199,0.3);">जोड़ें ✓</button>
       </div>
     </div>
