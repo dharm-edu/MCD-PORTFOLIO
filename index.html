@@ -18256,6 +18256,17 @@ function handleFieldInput(e) {
     });
   } else if (path === 'classSettings.classSec') {
     document.querySelectorAll('[data-path="classSettings.classSec"]').forEach(inp => inp.value = val);
+    // Two-way sync with class switcher active profile
+    try {
+      const curId = getActiveClassId();
+      const reg = getClassRegistry();
+      const item = reg.find(c => c.id === curId);
+      if (item && val && val.trim() && item.name !== val.trim()) {
+        item.name = val.trim();
+        saveClassRegistry(reg);
+        updateClassSwitcherLabel();
+      }
+    } catch(e){}
     document.querySelectorAll('[data-path="classSettings.classSec"]').forEach(inp => inp.value = val);
     (DB.students || []).forEach(s => { 
       if (s.cs) s.cs.classSec = val; 
@@ -21858,9 +21869,8 @@ function getClassRegistry() {
     }
   } catch(e) {}
   
-  const defaultName = (window.DB && DB.classSettings && DB.classSettings.classSec) ? DB.classSettings.classSec : 'कक्षा 3-A';
-  const stCount = (window.DB && DB.students && Array.isArray(DB.students)) ? DB.students.length : 45;
-  const def = [{ id: 'cls_default', name: defaultName, studentCount: stCount, updatedAt: Date.now() }];
+  const defaultName = (window.DB && DB.classSettings && DB.classSettings.classSec && DB.classSettings.classSec.trim()) ? DB.classSettings.classSec.trim() : 'मेरी कक्षा';
+  const def = [{ id: 'cls_default', name: defaultName, updatedAt: Date.now() }];
   saveClassRegistry(def);
   return def;
 }
@@ -21898,7 +21908,7 @@ function syncCurrentClassProfileOnSave() {
     if (item) {
       item.updatedAt = Date.now();
       if (DB.classSettings && DB.classSettings.classSec) item.name = DB.classSettings.classSec;
-      if (DB.students && Array.isArray(DB.students)) item.studentCount = DB.students.length;
+      
       saveClassRegistry(reg);
       updateClassSwitcherLabel();
     }
@@ -21934,24 +21944,38 @@ function updateClassSwitcherUI() {
     
     const nameSpan = document.createElement('span');
     nameSpan.className = 'class-item-name';
+    nameSpan.style.flex = '1';
+    nameSpan.style.overflow = 'hidden';
+    nameSpan.style.textOverflow = 'ellipsis';
+    nameSpan.style.whiteSpace = 'nowrap';
     nameSpan.innerHTML = (isActive ? '<span style="color:#0284c7; font-weight:900;">✓</span> ' : '<span style="color:#94a3b8;">•</span> ') + (cls.name || 'कक्षा');
     
     const rightBox = document.createElement('div');
     rightBox.style.display = 'flex';
     rightBox.style.alignItems = 'center';
-    rightBox.style.gap = '6px';
+    rightBox.style.gap = '8px';
     
-    const countBadge = document.createElement('span');
-    countBadge.className = 'class-item-count';
-    countBadge.textContent = (cls.studentCount || 0) + ' छात्र';
-    rightBox.appendChild(countBadge);
+    // ✏️ Rename Class Button
+    const editBtn = document.createElement('button');
+    editBtn.type = 'button';
+    editBtn.innerHTML = '✏️';
+    editBtn.title = 'कक्षा का नाम बदलें (Rename)';
+    editBtn.style.cssText = 'background:transparent; border:none; font-size:13px; cursor:pointer; padding:2px 4px; border-radius:4px; opacity:0.8;';
+    editBtn.onmouseover = () => editBtn.style.opacity = '1';
+    editBtn.onmouseout = () => editBtn.style.opacity = '0.8';
+    editBtn.onclick = (e) => {
+      e.stopPropagation();
+      openRenameClassModal(cls.id, cls.name);
+    };
+    rightBox.appendChild(editBtn);
     
-    if (!isActive && reg.length > 1) {
+    // ✕ Delete Button (allowed whenever there are 2 or more classes)
+    if (reg.length > 1) {
       const delBtn = document.createElement('button');
       delBtn.type = 'button';
       delBtn.innerHTML = '✕';
-      delBtn.title = (cls.name || 'कक्षा') + ' हटाएं';
-      delBtn.style.cssText = 'background:transparent; border:none; color:#ef4444; font-size:12px; font-weight:800; cursor:pointer; padding:0 3px; border-radius:3px;';
+      delBtn.title = (cls.name || 'कक्षा') + ' हटाएं (Delete)';
+      delBtn.style.cssText = 'background:transparent; border:none; color:#ef4444; font-size:13px; font-weight:800; cursor:pointer; padding:2px 5px; border-radius:4px;';
       delBtn.onclick = (e) => {
         e.stopPropagation();
         deleteClassProfile(cls.id, cls.name);
@@ -22035,7 +22059,7 @@ function confirmAddNewClass() {
   reg.push({
     id: newId,
     name: val,
-    studentCount: 45,
+    
     updatedAt: Date.now()
   });
   saveClassRegistry(reg);
@@ -22043,19 +22067,98 @@ function confirmAddNewClass() {
   switchActiveClass(newId);
 }
 
-function deleteClassProfile(classId, className) {
-  if (classId === getActiveClassId()) {
-    alert('⚠️ सक्रिय कक्षा को हटाया नहीं जा सकता! कृपया पहले कोई अन्य कक्षा चुनें।');
+function openRenameClassModal(classId, currentName) {
+  closeClassSwitcherDropdown();
+  const modal = document.getElementById('renameClassModal');
+  const inp = document.getElementById('renameClassNameInput');
+  const hiddenId = document.getElementById('renameClassTargetId');
+  if (hiddenId) hiddenId.value = classId;
+  if (inp) {
+    inp.value = currentName || '';
+    inp.style.borderColor = '#cbd5e1';
+  }
+  if (modal) {
+    modal.style.display = 'flex';
+    setTimeout(() => { if (inp) { inp.focus(); inp.select(); } }, 50);
+  }
+}
+
+function closeRenameClassModal() {
+  const modal = document.getElementById('renameClassModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function submitRenameClassProfile() {
+  const hiddenId = document.getElementById('renameClassTargetId');
+  const inp = document.getElementById('renameClassNameInput');
+  const classId = hiddenId ? hiddenId.value : '';
+  const newName = inp ? inp.value.trim() : '';
+  if (!classId || !newName) {
+    if (inp) inp.style.borderColor = '#ef4444';
     return;
   }
+  
+  const reg = getClassRegistry();
+  const item = reg.find(c => c.id === classId);
+  if (item) {
+    item.name = newName;
+    item.updatedAt = Date.now();
+    saveClassRegistry(reg);
+  }
+  
+  // If active class is renamed, sync with DB and inputs immediately
+  if (classId === getActiveClassId()) {
+    if (window.DB && DB.classSettings) {
+      DB.classSettings.classSec = newName;
+      document.querySelectorAll('[data-path="classSettings.classSec"]').forEach(el => el.value = newName);
+      if (typeof saveDBDirect === 'function') saveDBDirect(true);
+    }
+  } else {
+    // Sync into storage for non-active class
+    try {
+      const raw = localStorage.getItem(CLASS_DATA_PREFIX + classId);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && parsed.classSettings) {
+          parsed.classSettings.classSec = newName;
+          localStorage.setItem(CLASS_DATA_PREFIX + classId, JSON.stringify(parsed));
+        }
+      }
+    } catch(e){}
+  }
+  
+  closeRenameClassModal();
+  updateClassSwitcherUI();
+  if (typeof showToast === 'function') {
+    showToast('✓ कक्षा का नाम बदलकर "' + newName + '" कर दिया गया', 'success');
+  }
+}
+
+async function deleteClassProfile(classId, className) {
   const confirmMsg = 'क्या आप सचमुच "' + className + '" और इसका पूरा डेटा हटाना चाहते हैं?\nयह क्रिया पूर्ववत नहीं की जा सकती!';
   if (!confirm(confirmMsg)) return;
+  
+  let reg = getClassRegistry();
+  if (reg.length <= 1) {
+    alert('⚠️ कम से कम एक कक्षा रहना आवश्यक है!');
+    return;
+  }
+  
+  const isActive = (classId === getActiveClassId());
+  
+  // If active class is being deleted, switch to another class first
+  if (isActive) {
+    const nextCls = reg.find(c => c.id !== classId);
+    if (nextCls) {
+      await switchActiveClass(nextCls.id);
+      reg = getClassRegistry(); // re-fetch after switch
+    }
+  }
   
   try {
     localStorage.removeItem(CLASS_DATA_PREFIX + classId);
   } catch(e) {}
   
-  let reg = getClassRegistry();
   reg = reg.filter(c => c.id !== classId);
   saveClassRegistry(reg);
   updateClassSwitcherUI();
@@ -22223,6 +22326,23 @@ function initClassSwitcher() {
           style="width:100%; height:40px; margin-top:16px; background:linear-gradient(135deg, #0284c7, #0369a1); color:#ffffff; font-size:13.5px; font-weight:800; border:none; border-radius:6px; box-shadow:0 2px 8px rgba(2,132,199,0.3); cursor:pointer;">
           Login
         </button>
+      </div>
+    </div>
+  </div>
+
+    <!-- ================= ✏️ RENAME CLASS MODAL ================= -->
+  <div class="modal-backdrop" id="renameClassModal" style="display:none; z-index:999997; background:rgba(15,23,42,0.65); backdrop-filter:blur(3px); align-items:center; justify-content:center;" onclick="if(event.target===this) closeRenameClassModal()">
+    <div style="background:#ffffff; border-radius:10px; padding:18px 20px; width:310px; max-width:92vw; box-shadow:0 20px 25px -5px rgba(0,0,0,0.3); border:1.5px solid #0284c7; font-family:'Segoe UI', Arial, sans-serif;">
+      <div style="font-size:14px; font-weight:800; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+        ✏️ <span>कक्षा का नाम बदलें (Rename Class)</span>
+      </div>
+      <input type="text" id="renameClassNameInput" placeholder="जैसे: 5-A या Class 4" 
+        style="width:100%; height:36px; padding:6px 10px; font-size:13px; font-weight:700; border:1.5px solid #cbd5e1; border-radius:6px; outline:none; box-sizing:border-box;"
+        onkeydown="if(event.key==='Enter') submitRenameClassProfile()">
+      <input type="hidden" id="renameClassTargetId" value="">
+      <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:14px;">
+        <button type="button" onclick="closeRenameClassModal()" style="padding:6px 12px; background:#f1f5f9; color:#475569; border:none; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;">रद्द करें</button>
+        <button type="button" onclick="submitRenameClassProfile()" style="padding:6px 14px; background:#0284c7; color:#ffffff; border:none; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;">सेव करें</button>
       </div>
     </div>
   </div>
