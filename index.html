@@ -1858,58 +1858,148 @@
     }
     .header-top {
       display: grid !important;
-      grid-template-columns: 1fr auto !important;
+      grid-template-columns: auto minmax(0, 1fr) !important;
       grid-template-rows: auto auto !important;
       align-items: center !important;
       gap: 4px 6px !important;
       width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
     }
     .app-title {
       grid-column: 1 !important;
       grid-row: 1 !important;
-      font-size: 13px !important;
+      font-size: 11.5px !important;
       font-weight: 900 !important;
       white-space: nowrap !important;
-      letter-spacing: 0px !important;
+      letter-spacing: -0.2px !important;
       margin: 0 !important;
+      max-width: 115px !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      flex-shrink: 0 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 3px !important;
+    }
+    .app-title span {
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
     }
     .header-right-tools {
       grid-column: 2 !important;
       grid-row: 1 !important;
+      min-width: 0 !important;
+      width: 100% !important;
       display: flex !important;
       align-items: center !important;
-      justify-content: flex-end !important;
-      gap: 3px !important;
+      justify-content: flex-start !important;
+      gap: 4px !important;
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+      touch-action: pan-x !important;
+      white-space: nowrap !important;
+      padding: 2px 2px !important;
+      scroll-behavior: smooth !important;
+      box-sizing: border-box !important;
+    }
+    .header-right-tools::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+    .header-right-tools > * {
+      flex-shrink: 0 !important;
     }
     
+    .class-switcher-container {
+      flex-shrink: 0 !important;
+    }
     .class-switcher-btn {
-      padding: 2px 4px !important;
+      padding: 2px 5px !important;
       font-size: 10px !important;
-      max-width: 80px !important;
+      max-width: 85px !important;
       gap: 2px !important;
+      height: 25px !important;
+      min-height: 25px !important;
+      box-sizing: border-box !important;
+      flex-shrink: 0 !important;
+      white-space: nowrap !important;
     }
     .class-switcher-btn .cs-label {
-      max-width: 48px !important;
+      max-width: 50px !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
     }
     .class-dropdown-menu {
-      width: 200px !important;
-      right: 0 !important;
-      left: auto !important;
+      position: fixed !important;
+      top: 45px !important;
+      left: 8px !important;
+      right: auto !important;
+      width: 220px !important;
+      max-width: calc(100vw - 16px) !important;
+      z-index: 100000 !important;
     }
     .save-status {
       font-size: 10px !important;
       padding: 2px 6px !important;
-      height: 24px !important;
-      min-height: 24px !important;
+      height: 25px !important;
+      min-height: 25px !important;
       width: auto !important;
       min-width: unset !important;
       max-width: unset !important;
+      box-sizing: border-box !important;
+      flex-shrink: 0 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      white-space: nowrap !important;
     }
     .tool-btn {
       font-size: 10px !important;
       padding: 2px 6px !important;
-      height: 24px !important;
-      min-height: 24px !important;
+      height: 25px !important;
+      min-height: 25px !important;
+      box-sizing: border-box !important;
+      flex-shrink: 0 !important;
+      white-space: nowrap !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    .tool-btn.btn-feedback, .btn-feedback {
+      font-size: 10px !important;
+      padding: 2px 6px !important;
+      height: 25px !important;
+      min-height: 25px !important;
+      box-sizing: border-box !important;
+      flex-shrink: 0 !important;
+      white-space: nowrap !important;
+    }
+    #authHeaderContainer {
+      display: inline-flex !important;
+      align-items: center !important;
+      flex-shrink: 0 !important;
+    }
+    #authHeaderContainer .action-btn, 
+    #authHeaderContainer #btnTopLogin, 
+    #authHeaderContainer #loginStatusBadge {
+      font-size: 10px !important;
+      padding: 2px 6px !important;
+      height: 25px !important;
+      min-height: 25px !important;
+      box-sizing: border-box !important;
+      flex-shrink: 0 !important;
+      white-space: nowrap !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
     }
 
     /* 2. Workspace Navigation: Row 2, 1-line smooth touch swipe */
@@ -19577,6 +19667,7 @@ async function startAppNow() {
     switchTab(DB.activeTab || 'master_roster');
     updateStorageMeter();
     try { initClassSwitcher(); } catch(csErr){}
+    try { initHeaderHorizontalScrollSupport(); } catch(scErr){}
 
 
     // 6. Data is 100% painted in table -> NOW DISMISS SPLASH SCREEN!
@@ -20866,6 +20957,38 @@ window.toggleOfflineAiChat = function() {
         en_step2: "💡 Archived SLC students are preserved for inspections while automatically excluded from active daily attendance counts."
       },
 
+            attendance_symbols: {
+        keywords: [
+          'p a', 'p aur a', 'p and a', 'p or a', 'p a h l', 'p a l h',
+          'p ka matlab', 'a ka matlab', 'h ka matlab', 'l ka matlab',
+          'p ka kya matlab', 'a ka kya matlab', 'h ka kya matlab', 'l ka kya matlab',
+          'p matlab', 'a matlab', 'h matlab', 'l matlab', 'matlab', 'matalab', 'meaning',
+          'full form', 'symbol', 'symbols', 'code', 'codes', 'present absent',
+          'चिन्ह', 'मतलब', 'अर्थ', 'संकेत', 'फुल फॉर्म',
+          'p क्या है', 'a क्या है', 'h क्या है', 'l क्या है',
+          'p का अर्थ', 'a का अर्थ', 'h का अर्थ', 'l का अर्थ',
+          'p a का क्या मतलब', 'p a h l क्या है'
+        ],
+        hi: "📋 <b>हाजिरी कोड (P, A, H, L) का अर्थ:</b><br>" +
+            "• <b>P (Present):</b> विद्यार्थी कक्षा में <b>उपस्थित</b> है।<br>" +
+            "• <b>A (Absent):</b> विद्यार्थी <b>अनुपस्थित</b> (गैरहाजिर) है।<br>" +
+            "• <b>H (Holiday):</b> रविवार या स्कूल <b>अवकाश/छुट्टी</b> (यह कुल कार्य दिवसों में नहीं गिना जाता)।<br>" +
+            "• <b>L (Leave):</b> आवेदन / प्रार्थना पत्र देकर ली गई <b>स्वीकृत छुट्टी</b>।",
+        hi_step2: "💡 <b>गणना नियम:</b> P से कुल उपस्थितियाँ बढ़ती हैं, A से प्रतिशत घटता है, और H/L को कुल कार्य दिवसों से स्वतः बाहर रखा जाता है।",
+        hinglish: "📋 <b>Attendance Symbols (P, A, H, L) ka Matlab:</b><br>" +
+            "• <b>P = Present:</b> Student class me <b>upasthit</b> hai.<br>" +
+            "• <b>A = Absent:</b> Student <b>gair-hazir</b> (anupasthit) hai.<br>" +
+            "• <b>H = Holiday:</b> Sunday ya official school <b>chhutti</b> (working days me count nahi hota).<br>" +
+            "• <b>L = Leave:</b> Application dekar li gayi <b>approved leave</b> (chhutti).",
+        hinglish_step2: "💡 <b>Calculation Rule:</b> P total present badhata hai, A se attendance kam hoti hai, aur H/L working days se bahar rehte hain.",
+        en: "📋 <b>Attendance Symbols (P, A, H, L) Explained:</b><br>" +
+            "• <b>P (Present):</b> Student is <b>present</b> in class.<br>" +
+            "• <b>A (Absent):</b> Student is <b>absent</b> without approved leave.<br>" +
+            "• <b>H (Holiday):</b> Sunday or official school <b>holiday</b> (excluded from working days).<br>" +
+            "• <b>L (Leave):</b> Student is on <b>approved leave</b> via formal application.",
+        en_step2: "💡 <b>Calculation Rule:</b> 'P' increments attendance totals, 'A' counts against attendance, while 'H' & 'L' are excluded from total working sessions."
+      },
+
       attendance: {
         keywords: ['attendance', 'hajiri', 'present', 'absent', 'register', 'हाजिरी', 'उपस्थिति', 'रजिस्टर', 'पोर्टल पेस्ट', 'p a h l'],
         hi: "📅 <b>हाजिरी भरना:</b><br>कृपया हाजिरी टैब में जाकर तारीख के बॉक्स में <b>P, A, H या L</b> टाइप करें। महीने का कुल जोड़ और आधिकारिक रजिस्टर समरी अपने आप तैयार हो जाएगी।",
@@ -21105,8 +21228,18 @@ window.toggleOfflineAiChat = function() {
       return troubleMarkers.some(m => lower.includes(m));
     }
 
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
     function matchTopic(q) {
       const cleanQ = q.toLowerCase();
+
+      // Direct priority for attendance symbols query
+      if (/\b(p\s*a|p\s*(?:aur|or|and)\s*a|p\s*a\s*h\s*l|present\s*absent)\b/i.test(cleanQ) || 
+          (/\b(p|a|h|l)\b/i.test(cleanQ) && /(matlab|matalab|meaning|arth|full\s*form|chinh|kya\s*hai|arth|मतलब)/i.test(cleanQ))) {
+        return 'attendance_symbols';
+      }
 
       // Negation Classifier: If query negates adding or entering, redirect to remove/slc
       const isNeg = /\b(nahi|nhi|mat|na|not|never|dont|don't)\b/i.test(cleanQ);
@@ -21127,12 +21260,18 @@ window.toggleOfflineAiChat = function() {
           const lowerKw = kw.toLowerCase();
           const isExactWord = words.includes(lowerKw);
 
-          if (lowerKw.length >= 4 && cleanQ.includes(lowerKw)) {
-            score += 4;
+          // Word-boundary and substring matching for all keyword lengths
+          if (cleanQ.includes(lowerKw)) {
+            const boundaryRegex = new RegExp('(?:^|\\s|[^a-zA-Z0-9\\u0900-\\u097F])' + escapeRegExp(lowerKw) + '(?:$|\\s|[^a-zA-Z0-9\\u0900-\\u097F])', 'i');
+            if (boundaryRegex.test(cleanQ)) {
+              score += (lowerKw.length >= 4 ? 5 : 4);
+            } else if (lowerKw.length >= 4) {
+              score += 3;
+            }
           } else if (isExactWord) {
             score += 3;
           } else if (lowerKw.length >= 4) {
-            // Levenshtein Typo tolerance for close misspellings (e.g. protfolio, atendence, stident)
+            // Levenshtein Typo tolerance
             const maxDist = lowerKw.length >= 7 ? 2 : 1;
             for (const w of words) {
               if (w.length >= 4 && Math.abs(w.length - lowerKw.length) <= maxDist) {
@@ -21562,26 +21701,29 @@ window.toggleOfflineAiChat = function() {
 
       if (t === 'attendance') {
         chipBox.innerHTML = `
-          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('attendance')">📅 हाजिरी कैसे भरें</button>
-          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('formula_logic')">🧮 प्रतिशत फॉर्मूला</button>
-          <button type="button" class="ai-chip-btn" onclick="window.sendAiDirect('audit')">🔍 हाजिरी ऑडिट</button>
-          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('backup')">🛡️ बैकअप</button>
+          <button type="button" class="ai-chip-btn" style="background:rgba(5, 150, 105, 0.25); border-color:#059669; color:#34d399; font-weight:700;" onclick="window.openFeedbackFromAi()">📝 Feedback</button>
+          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('attendance_symbols')">📋 P, A, H, L का अर्थ</button>
+          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('attendance')">📅 Attendance</button>
+          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('formula_logic')">🧮 % Formula</button>
+          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('backup')">🛡️ Backup</button>
         `;
       } else if (t === 'fln_sheet' || t === 'fln_worksheets') {
         chipBox.innerHTML = `
-          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('fln')">📊 FLN स्तर L1/L2/L3</button>
-          <button type="button" class="ai-chip-btn" onclick="window.sendAiDirect('audit')">🔍 FLN रेमेडियल जाँच</button>
-          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('class_board')">📋 CB सिंक</button>
-          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('backup')">🛡️ बैकअप</button>
+          <button type="button" class="ai-chip-btn" style="background:rgba(5, 150, 105, 0.25); border-color:#059669; color:#34d399; font-weight:700;" onclick="window.openFeedbackFromAi()">📝 Feedback</button>
+          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('fln')">📊 FLN Levels</button>
+          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('class_board')">🏫 Class Board</button>
+          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('backup')">🛡️ Backup</button>
         `;
       } else {
         chipBox.innerHTML = `
-          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('privacy')">🔒 Data Security</button>
+          <button type="button" class="ai-chip-btn" style="background:rgba(5, 150, 105, 0.25); border-color:#059669; color:#34d399; font-weight:700;" onclick="window.openFeedbackFromAi()">📝 Feedback</button>
           <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('add_student')">📋 Add Student</button>
-          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('sheets_12')">📁 12 Sheets</button>
-          <button type="button" class="ai-chip-btn" onclick="window.sendAiDirect('audit')">🔍 डेटा ऑडिट</button>
+          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('attendance_symbols')">📋 P, A, H, L</button>
+          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('attendance')">📅 Attendance</button>
+          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('fln')">📊 FLN Levels</button>
           <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('backup')">🛡️ Backup</button>
-          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('drive')">☁️ Google Drive</button>
+          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('print')">🖨️ Print / PDF</button>
+          <button type="button" class="ai-chip-btn" onclick="window.askAiQuick('drive')">☁️ Drive Sync</button>
         `;
       }
     };
@@ -21765,6 +21907,7 @@ window.toggleOfflineAiChat = function() {
     window.askAiQuick = function(topicKey) {
       if (AI_KB[topicKey]) {
         const titles = {
+          attendance_symbols: 'P, A, H, L Symbols Explained',
           privacy: 'Data Security & Privacy',
           add_student: 'Add New Student',
           sheets_12: '12 Portfolio Sheets',
@@ -22285,6 +22428,34 @@ async function switchActiveClass(classId) {
 function initClassSwitcher() {
   getClassRegistry();
   updateClassSwitcherUI();
+}
+
+function initHeaderHorizontalScrollSupport() {
+  const tools = document.querySelector('.header-right-tools');
+  if (!tools) return;
+  let isDown = false;
+  let startX = 0;
+  let scrollLeft = 0;
+
+  tools.addEventListener('mousedown', (e) => {
+    if (e.target.closest('button, select, input, .save-status, #loginStatusBadge, .class-dropdown-menu')) return;
+    isDown = true;
+    startX = e.pageX - tools.offsetLeft;
+    scrollLeft = tools.scrollLeft;
+  });
+  window.addEventListener('mouseup', () => { isDown = false; });
+  tools.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - tools.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    tools.scrollLeft = scrollLeft - walk;
+  });
+  tools.addEventListener('wheel', (e) => {
+    if (e.deltaY !== 0 && tools.scrollWidth > tools.clientWidth) {
+      tools.scrollLeft += e.deltaY;
+    }
+  }, { passive: true });
 }
 
 </script>
